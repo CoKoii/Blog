@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Row, Col, Form, Input, Button, Checkbox } from 'ant-design-vue'
 import { SoundOutlined } from '@ant-design/icons-vue'
+import changeTheme from '@/components/changeTheme.vue'
 import { ref } from 'vue'
 import dragVerify from '@/components/dragVerify.vue'
 
@@ -23,6 +24,7 @@ const verifyRef = ref()
       <Col :xs="24" :sm="24" :md="24" :lg="12" :xl="8" :xxl="8" class="loginArea">
         <div class="themeTool">
           <SoundOutlined />
+          <changeTheme />
         </div>
         <Form style="width: 100%" :labelCol="{ span: 0 }" :wrapperCol="{ span: 24 }">
           <h1>欢迎回来 👋🏻</h1>
@@ -38,7 +40,7 @@ const verifyRef = ref()
           </Form.Item>
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" no-style>
-              <Checkbox>记住我</Checkbox>
+              <Checkbox style="color: var(--text-primary)">记住我</Checkbox>
             </Form.Item>
             <a style="float: right" href="">忘记密码</a>
           </Form.Item>
@@ -63,4 +65,74 @@ const verifyRef = ref()
 
 <style scoped lang="scss">
 @import url(./index.scss);
+.ant-input,
+.ant-input-password {
+  background-color: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+  color: var(--input-text) !important;
+
+  &::placeholder {
+    color: var(--input-placeholder) !important;
+  }
+
+  &:hover {
+    border-color: var(--input-hover-border) !important;
+  }
+
+  &:focus {
+    border-color: var(--input-focus-border) !important;
+    box-shadow: 0 0 0 2px var(--input-focus-shadow) !important;
+  }
+}
+
+// 密码输入框样式
+.ant-input-password {
+  background-color: var(--input-bg) !important;
+  border-color: var(--input-border) !important;
+
+  &:hover {
+    border-color: var(--input-hover-border) !important;
+  }
+
+  &:focus,
+  &-focused {
+    border-color: var(--input-focus-border) !important;
+    box-shadow: 0 0 0 2px var(--input-focus-shadow) !important;
+  }
+
+  // 密码输入框内部的实际输入元素
+  .ant-input {
+    background-color: transparent !important;
+    color: var(--input-text) !important;
+
+    &::placeholder {
+      color: var(--input-placeholder) !important;
+    }
+  }
+
+  // 密码可见性切换图标
+  .anticon {
+    color: var(--input-placeholder) !important;
+
+    &:hover {
+      color: var(--input-hover-border) !important;
+    }
+  }
+}
+
+// 普通按钮样式
+.ant-btn:not(.ant-btn-primary) {
+  background-color: var(--button-bg) !important;
+  border-color: var(--button-border) !important;
+  color: var(--button-text) !important;
+
+  &:hover {
+    background-color: var(--button-hover-bg) !important;
+    border-color: var(--button-hover-border) !important;
+  }
+
+  &:active {
+    background-color: var(--button-active-bg) !important;
+  }
+}
 </style>

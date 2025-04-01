@@ -8,7 +8,7 @@ html {
 
 body {
   margin: 0;
-  background-color: var(--global-background-color);
+  background-color: var(--bg-base);
 }
 
 main {
@@ -88,11 +88,17 @@ textarea {
   margin: 0;
 }
 
-button,
 input {
-  overflow: visible;
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  &::placeholder {
+    color: var(--input-placeholder) !important;
+  }
 }
 
+button {
+  overflow: visible;
+}
 button,
 select {
   text-transform: none;
