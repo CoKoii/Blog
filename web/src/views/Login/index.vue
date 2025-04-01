@@ -103,6 +103,11 @@ const switchToQrcodeLogin = () => {
       opacity: 0;
       transform: translateX(-30px);
       pointer-events: none;
+      transition:
+        opacity 0.2s ease,
+        transform 0.3s ease,
+        visibility 0s linear 0.3s;
+      visibility: hidden;
     }
   }
 
@@ -111,11 +116,21 @@ const switchToQrcodeLogin = () => {
       opacity: 0;
       transform: translateX(30px);
       pointer-events: none;
+      transition:
+        opacity 0.2s ease,
+        transform 0.3s ease,
+        visibility 0s linear 0.3s;
+      visibility: hidden;
     }
     .step-2 & {
       opacity: 0;
       transform: translateX(-30px);
       pointer-events: none;
+      transition:
+        opacity 0.2s ease,
+        transform 0.3s ease,
+        visibility 0s linear 0.3s;
+      visibility: hidden;
     }
   }
 
@@ -125,6 +140,11 @@ const switchToQrcodeLogin = () => {
       opacity: 0;
       transform: translateX(30px);
       pointer-events: none;
+      transition:
+        opacity 0.2s ease,
+        transform 0.3s ease,
+        visibility 0s linear 0.3s;
+      visibility: hidden;
     }
   }
 }

@@ -146,7 +146,6 @@ defineExpose({ reset })
   height: v-bind('containerStyle');
   line-height: v-bind('containerStyle');
   text-align: center;
-  border-radius: 4px;
   overflow: hidden;
   border: 1px solid var(--verify-border);
   width: 100%;
@@ -162,7 +161,7 @@ defineExpose({ reset })
 .drag-verify-progress {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 0px;
   height: 100%;
   background-color: var(--verify-progress);
   z-index: 1;
@@ -180,7 +179,7 @@ defineExpose({ reset })
   position: absolute;
   top: 0;
   left: 0;
-  width: 40px;
+  width: 45px;
   height: 100%;
   background-color: var(--verify-slider-bg);
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
