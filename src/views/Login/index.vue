@@ -62,6 +62,7 @@ const verifyRef = ref()
             style="
               font-size: 16px;
               display: flex;
+              color: var(--text-primary);
               justify-content: center;
               gap: 20px;
               margin: 30px auto;
