@@ -142,6 +142,7 @@ defineExpose({ reset })
 
 .drag-verify-container {
   position: relative;
+  border-radius: 4px;
   background-color: var(--verify-bg);
   height: v-bind('containerStyle');
   line-height: v-bind('containerStyle');
