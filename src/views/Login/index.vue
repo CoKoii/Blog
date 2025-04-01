@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Row, Col, Form, Input, Button, Checkbox } from 'ant-design-vue'
-import { SoundOutlined } from '@ant-design/icons-vue'
+import { SoundOutlined, GithubFilled, SettingFilled } from '@ant-design/icons-vue'
 import changeTheme from '@/components/changeTheme.vue'
 import { ref } from 'vue'
 import dragVerify from '@/components/dragVerify.vue'
@@ -16,17 +16,15 @@ const verifyRef = ref()
       <Col> 躺不平的咸鱼 </Col>
     </Row>
     <Row>
-      <Col :xs="0" :sm="0" :md="0" :lg="12" :xl="16" :xxl="16" class="banner">
-        <img src="../../assets/Code3D.webp" alt="" />
-        <h1>开箱即用的大型中后台管理系统</h1>
-        <p>工程化、高性能、跨组件库的前端模版，为您的项目开发提供强大支持</p>
-      </Col>
+      <Col :xs="0" :sm="0" :md="0" :lg="12" :xl="16" :xxl="16" class="banner"> </Col>
       <Col :xs="24" :sm="24" :md="24" :lg="12" :xl="8" :xxl="8" class="loginArea">
         <div class="themeTool">
+          <SettingFilled />
           <SoundOutlined />
           <changeTheme />
+          <GithubFilled />
         </div>
-        <Form style="width: 100%" :labelCol="{ span: 0 }" :wrapperCol="{ span: 24 }">
+        <Form style="width: 100%" :wrapperCol="{ span: 24 }">
           <h1>欢迎回来 👋🏻</h1>
           <div class="subTitle">请输入您的帐户信息以开始管理您的项目</div>
           <Form.Item name="username">
@@ -85,7 +83,6 @@ const verifyRef = ref()
   }
 }
 
-// 密码输入框样式
 .ant-input-password {
   background-color: var(--input-bg) !important;
   border-color: var(--input-border) !important;

@@ -6,6 +6,7 @@
       <div
         class="drag-verify-slider"
         @mousedown="handleMouseDown"
+        @touchstart="handleTouchStart"
         :style="{ left: sliderLeft + 'px' }"
       >
         <i class="drag-verify-icon">→</i>
@@ -46,11 +47,15 @@ onMounted(() => {
   window.addEventListener('resize', updateContainerWidth)
   document.addEventListener('mousemove', handleMouseMove)
   document.addEventListener('mouseup', handleMouseUp)
+  document.addEventListener('touchmove', handleTouchMove, { passive: false })
+  document.addEventListener('touchend', handleTouchEnd)
 })
 
 onBeforeUnmount(() => {
   document.removeEventListener('mousemove', handleMouseMove)
   document.removeEventListener('mouseup', handleMouseUp)
+  document.removeEventListener('touchmove', handleTouchMove)
+  document.removeEventListener('touchend', handleTouchEnd)
   window.removeEventListener('resize', updateContainerWidth)
 })
 
@@ -76,6 +81,34 @@ const handleMouseMove = (event: MouseEvent) => {
 }
 
 const handleMouseUp = () => {
+  if (!isMoving.value) return
+  isMoving.value = false
+
+  if (sliderLeft.value >= maxLeft.value - 10) {
+    isPassing.value = true
+    sliderLeft.value = maxLeft.value
+    emit('success')
+  } else {
+    sliderLeft.value = 0
+    emit('fail')
+  }
+}
+
+const handleTouchStart = (event: TouchEvent) => {
+  if (isPassing.value) return
+  isMoving.value = true
+  startX.value = event.touches[0].clientX
+  event.preventDefault()
+}
+
+const handleTouchMove = (event: TouchEvent) => {
+  if (!isMoving.value) return
+  const moveX = event.touches[0].clientX - startX.value
+  sliderLeft.value = Math.max(0, Math.min(maxLeft.value, moveX))
+  event.preventDefault()
+}
+
+const handleTouchEnd = () => {
   if (!isMoving.value) return
   isMoving.value = false
 
