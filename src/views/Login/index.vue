@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Row, Col, Form, Input, Button, Checkbox } from 'ant-design-vue'
+import { Row, Col, Form, Input, Button, Checkbox, Divider } from 'ant-design-vue'
 import { SoundOutlined, GithubFilled, SettingFilled } from '@ant-design/icons-vue'
 import changeTheme from '@/components/changeTheme.vue'
 import { ref } from 'vue'
@@ -43,18 +43,36 @@ const verifyRef = ref()
             <a style="float: right" href="">忘记密码</a>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" block>登录</Button>
+            <Button type="primary" block style="height: 40px">登录</Button>
           </Form.Item>
           <Form.Item>
             <Row :gutter="24">
               <Col :span="12">
-                <Button block>注册</Button>
+                <Button block style="height: 40px">注册</Button>
               </Col>
               <Col :span="12">
-                <Button block>扫码登录</Button>
+                <Button block style="height: 40px">扫码登录</Button>
               </Col>
             </Row>
           </Form.Item>
+          <Divider style="font-weight: normal; font-size: 12px; color: var(--text-primary)"
+            >其他登录方式</Divider
+          >
+          <Row
+            style="
+              font-size: 16px;
+              display: flex;
+              justify-content: center;
+              gap: 20px;
+              margin: 30px auto;
+              opacity: 0.6;
+            "
+          >
+            <SettingFilled />
+            <SoundOutlined />
+            <changeTheme />
+            <GithubFilled />
+          </Row>
         </Form>
       </Col>
     </Row>
