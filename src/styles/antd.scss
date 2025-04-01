@@ -70,10 +70,6 @@
     background-color: var(--button-active-bg) !important;
   }
 }
-:where(.css-dev-only-do-not-override-1p3hq3p).ant-checkbox .ant-checkbox-inner {
-  transition: none;
-  background-color: var(--input-bg);
-}
 :where(.css-dev-only-do-not-override-1p3hq3p).ant-checkbox-checked .ant-checkbox-inner {
   background-color: #1677ff;
   border-color: #1677ff;
