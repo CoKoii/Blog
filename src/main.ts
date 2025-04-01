@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import 'animate.css'
 import 'ant-design-vue/dist/reset.css'
 import './styles/theme.scss'
 import './styles/normailze.scss'
