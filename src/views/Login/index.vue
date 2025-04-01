@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Row, Col, Form, Input, Button, Checkbox } from 'ant-design-vue'
+import { SoundOutlined } from '@ant-design/icons-vue'
 import { ref } from 'vue'
 import dragVerify from '@/components/dragVerify.vue'
 
@@ -20,6 +21,9 @@ const verifyRef = ref()
         <p>工程化、高性能、跨组件库的前端模版，为您的项目开发提供强大支持</p>
       </Col>
       <Col :xs="24" :sm="24" :md="24" :lg="12" :xl="8" :xxl="8" class="loginArea">
+        <div class="themeTool">
+          <SoundOutlined />
+        </div>
         <Form style="width: 100%" :labelCol="{ span: 0 }" :wrapperCol="{ span: 24 }">
           <h1>欢迎回来 👋🏻</h1>
           <div class="subTitle">请输入您的帐户信息以开始管理您的项目</div>
@@ -47,7 +51,7 @@ const verifyRef = ref()
                 <Button block>注册</Button>
               </Col>
               <Col :span="12">
-                <Button block>第三方登录</Button>
+                <Button block>扫码登录</Button>
               </Col>
             </Row>
           </Form.Item>
