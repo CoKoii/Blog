@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { Row, Col, Form, Input, Button, Checkbox, Divider } from 'ant-design-vue'
-import { SoundOutlined, GithubFilled, SettingFilled } from '@ant-design/icons-vue'
+import {
+  SoundOutlined,
+  GithubFilled,
+  SettingFilled,
+  WechatFilled,
+  QqCircleFilled,
+  AlipayCircleFilled,
+} from '@ant-design/icons-vue'
 import changeTheme from '@/components/changeTheme.vue'
 import { ref } from 'vue'
 import dragVerify from '@/components/dragVerify.vue'
@@ -63,9 +70,9 @@ const verifyRef = ref()
               opacity: 0.6;
             "
           >
-            <SettingFilled />
-            <SoundOutlined />
-            <changeTheme />
+            <WechatFilled />
+            <QqCircleFilled />
+            <AlipayCircleFilled />
             <GithubFilled />
           </Row>
         </Form>

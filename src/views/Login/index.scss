@@ -10,12 +10,6 @@
   .banner {
     user-select: none;
     position: relative;
-    background: linear-gradient(
-      154deg,
-      rgba(7, 7, 9, 0.03) 20%,
-      hsla(212, 100%, 45%, 0.35) 48%,
-      rgba(7, 7, 9, 0.03) 74%
-    );
     background-image: url(../../assets//bg.webp);
     background-repeat: no-repeat;
     background-size: cover;
@@ -25,17 +19,19 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
-
-    @keyframes float {
-      0% {
-        transform: translateY(0) rotate(0deg);
-      }
-      50% {
-        transform: translateY(-15px) rotate(2deg);
-      }
-      100% {
-        transform: translateY(0) rotate(0deg);
-      }
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      clip-path: polygon(70% 0, 100% 0, 100% 100%, 30% 100%);
+      filter: grayscale(100%);
+      backdrop-filter: grayscale(100%);
+      -webkit-backdrop-filter: grayscale(100%);
+      transition: clip-path 0.8s ease;
+      z-index: 1;
     }
 
     img {
@@ -65,7 +61,7 @@
       top: 20px;
       right: 20px;
       display: flex;
-      gap: 15px;
+      gap: 20px;
       align-items: center;
       padding: 10px 20px;
       border-radius: 50px;
@@ -78,6 +74,7 @@
       user-select: none;
     }
     .subTitle {
+      user-select: none;
       margin-top: -20px;
       font-size: 14px;
       color: var(--text-secondary);
