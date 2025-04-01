@@ -9,12 +9,6 @@ const verifyRef = ref()
 </script>
 <template>
   <div class="loginContainer">
-    <Row class="logo">
-      <Col>
-        <img src="../../assets/logo.png" alt="" />
-      </Col>
-      <Col> 躺不平的咸鱼 </Col>
-    </Row>
     <Row>
       <Col :xs="0" :sm="0" :md="0" :lg="12" :xl="16" :xxl="16" class="banner"> </Col>
       <Col :xs="24" :sm="24" :md="24" :lg="12" :xl="8" :xxl="8" class="loginArea">
@@ -43,15 +37,15 @@ const verifyRef = ref()
             <a style="float: right" href="">忘记密码</a>
           </Form.Item>
           <Form.Item>
-            <Button type="primary" block style="height: 40px">登录</Button>
+            <Button type="primary" block style="height: 35px">登录</Button>
           </Form.Item>
           <Form.Item>
             <Row :gutter="24">
               <Col :span="12">
-                <Button block style="height: 40px">注册</Button>
+                <Button block style="height: 35px">注册</Button>
               </Col>
               <Col :span="12">
-                <Button block style="height: 40px">扫码登录</Button>
+                <Button block style="height: 35px">扫码登录</Button>
               </Col>
             </Row>
           </Form.Item>
@@ -82,73 +76,4 @@ const verifyRef = ref()
 
 <style scoped lang="scss">
 @import url(./index.scss);
-.ant-input,
-.ant-input-password {
-  background-color: var(--input-bg) !important;
-  border-color: var(--input-border) !important;
-  color: var(--input-text) !important;
-
-  &::placeholder {
-    color: var(--input-placeholder) !important;
-  }
-
-  &:hover {
-    border-color: var(--input-hover-border) !important;
-  }
-
-  &:focus {
-    border-color: var(--input-focus-border) !important;
-    box-shadow: 0 0 0 2px var(--input-focus-shadow) !important;
-  }
-}
-
-.ant-input-password {
-  background-color: var(--input-bg) !important;
-  border-color: var(--input-border) !important;
-
-  &:hover {
-    border-color: var(--input-hover-border) !important;
-  }
-
-  &:focus,
-  &-focused {
-    border-color: var(--input-focus-border) !important;
-    box-shadow: 0 0 0 2px var(--input-focus-shadow) !important;
-  }
-
-  // 密码输入框内部的实际输入元素
-  .ant-input {
-    background-color: transparent !important;
-    color: var(--input-text) !important;
-
-    &::placeholder {
-      color: var(--input-placeholder) !important;
-    }
-  }
-
-  // 密码可见性切换图标
-  .anticon {
-    color: var(--input-placeholder) !important;
-
-    &:hover {
-      color: var(--input-hover-border) !important;
-    }
-  }
-}
-
-// 普通按钮样式
-.ant-btn:not(.ant-btn-primary) {
-  background-color: var(--button-bg) !important;
-  border-color: var(--button-border) !important;
-  color: var(--button-text) !important;
-
-  &:hover {
-    background-color: var(--button-hover-bg) !important;
-    border-color: var(--button-hover-border) !important;
-  }
-
-  &:active {
-    background-color: var(--button-active-bg) !important;
-  }
-}
 </style>

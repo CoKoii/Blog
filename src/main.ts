@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import 'ant-design-vue/dist/reset.css'
 import './styles/theme.scss'
 import './styles/normailze.scss'
+import './styles/antd.scss'
 import App from './App.vue'
 import router from './router'
 
