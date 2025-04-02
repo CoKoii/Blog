@@ -6,7 +6,8 @@
   // 背景类
   --bg-color: #ffffff;
   --bg-color-light: #f5f5f5;
-
+  --bg-color-purple: #f4f7fe;
+  --bg-color-purple-light: #ffffff;
   // 拖动验证组件颜色
   --verify-bg: #f5f5f5;
   --verify-border: #e0e0e0;
@@ -17,11 +18,15 @@
   --text-primary: #333333;
 }
 :root.dark {
+  // 文本类
   --text-color-dark: #fff;
   --text-color-light: #000;
   --text-color-grey: #ccc;
+  // 背景类
   --bg-color: #141414;
   --bg-color-light: #1f1f1f;
+  --bg-color-purple: #0b1437;
+  --bg-color-purple-light: #111c44;
   // 拖动验证组件颜色
   --verify-bg: #1f1f1f;
   --verify-border: #333333;

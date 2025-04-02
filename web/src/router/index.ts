@@ -6,6 +6,11 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: '脚手架',
+      redirect: '/home',
+    },
+    {
+      path: '/home',
       name: '首页',
       component: () => import('../views/Layout/index.vue'),
     },
