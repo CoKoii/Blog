@@ -67,6 +67,7 @@ const switchToQrcodeLogin = () => {
 
 .form-container {
   width: 100%;
+  max-width: 450px;
   perspective: 1000px;
   position: relative;
 }

@@ -9,7 +9,7 @@ import {
 </script>
 
 <template>
-  <Divider style="font-weight: normal; font-size: 12px">其他登录方式</Divider>
+  <Divider style="font-weight: normal; font-size: 16px">其他登录方式</Divider>
   <Row
     style="
       font-size: 16px;

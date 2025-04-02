@@ -12,10 +12,10 @@ const emit = defineEmits(['switchToPhoneLogin', 'switchToQrcodeLogin'])
     <h1>欢迎回来 👋🏻</h1>
     <div class="subTitle">请输入您的帐户信息以开始管理您的项目</div>
     <Form.Item name="username">
-      <Input placeholder="请输入用户名" style="height: 45px" />
+      <Input placeholder="请输入用户名" style="height: 40px" />
     </Form.Item>
     <Form.Item name="password">
-      <Input.Password placeholder="请输入密码" style="height: 45px" />
+      <Input.Password placeholder="请输入密码" style="height: 40px" />
     </Form.Item>
     <Form.Item>
       <dragVerify ref="verifyRef" style="width: 100%" />
