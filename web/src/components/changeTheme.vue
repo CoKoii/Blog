@@ -1,13 +1,21 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, reactive } from 'vue'
 import { Moon, Sunny } from '@element-plus/icons-vue'
+import { ConfigProvider } from 'ant-design-vue'
+import { theme } from 'ant-design-vue'
 
 const isDark = ref(false)
+const { darkAlgorithm, defaultAlgorithm } = theme
+
+const themeConfig = reactive({
+  algorithm: defaultAlgorithm,
+})
 
 const applyTheme = (dark: boolean) => {
   isDark.value = dark
   localStorage.setItem('theme', dark ? 'dark' : 'light')
   document.documentElement.classList[dark ? 'add' : 'remove']('dark')
+  themeConfig.algorithm = dark ? darkAlgorithm : defaultAlgorithm
 }
 
 const changeTheme = () => {
@@ -23,10 +31,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-icon @click="changeTheme" style="cursor: pointer">
-    <Moon v-if="!isDark" style="color: #409eff" />
-    <Sunny v-else style="color: #ff9500; transform: scale(1.3)" />
-  </el-icon>
+  <ConfigProvider :theme="themeConfig">
+    <el-icon @click="changeTheme" style="cursor: pointer">
+      <Moon v-if="!isDark" style="color: #409eff" />
+      <Sunny v-else style="color: #ff9500; transform: scale(1.3)" />
+    </el-icon>
+  </ConfigProvider>
 </template>
 
 <style scoped></style>

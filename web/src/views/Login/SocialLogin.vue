@@ -9,14 +9,11 @@ import {
 </script>
 
 <template>
-  <Divider style="font-weight: normal; font-size: 12px; color: var(--text-primary)"
-    >其他登录方式</Divider
-  >
+  <Divider style="font-weight: normal; font-size: 12px">其他登录方式</Divider>
   <Row
     style="
       font-size: 16px;
       display: flex;
-      color: var(--text-primary);
       justify-content: center;
       gap: 20px;
       margin: 30px auto;

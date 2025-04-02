@@ -15,14 +15,14 @@ const emit = defineEmits(['switchToAccountLogin'])
       level="Q"
       render-as="svg"
       :margin="2"
-      background="var(--bg-elevated)"
-      foreground="var(--text-primary)"
+      background="var(--text-color-light)"
+      foreground="var(--text-color-dark)"
       style="
         margin: 50px auto;
         display: block;
         border-radius: 10%;
         padding: 10px;
-        border: 4px dashed var(--text-secondary);
+        border: 4px dashed var(--text-color-grey);
         box-sizing: border-box;
       "
     />
@@ -37,14 +37,12 @@ const emit = defineEmits(['switchToAccountLogin'])
 <style lang="scss" scoped>
 h1 {
   font-size: 36px;
-  color: var(--text-primary);
   user-select: none;
 }
 .subTitle {
   user-select: none;
   margin-top: -20px;
   font-size: 14px;
-  color: var(--text-secondary);
   margin-bottom: 30px;
 }
 </style>

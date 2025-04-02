@@ -2,8 +2,6 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  color: var(--text-primary);
-  background-color: inherit;
   .banner,
   .loginArea {
     height: 100vh;
@@ -34,24 +32,8 @@
       transition: clip-path 0.8s ease;
       z-index: 1;
     }
-
-    img {
-      width: 20%;
-      animation: float 3s ease-in-out infinite;
-      transition: all 0.3s;
-    }
-
-    h1 {
-      font-size: 28px;
-    }
-
-    p {
-      font-size: 18px;
-      color: var(--text-secondary);
-    }
   }
   .loginArea {
-    background-color: var(--bg-elevated);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -67,7 +49,7 @@
       align-items: center;
       padding: 10px 20px;
       border-radius: 50px;
-      background-color: var(--button-hover-bg);
+      background-color: var(--bg-color-light);
       font-size: 16px;
     }
   }

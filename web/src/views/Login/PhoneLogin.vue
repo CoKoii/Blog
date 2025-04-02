@@ -54,19 +54,15 @@ const emit = defineEmits(['switchToAccountLogin'])
     </Form.Item>
     <Form.Item>
       <Button
-        type="text"
+        type="link"
         style="padding: 0; background: none"
-        :style="{ color: !isCountingDown ? '#1677FF' : '#999' }"
         v-if="phoneLogin.rule"
         :disabled="isCountingDown"
         @click="sendVerificationCode"
       >
         {{ isCountingDown ? `重新发送(${countdown}s)` : '重新发送' }}
       </Button>
-      <p
-        style="float: right; cursor: pointer; color: var(--text-primary)"
-        @click="emit('switchToAccountLogin')"
-      >
+      <p style="float: right; cursor: pointer" @click="emit('switchToAccountLogin')">
         账号密码登录
       </p>
     </Form.Item>
@@ -79,14 +75,12 @@ const emit = defineEmits(['switchToAccountLogin'])
 <style lang="scss" scoped>
 h1 {
   font-size: 36px;
-  color: var(--text-primary);
   user-select: none;
 }
 .subTitle {
   user-select: none;
   margin-top: -20px;
   font-size: 14px;
-  color: var(--text-secondary);
   margin-bottom: 30px;
 }
 </style>

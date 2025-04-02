@@ -22,7 +22,7 @@ const emit = defineEmits(['switchToPhoneLogin', 'switchToQrcodeLogin'])
     </Form.Item>
     <Form.Item>
       <Form.Item name="remember" valuePropName="checked" no-style>
-        <Checkbox style="color: var(--text-primary)">记住我</Checkbox>
+        <Checkbox>记住我</Checkbox>
       </Form.Item>
       <a style="float: right" href="">忘记密码</a>
     </Form.Item>
@@ -45,14 +45,12 @@ const emit = defineEmits(['switchToPhoneLogin', 'switchToQrcodeLogin'])
 <style lang="scss" scoped>
 h1 {
   font-size: 36px;
-  color: var(--text-primary);
   user-select: none;
 }
 .subTitle {
   user-select: none;
   margin-top: -20px;
   font-size: 14px;
-  color: var(--text-secondary);
   margin-bottom: 30px;
 }
 </style>

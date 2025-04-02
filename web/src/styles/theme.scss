@@ -1,93 +1,33 @@
 :root {
-  /* 基础颜色 */
-  --color-primary: #1677ff;
-  --color-primary-hover: #4096ff;
-  --color-primary-active: #0958d9;
-  --color-success: #4cd964;
-  --color-warning: #ff9500;
+  // 文本类
+  --text-color-dark: #000;
+  --text-color-light: #fff;
+  --text-color-grey: #999;
+  // 背景类
+  --bg-color: #ffffff;
+  --bg-color-light: #f5f5f5;
 
-  /* 全局背景色 */
-  --bg-base: #f1f3f6;
-  --bg-elevated: #ffffff;
-
-  /* 文本颜色 */
-  --text-primary: #000000;
-  --text-secondary: hsl(240 3.8% 46.1%);
-
-  /* 边框颜色 */
-  --border-base: #d9d9d9;
-  --border-focus: #1677ff;
-
-  /* 表单相关 */
-  --input-bg: var(--bg-elevated);
-  --input-border: var(--border-base);
-  --input-text: var(--text-primary);
-  --input-placeholder: var(--text-secondary);
-  --input-hover-border: var(--color-primary-hover);
-  --input-focus-border: var(--color-primary);
-  --input-focus-shadow: rgba(5, 145, 255, 0.1);
-
-  /* 按钮相关 */
-  --button-bg: var(--bg-elevated);
-  --button-border: var(--border-base);
-  --button-text: var(--text-primary);
-  --button-hover-bg: rgba(0, 0, 0, 0.04);
-  --button-hover-border: var(--border-base);
-  --button-active-bg: rgba(0, 0, 0, 0.08);
-
-  /* 拖拽验证组件颜色 */
-  --verify-bg: #f7f7f7;
-  --verify-border: var(--border-base);
-  --verify-text: var(--text-primary);
-  --verify-progress: #57d188;
-  --verify-slider-bg: #fff;
-  --verify-slider-border: var(--border-base);
-  --verify-icon: #666;
+  // 拖动验证组件颜色
+  --verify-bg: #f5f5f5;
+  --verify-border: #e0e0e0;
+  --verify-progress: #52c41a;
+  --verify-slider-bg: #ffffff;
+  --verify-icon: #2196f3;
+  --color-success: #52c41a;
+  --text-primary: #333333;
 }
-
 :root.dark {
-  /* 基础颜色 */
-  --color-primary: #177ddc;
-  --color-primary-hover: #165996;
-  --color-primary-active: #388ed3;
-  --color-success: #4cd964;
-  --color-warning: #ff9500;
-
-  /* 全局背景色 */
-  --bg-base: #14161a;
-  --bg-elevated: #1f1f1f;
-
-  /* 文本颜色 */
-  --text-primary: hsl(0 0% 95%);
-  --text-secondary: hsl(240 3.8% 60%);
-
-  /* 边框颜色 */
-  --border-base: #434343;
-  --border-focus: #177ddc;
-
-  /* 表单相关 */
-  --input-bg: var(--bg-elevated);
-  --input-border: var(--border-base);
-  --input-text: var(--text-primary);
-  --input-placeholder: var(--text-secondary);
-  --input-hover-border: var(--color-primary-hover);
-  --input-focus-border: var(--color-primary);
-  --input-focus-shadow: rgba(23, 125, 220, 0.1);
-
-  /* 按钮相关 */
-  --button-bg: var(--bg-elevated);
-  --button-border: var(--border-base);
-  --button-text: rgba(255, 255, 255, 0.85);
-  --button-hover-bg: rgba(255, 255, 255, 0.08);
-  --button-hover-border: var(--border-base);
-  --button-active-bg: rgba(255, 255, 255, 0.12);
-
-  /* 拖拽验证组件颜色 */
+  --text-color-dark: #fff;
+  --text-color-light: #000;
+  --text-color-grey: #ccc;
+  --bg-color: #141414;
+  --bg-color-light: #1f1f1f;
+  // 拖动验证组件颜色
   --verify-bg: #1f1f1f;
-  --verify-border: var(--border-base);
-  --verify-text: var(--text-primary);
-  --verify-progress: #57d188;
+  --verify-border: #333333;
+  --verify-progress: #52c41a;
   --verify-slider-bg: #2a2a2a;
-  --verify-slider-border: #555;
-  --verify-icon: #bbb;
+  --verify-icon: #1890ff;
+  --color-success: #49aa19;
+  --text-primary: #e0e0e0;
 }
