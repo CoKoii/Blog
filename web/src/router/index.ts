@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -19,6 +20,17 @@ const router = createRouter({
       component: () => import('../views/ErrorPage/index.vue'),
     },
   ],
+})
+
+NProgress.configure({ showSpinner: false })
+
+router.beforeEach((to, from, next) => {
+  NProgress.start()
+  next()
+})
+
+router.afterEach(() => {
+  NProgress.done()
 })
 
 export default router

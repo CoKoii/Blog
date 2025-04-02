@@ -2,7 +2,7 @@
   <div class="drag-verify">
     <div class="drag-verify-container" :class="{ success: isPassing }">
       <div class="drag-verify-progress" :style="{ width: progressWidth + 'px' }"></div>
-      <div class="drag-verify-text">{{ isPassing ? props.successText : props.text }}</div>
+      <div class="drag-verify-text">{{ isPassing ? '验证通过' : '请向右滑动验证' }}</div>
       <div
         class="drag-verify-slider"
         @mousedown="handleMouseDown"
@@ -18,19 +18,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, onBeforeUnmount, computed, nextTick } from 'vue'
 
-interface Props {
-  height?: number
-  text?: string
-  successText?: string
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  height: 40,
-  text: '请向右滑动验证',
-  successText: '验证通过',
-})
-
-const emit = defineEmits(['success', 'fail'])
+const emit = defineEmits(['success'])
 
 const isPassing = ref(false)
 const isMoving = ref(false)
@@ -39,7 +27,6 @@ const startX = ref(0)
 const containerWidth = ref(0)
 const maxLeft = ref(0)
 
-const containerStyle = computed(() => `${props.height}px`)
 const progressWidth = computed(() => sliderLeft.value + 40)
 
 onMounted(() => {
@@ -90,7 +77,6 @@ const handleMouseUp = () => {
     emit('success')
   } else {
     sliderLeft.value = 0
-    emit('fail')
   }
 }
 
@@ -118,7 +104,6 @@ const handleTouchEnd = () => {
     emit('success')
   } else {
     sliderLeft.value = 0
-    emit('fail')
   }
 }
 
@@ -144,8 +129,8 @@ defineExpose({ reset })
   position: relative;
   border-radius: 4px;
   background-color: var(--verify-bg);
-  height: v-bind('containerStyle');
-  line-height: v-bind('containerStyle');
+  height: 40px;
+  line-height: 40px;
   text-align: center;
   overflow: hidden;
   border: 1px solid var(--verify-border);
@@ -171,8 +156,6 @@ defineExpose({ reset })
 .drag-verify-text {
   position: relative;
   z-index: 2;
-  font-weight: 500;
-  text-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
   color: inherit;
 }
 

@@ -2,6 +2,7 @@
 import { Form, Input, Button, message } from 'ant-design-vue'
 import { ref, reactive, computed } from 'vue'
 import dragVerify from '@/components/dragVerify.vue'
+import { MessageOutlined, PhoneOutlined } from '@ant-design/icons-vue'
 
 const verifyRef = ref()
 const phoneLogin = reactive({
@@ -44,13 +45,19 @@ const emit = defineEmits(['switchToAccountLogin'])
     <h1>手机号登录 📱</h1>
     <div class="subTitle">请输入您的帐户信息以开始管理您的项目</div>
     <Form.Item name="phone">
-      <Input placeholder="请输入11位手机号" v-model:value="phoneLogin.phone" style="height: 45px" />
+      <Input placeholder="请输入11位手机号" v-model:value="phoneLogin.phone" style="height: 45px">
+        <template #prefix>
+          <PhoneOutlined />
+        </template>
+      </Input>
     </Form.Item>
     <Form.Item v-if="truePhone" class="animate__animated animate__fadeIn">
       <dragVerify ref="verifyRef" style="width: 100%" @success="handleVerifySuccess" />
     </Form.Item>
     <Form.Item name="code" v-if="phoneLogin.rule" class="animate__animated animate__fadeIn">
-      <Input placeholder="请输入验证码" v-model:value="phoneLogin.code" style="height: 45px" />
+      <Input placeholder="请输入验证码" v-model:value="phoneLogin.code" style="height: 45px">
+        <template #prefix><MessageOutlined /></template>
+      </Input>
     </Form.Item>
     <Form.Item>
       <Button
