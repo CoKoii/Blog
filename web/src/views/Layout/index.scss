@@ -106,6 +106,18 @@
       width: 100%;
       z-index: 1;
       background-color: var(--bg-color-purple-light);
+      display: grid;
+      grid-template-rows: 5fr 4fr;
+      padding: 0 20px;
+      .top {
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid hsl(240 3.7% 22%);
+      }
+      .bottom {
+        display: flex;
+        align-items: center;
+      }
     }
     .main {
       position: relative;

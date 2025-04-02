@@ -29,7 +29,10 @@ import { PieChartOutlined } from '@ant-design/icons-vue'
       </div>
     </div>
     <div class="content">
-      <div class="menu"></div>
+      <div class="menu">
+        <div class="top">1</div>
+        <div class="bottom">2</div>
+      </div>
       <div class="main">
         <router-view></router-view>
       </div>
