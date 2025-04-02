@@ -8,6 +8,11 @@
     height: 100vh;
     width: 240px;
     background-color: var(--bg-color-purple-light);
+    transition:
+      width 0.3s linear,
+      opacity 0.3s linear;
+    overflow: hidden;
+    white-space: nowrap;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -100,26 +105,33 @@
     flex-direction: column;
     overflow: hidden;
     .menu {
-      height: 80px;
+      height: 60px;
       width: 100%;
       z-index: 1;
       background-color: var(--bg-color-purple-light);
-      display: grid;
-      grid-template-rows: 5fr 4fr;
+      display: flex;
       padding: 0 20px;
-      .top {
+      justify-content: space-between;
+      align-items: center;
+      .left {
         display: flex;
         align-items: center;
-        border-bottom: 1px solid hsl(240 3.7% 22%);
+        gap: 20px;
+        font-weight: 900;
       }
-      .bottom {
+      .right {
         display: flex;
         align-items: center;
+        gap: 20px;
+        font-weight: 900;
+        img {
+          width: 40px;
+        }
       }
     }
     .main {
       flex: 1;
-      height: calc(100vh - 80px);
+      height: calc(100vh - 60px);
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior: contain;
@@ -136,7 +148,13 @@
     flex-direction: column;
     overflow-x: hidden;
     .navigation {
-      display: none;
+      width: 0;
+      position: fixed;
+      z-index: 4;
+      left: 0;
+      top: 0;
+      height: 100%;
+      transition: all 0s linear;
     }
     .content {
       width: 100%;
@@ -144,13 +162,13 @@
       display: flex;
       flex-direction: column;
       .menu {
-        height: 90px;
+        height: 50px;
         width: 100%;
         z-index: 1;
       }
       .main {
         flex: 1;
-        height: calc(100vh - 90px);
+        height: calc(100vh - 50px);
         overflow-y: auto;
         overscroll-behavior: contain;
         scroll-behavior: smooth;
