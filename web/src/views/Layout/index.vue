@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {
-  AppstoreOutlined,
   FileTextOutlined,
   GithubOutlined,
   LockOutlined,
