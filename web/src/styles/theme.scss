@@ -16,6 +16,8 @@
   --verify-icon: #2196f3;
   --color-success: #52c41a;
   --text-primary: #333333;
+  // 分割线
+  --border-color: #f1f1f1;
 }
 :root.dark {
   // 文本类
@@ -35,4 +37,6 @@
   --verify-icon: #1890ff;
   --color-success: #49aa19;
   --text-primary: #e0e0e0;
+  // 分割线
+  --border-color: #9c9c9c;
 }

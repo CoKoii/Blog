@@ -78,13 +78,14 @@ const hideMenu = () => {
                     display: flex;
                     align-items: center;
                     padding-bottom: 12px;
-                    border-bottom: 1px solid #f0f0f0;
+                    border-bottom: 1px solid var(--border-color);
                   "
                 >
                   <img
                     src="../../assets/logo.png"
+                    class="avatar"
                     alt="avatar"
-                    style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px"
+                    style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px"
                   />
                   <div>
                     <div style="font-weight: bold">
@@ -106,26 +107,47 @@ const hideMenu = () => {
 
                 <!-- 菜单项 -->
                 <div style="padding-top: 12px">
-                  <div style="padding: 8px 0; cursor: pointer; display: flex; align-items: center">
+                  <div
+                    style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
+                    class="avator-hover"
+                  >
                     <FileTextOutlined style="margin-right: 8px" /> 文档
                   </div>
-                  <div style="padding: 8px 0; cursor: pointer; display: flex; align-items: center">
+                  <div
+                    style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
+                    class="avator-hover"
+                  >
                     <GithubOutlined style="margin-right: 8px" /> GitHub
                   </div>
-                  <div style="padding: 8px 0; cursor: pointer; display: flex; align-items: center">
+                  <div
+                    style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
+                    class="avator-hover"
+                  >
                     <QuestionCircleOutlined style="margin-right: 8px" /> 问题 & 帮助
                   </div>
-                  <div style="border-top: 1px solid #f0f0f0; margin-top: 8px"></div>
-                  <div style="padding: 8px 0; cursor: pointer; display: flex; align-items: center">
+                  <div
+                    style="
+                      border-top: 1px solid var(--border-color);
+                      margin-top: 8px;
+                      margin-bottom: 8px;
+                    "
+                  ></div>
+                  <div
+                    style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
+                    class="avator-hover"
+                  >
                     <LockOutlined style="margin-right: 8px" /> 锁定屏幕
                   </div>
-                  <div style="padding: 8px 0; cursor: pointer; display: flex; align-items: center">
+                  <div
+                    style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
+                    class="avator-hover"
+                  >
                     <LogoutOutlined style="margin-right: 8px" /> 退出登录
                   </div>
                 </div>
               </div>
             </template>
-            <img src="../../assets/logo.png" alt="" />
+            <img src="../../assets/logo.png" alt="" style="cursor: pointer" />
           </Popover>
         </div>
       </div>
@@ -149,7 +171,18 @@ const hideMenu = () => {
   z-index: 2;
   display: none;
 }
-
+.avator-hover {
+  &:hover {
+    outline: 2px dashed #9279ff;
+    border-radius: 10px;
+  }
+}
+.avatar {
+  transition: all 0.3s;
+  &:hover {
+    transform: rotate(360deg);
+  }
+}
 @media screen and (max-width: 768px) {
   .nav-overlay {
     display: block;
