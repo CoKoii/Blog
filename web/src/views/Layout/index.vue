@@ -12,6 +12,7 @@ import {
 import { useSystemStore } from '@/stores/system'
 import ChangeTheme from '@/components/changeTheme.vue'
 import { Popover } from 'ant-design-vue'
+import Weather from '@/components/weather.vue'
 
 const systemStore: any = useSystemStore()
 
@@ -67,6 +68,7 @@ const hideMenu = () => {
           {{ $route.name }}
         </div>
         <div class="right">
+          <Weather></Weather>
           <ChangeTheme></ChangeTheme>
           <Popover placement="bottomRight">
             <template #content>
