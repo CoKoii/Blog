@@ -171,9 +171,14 @@ const hideMenu = () => {
   display: none;
 }
 .avator-hover {
+  transition:
+    color 0.3s,
+    transform 0.3s;
   &:hover {
     outline: 2px dashed #9279ff;
     border-radius: 10px;
+    color: #9279ff;
+    transform: scale(1.015);
   }
 }
 .avatar {
