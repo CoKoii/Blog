@@ -11,7 +11,6 @@ declare module 'vue' {
     ChangeTheme: typeof import('./src/components/changeTheme.vue')['default']
     DragVerify: typeof import('./src/components/dragVerify.vue')['default']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
