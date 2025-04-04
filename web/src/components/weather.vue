@@ -1,14 +1,53 @@
 <script setup lang="ts">
+import 'qweather-icons/font/qweather-icons.css'
 import { getWeather } from '@/apis/api'
 import { ref } from 'vue'
-import { Popover } from 'ant-design-vue'
-const weather = ref()
+import { Popover, message } from 'ant-design-vue'
 
-const getWeatherData = async () => {
-  const res = await getWeather()
-  weather.value = res
+const weather = ref()
+const locationError = ref(false)
+const loading = ref(false)
+const permissionDenied = ref(false)
+
+const success = async (position: GeolocationPosition) => {
+  try {
+    loading.value = true
+    locationError.value = false
+
+    const res = await getWeather(
+      `${position.coords.longitude.toFixed(2)},${position.coords.latitude.toFixed(2)}`,
+    )
+    weather.value = res
+  } catch (error) {
+    console.error('获取天气数据失败:', error)
+    message.error('获取天气数据失败')
+  } finally {
+    loading.value = false
+  }
 }
-getWeatherData()
+
+const error = (err: GeolocationPositionError) => {
+  loading.value = false
+  locationError.value = true
+  permissionDenied.value = err.code === 1
+  console.error(err.code === 1 ? '位置权限被拒绝:' : '获取位置信息失败:', err.message)
+}
+
+const requestLocation = () => {
+  loading.value = true
+  permissionDenied.value = false
+  navigator.geolocation.getCurrentPosition(success, error, {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0,
+  })
+}
+
+const openPermissionGuide = () => {
+  message.info('请在浏览器设置中允许网站访问位置信息')
+}
+
+requestLocation()
 
 const isDay = () => {
   const now = Date.now()
@@ -21,42 +60,34 @@ const icon = () => {
   return weather.value?.daily[0][isDay() ? 'iconDay' : 'iconNight']
 }
 
-// 格式化日期为 "MM月DD日 星期几"
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr)
   const weekdays = ['日', '一', '二', '三', '四', '五', '六']
   return `${date.getMonth() + 1}月${date.getDate()}日 星期${weekdays[date.getDay()]}`
 }
 
-// 获取当前的背景渐变色
 const getBgGradient = () => {
   if (!weather.value) return 'linear-gradient(to bottom, #6699cc, #9ab9db)'
 
   const weatherCode = weather.value.daily[0][isDay() ? 'iconDay' : 'iconNight']
 
-  // 根据天气代码返回相应的背景渐变
   if (['100', '150'].includes(weatherCode)) {
-    // 晴天
     return isDay()
       ? 'linear-gradient(to bottom, #1E90FF, #87CEEB)'
       : 'linear-gradient(to bottom, #191970, #483D8B)'
   } else if (['101', '102', '103', '151', '152', '153'].includes(weatherCode)) {
-    // 多云
     return isDay()
       ? 'linear-gradient(to bottom, #6699cc, #9ab9db)'
       : 'linear-gradient(to bottom, #4B0082, #483D8B)'
   } else if (['104'].includes(weatherCode)) {
-    // 阴天
     return 'linear-gradient(to bottom, #708090, #C0C0C0)'
   } else {
-    // 默认
     return isDay()
       ? 'linear-gradient(to bottom, #6699cc, #9ab9db)'
       : 'linear-gradient(to bottom, #191970, #483D8B)'
   }
 }
 
-// 获取天气图标滤镜
 const getIconFilter = () => {
   return isDay() ? '' : 'brightness(0.85) contrast(1.1)'
 }
@@ -66,70 +97,115 @@ const getIconFilter = () => {
   <Popover placement="bottomRight" :overlayClassName="'weather-popover'">
     <template #content>
       <div class="weather-details" :style="{ background: getBgGradient() }">
-        <!-- 头部信息展示 -->
-        <div class="weather-header">
-          <div class="header-left">
-            <div class="location">
-              {{ weather?.fxLink?.split('/')?.pop()?.split('-')?.[0] || '当前位置' }}
-            </div>
-            <div class="current-desc">
-              {{ weather?.daily?.[0]?.[isDay() ? 'textDay' : 'textNight'] }}
-            </div>
-          </div>
-          <div class="header-right">
-            <div class="current-temp">{{ weather?.daily?.[0]?.tempMax }}°</div>
-            <div class="temp-range">
-              {{ weather?.daily?.[0]?.tempMin }}° ~ {{ weather?.daily?.[0]?.tempMax }}°
-            </div>
-          </div>
-        </div>
+        <div v-if="locationError" class="location-error-container">
+          <div class="location-error-message">
+            <i class="qi-location-off location-error-icon"></i>
+            <div class="error-text">无法获取位置信息</div>
 
-        <!-- 天气预报简洁版 -->
-        <div class="forecast-container">
-          <div v-for="(day, index) in weather?.daily" :key="index" class="forecast-day">
-            <div class="day-name">
-              {{
-                index === 0
-                  ? '今天'
-                  : ['明天', '后天'][index - 1] || formatDate(day.fxDate).split(' ')[1]
-              }}
+            <div class="error-tip" v-if="permissionDenied">
+              您已禁用位置权限，请在浏览器设置中允许访问
             </div>
-            <i
-              :class="`qi-${day.iconDay}`"
-              class="forecast-icon"
-              :style="{ filter: index === 0 ? getIconFilter() : '' }"
-            ></i>
-            <div class="forecast-temps">
-              <span>{{ day.tempMin }}° / {{ day.tempMax }}°</span>
+            <div class="error-tip" v-else>请允许浏览器访问您的位置</div>
+
+            <button
+              class="retry-button"
+              @click="requestLocation"
+              :disabled="loading"
+              v-if="!permissionDenied"
+            >
+              {{ loading ? '请求中...' : '重新获取位置' }}
+            </button>
+
+            <div v-if="permissionDenied" class="permission-guide">
+              <button class="guide-button" @click="openPermissionGuide">
+                查看如何开启位置权限
+              </button>
+              <div class="manual-retry">
+                <span>权限开启后</span>
+                <button class="retry-link" @click="requestLocation" :disabled="loading">
+                  {{ loading ? '请求中...' : '重新尝试' }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
-
-        <!-- 重要天气信息 -->
-        <div class="weather-highlights">
-          <div class="highlight-row">
-            <div class="highlight-item">
-              <div class="highlight-value">{{ weather?.daily?.[0]?.humidity }}%</div>
-              <div class="highlight-label">湿度</div>
+        <div v-else-if="loading && !weather" class="loading-container">
+          <i class="qi-loading loading-icon"></i>
+          <div>获取天气信息中...</div>
+        </div>
+        <template v-else-if="weather">
+          <div class="weather-header">
+            <div class="header-left">
+              <div class="location">
+                {{ weather?.fxLink?.split('/')?.pop()?.split('-')?.[0] || '当前位置' }}
+              </div>
+              <div class="current-desc">
+                {{ weather?.daily?.[0]?.[isDay() ? 'textDay' : 'textNight'] }}
+              </div>
             </div>
-            <div class="highlight-item">
-              <div class="highlight-value">{{ weather?.daily?.[0]?.windScaleDay }}级</div>
-              <div class="highlight-label">风力</div>
-            </div>
-            <div class="highlight-item">
-              <div class="highlight-value">{{ weather?.daily?.[0]?.uvIndex || 'N/A' }}</div>
-              <div class="highlight-label">紫外线</div>
+            <div class="header-right">
+              <div class="current-temp">{{ weather?.daily?.[0]?.tempMax }}°</div>
+              <div class="temp-range">
+                {{ weather?.daily?.[0]?.tempMin }}° ~ {{ weather?.daily?.[0]?.tempMax }}°
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- 数据来源 -->
-        <div class="weather-footer">
-          更新于 {{ weather?.updateTime?.split('T')?.[1]?.split('+')?.[0]?.substring(0, 5) || '' }}
-        </div>
+          <div class="forecast-container">
+            <div v-for="(day, index) in weather?.daily" :key="index" class="forecast-day">
+              <div class="day-name">
+                {{
+                  index === 0
+                    ? '今天'
+                    : ['明天', '后天'][index - 1] || formatDate(day.fxDate).split(' ')[1]
+                }}
+              </div>
+              <i
+                :class="`qi-${day.iconDay}`"
+                class="forecast-icon"
+                :style="{ filter: index === 0 ? getIconFilter() : '' }"
+              ></i>
+              <div class="forecast-temps">
+                <span>{{ day.tempMin }}° / {{ day.tempMax }}°</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="weather-highlights">
+            <div class="highlight-row">
+              <div class="highlight-item">
+                <div class="highlight-value">{{ weather?.daily?.[0]?.humidity }}%</div>
+                <div class="highlight-label">湿度</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-value">{{ weather?.daily?.[0]?.windScaleDay }}级</div>
+                <div class="highlight-label">风力</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-value">{{ weather?.daily?.[0]?.uvIndex || 'N/A' }}</div>
+                <div class="highlight-label">紫外线</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="weather-footer">
+            更新于
+            {{ weather?.updateTime?.split('T')?.[1]?.split('+')?.[0]?.substring(0, 5) || '' }}
+            <a href="#" class="refresh-link" @click.prevent="requestLocation">
+              <i class="qi-refresh" :class="{ refreshing: loading }"></i>
+            </a>
+          </div>
+        </template>
       </div>
     </template>
-    <i :class="`qi-${icon()}`" class="weather-current" :style="{ filter: getIconFilter() }">
+    <i
+      :class="[
+        locationError ? 'qi-location-off' : loading && !weather ? 'qi-loading' : `qi-${icon()}`,
+      ]"
+      class="weather-current"
+      :style="{ filter: !locationError && !loading ? getIconFilter() : '' }"
+      @click="locationError ? requestLocation() : null"
+    >
       <div class="weather-temp">
         {{ weather?.daily?.[0]?.tempMin }}~{{ weather?.daily?.[0]?.tempMax }}°
       </div>
@@ -173,7 +249,6 @@ const getIconFilter = () => {
 .header-left {
   text-align: left;
 }
-
 .header-right {
   text-align: right;
 }
@@ -261,33 +336,166 @@ const getIconFilter = () => {
   font-size: 11px;
   opacity: 0.6;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 自定义 Popover 样式 */
+.location-error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.location-error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.location-error-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.error-text {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.error-tip {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 16px;
+}
+
+.retry-button {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.retry-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+.retry-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  gap: 16px;
+}
+
+.loading-icon {
+  font-size: 36px;
+  animation: spin 1.5s linear infinite;
+}
+
+.refresh-link {
+  color: white;
+  opacity: 0.7;
+  margin-left: 8px;
+  display: inline-block;
+}
+
+.refreshing {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 :deep(.ant-popover-inner) {
   background: transparent;
 }
-
 :deep(.ant-popover-arrow) {
   display: none;
 }
-
 :deep(.ant-popover-inner-content) {
   padding: 0;
+}
+
+.permission-guide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px;
+  gap: 10px;
+}
+
+.guide-button {
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.guide-button:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.manual-retry {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.retry-link {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: underline;
+  font-size: 12px;
+  padding: 0 4px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.retry-link:hover {
+  opacity: 1;
+}
+.retry-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 </style>
 
 <style>
-/* 全局样式修改 Popover */
 .weather-popover .ant-popover-inner {
   background: transparent;
   box-shadow: none;
 }
-
 .weather-popover .ant-popover-inner-content {
   padding: 0;
 }
-
 .weather-popover .ant-popover-arrow {
   display: none;
 }
