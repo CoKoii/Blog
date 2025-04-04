@@ -84,16 +84,17 @@
     }
     .ai {
       cursor: pointer;
-      margin: 50px 20px;
+      margin: 30px 20px;
       border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
       background-image: linear-gradient(to right bottom, #7151ffb8 0%, #371ab9 100%);
+      padding: 5px 0;
       img {
-        transform: scale(1) translateY(-30px);
-        width: 70%;
+        transform: translateY(-30px);
+        width: 50%;
       }
     }
   }
