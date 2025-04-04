@@ -33,7 +33,7 @@ const hideMenu = () => {
     >
       <div class="logo_nav">
         <div class="logo">
-          <img src="../../assets/logo.png" alt="" />
+          <img src="../../assets/logo.webp" alt="" />
           <h1>躺不平的咸鱼</h1>
         </div>
         <div class="nav">
@@ -51,7 +51,7 @@ const hideMenu = () => {
         </div>
       </div>
       <div class="ai">
-        <img src="../../assets/ai.png" alt="" />
+        <img src="../../assets/ai.webp" alt="" />
       </div>
     </div>
     <div class="content">
@@ -83,7 +83,7 @@ const hideMenu = () => {
                   "
                 >
                   <img
-                    src="../../assets/logo.png"
+                    src="../../assets/logo.webp"
                     class="avatar"
                     alt="avatar"
                     style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px"
@@ -148,7 +148,7 @@ const hideMenu = () => {
                 </div>
               </div>
             </template>
-            <img src="../../assets/logo.png" alt="" style="cursor: pointer" />
+            <img src="../../assets/logo.webp" alt="" style="cursor: pointer" />
           </Popover>
         </div>
       </div>
