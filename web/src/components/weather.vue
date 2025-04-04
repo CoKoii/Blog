@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import 'qweather-icons/font/qweather-icons.css'
 import { getWeather } from '@/apis/api'
 import { ref } from 'vue'
 import { Popover, message } from 'ant-design-vue'
