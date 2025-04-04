@@ -25,10 +25,10 @@
       .logo {
         display: flex;
         align-items: center;
-        justify-content: center;
         height: 80px;
         gap: 10px;
         img {
+          margin-left: 15px;
           width: 25%;
         }
         h1 {
