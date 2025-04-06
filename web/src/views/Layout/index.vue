@@ -38,15 +38,21 @@ const hideMenu = () => {
         </div>
         <div class="nav">
           <ul>
-            <router-link to="/home" active-class="active" class="li">
-              <div class="text"><PieChartOutlined />仪表盘</div></router-link
-            >
-            <router-link to="/home/1" class="li"
-              ><div class="text"><PieChartOutlined />音乐</div></router-link
-            >
-            <router-link to="/home/2" class="li"
-              ><div class="text"><PieChartOutlined />在线网盘</div></router-link
-            >
+            <li>
+              <router-link to="/home" active-class="active">
+                <div class="text"><PieChartOutlined />仪表盘</div></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/home/1"
+                ><div class="text"><PieChartOutlined />音乐</div></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/home/2"
+                ><div class="text"><PieChartOutlined />在线网盘</div></router-link
+              >
+            </li>
           </ul>
         </div>
       </div>

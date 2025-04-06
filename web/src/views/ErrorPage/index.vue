@@ -49,7 +49,7 @@ const goBack = () => {
   width: 100vw;
   max-width: 800px;
   padding: 48px 32px;
-  transform: scale(1.3);
+  transform: scale(1.1);
 }
 
 .desc {
