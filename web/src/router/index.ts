@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
+import { message } from 'ant-design-vue'
+import { getUserInfoApi } from '@/apis/request'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -31,6 +33,14 @@ NProgress.configure({ showSpinner: false })
 
 router.beforeEach((to, from, next) => {
   NProgress.start()
+  if (to.path !== '/login') {
+    const getUserInfo = async () => {
+      const res = await getUserInfoApi()
+      return res
+    }
+    const UserInfo = getUserInfo()
+    console.log(UserInfo)
+  }
   next()
 })
 

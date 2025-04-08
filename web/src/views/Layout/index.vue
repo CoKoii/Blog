@@ -19,6 +19,11 @@ const systemStore: any = useSystemStore()
 const hideMenu = () => {
   systemStore.system.hiddenMenu = true
 }
+const logout = () => {
+  localStorage.removeItem('token')
+  sessionStorage.removeItem('token')
+  window.location.href = '/login'
+}
 </script>
 
 <template>
@@ -148,6 +153,7 @@ const hideMenu = () => {
                   <div
                     style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
                     class="avator-hover"
+                    @click="logout"
                   >
                     <LogoutOutlined style="margin-right: 8px" /> 退出登录
                   </div>

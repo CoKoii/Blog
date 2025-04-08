@@ -1,13 +1,17 @@
-//第三方接口使用的api
+//后端接口使用的api
+import { message } from 'ant-design-vue'
 import axios from 'axios'
-const apiRequest = axios.create({
-  baseURL: '',
+const request = axios.create({
   timeout: 10000,
 })
 // 添加请求拦截器
-apiRequest.interceptors.request.use(
+request.interceptors.request.use(
   function (config) {
     // 在发送请求之前做些什么
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token')
+    if (token) {
+      config.headers['saToken'] = token
+    }
     return config
   },
   function (error) {
@@ -17,10 +21,13 @@ apiRequest.interceptors.request.use(
 )
 
 // 添加响应拦截器
-apiRequest.interceptors.response.use(
+request.interceptors.response.use(
   function (response) {
     // 2xx 范围内的状态码都会触发该函数。
     // 对响应数据做点什么
+    if (response.data.code === 0) {
+      message.error(response.data.msg)
+    }
     return response.data
   },
   function (error) {
@@ -29,4 +36,4 @@ apiRequest.interceptors.response.use(
     return Promise.reject(error)
   },
 )
-export default apiRequest
+export default request

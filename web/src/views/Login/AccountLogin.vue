@@ -3,7 +3,9 @@ import { Form, Input, Button, Checkbox, Row, Col, message } from 'ant-design-vue
 import { ref, computed } from 'vue'
 import { LockOutlined, UserOutlined } from '@ant-design/icons-vue'
 import dragVerify from '@/components/dragVerify.vue'
-
+import { loginApi } from '@/apis/request'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 // 表单验证规则
 const formRules: any = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
@@ -55,17 +57,8 @@ const login = async () => {
       message.error('请先完成验证')
       return
     }
-
     // 登录逻辑
     await handleLogin(accountForm.value)
-    message.success('登录成功')
-  } catch (error) {
-    if (error instanceof Error) {
-      message.error(error.message)
-    } else {
-      message.error('登录失败，请稍后重试')
-    }
-    console.error('登录错误:', error)
   } finally {
     loading.value = false
   }
@@ -73,8 +66,16 @@ const login = async () => {
 
 // 处理登录请求
 const handleLogin = async (formData: any) => {
-  // 这里添加实际的登录API调用
-  console.log('登录表单数据:', formData)
+  const res = await loginApi(formData)
+  if (res?.data?.token) {
+    message.success('登录成功')
+    if (formData.remember) {
+      localStorage.setItem('token', res.data.token)
+    } else {
+      sessionStorage.setItem('token', res.data.token)
+    }
+    router.push({ name: '首页' })
+  }
 }
 </script>
 
