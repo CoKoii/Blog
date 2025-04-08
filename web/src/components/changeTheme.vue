@@ -51,6 +51,7 @@ onMounted(() => {
         inline-prompt
         :active-icon="Moon"
         :inactive-icon="Sunny"
+        aria-label="日夜间切换"
         style="--el-switch-on-color: #5f46d0; --el-switch-off-color: #ff9500"
       />
     </template>

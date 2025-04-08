@@ -223,6 +223,7 @@ const getIconFilter = () => {
 }
 
 .weather-temp {
+  user-select: none;
   margin-left: 6px;
   font-size: 14px;
   color: inherit;

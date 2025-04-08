@@ -1,8 +1,12 @@
 <template>
   <div class="drag-verify">
-    <div class="drag-verify-container" :class="{ success: isPassing }">
+    <div class="drag-verify-container" :class="{ success: isPassing, error: isError }">
       <div class="drag-verify-progress" :style="{ width: progressWidth + 'px' }"></div>
-      <div class="drag-verify-text">{{ isPassing ? '验证通过' : '请向右滑动验证' }}</div>
+      <div class="drag-verify-text">
+        <span v-if="isPassing">✓ 验证通过</span>
+        <span v-else-if="isError">验证失败，请重试</span>
+        <span v-else>向右滑动完成验证</span>
+      </div>
       <div
         class="drag-verify-slider"
         @mousedown="handleMouseDown"
@@ -26,6 +30,7 @@ const sliderLeft = ref(0)
 const startX = ref(0)
 const containerWidth = ref(0)
 const maxLeft = ref(0)
+const isError = ref(false)
 
 const progressWidth = computed(() => sliderLeft.value + 40)
 
@@ -76,7 +81,11 @@ const handleMouseUp = () => {
     sliderLeft.value = maxLeft.value
     emit('success')
   } else {
-    sliderLeft.value = 0
+    isError.value = true
+    setTimeout(() => {
+      isError.value = false
+      sliderLeft.value = 0
+    }, 1000)
   }
 }
 
@@ -103,7 +112,11 @@ const handleTouchEnd = () => {
     sliderLeft.value = maxLeft.value
     emit('success')
   } else {
-    sliderLeft.value = 0
+    isError.value = true
+    setTimeout(() => {
+      isError.value = false
+      sliderLeft.value = 0
+    }, 1000)
   }
 }
 
@@ -113,7 +126,14 @@ const reset = () => {
   nextTick(updateContainerWidth)
 }
 
-defineExpose({ reset })
+const showError = () => {
+  isError.value = true
+  setTimeout(() => {
+    isError.value = false
+  }, 1000)
+}
+
+defineExpose({ reset, showError })
 </script>
 
 <style scoped>
@@ -144,6 +164,10 @@ defineExpose({ reset })
   border-color: transparent;
 }
 
+.drag-verify-container.error {
+  border-color: #ff4d4f;
+}
+
 .drag-verify-progress {
   position: absolute;
   top: 0;
@@ -157,6 +181,16 @@ defineExpose({ reset })
   position: relative;
   z-index: 2;
   color: inherit;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.error .drag-verify-text {
+  color: #ff4d4f;
+}
+
+.success .drag-verify-text {
+  color: #ffffff;
 }
 
 .drag-verify-slider {

@@ -19,6 +19,11 @@ const systemStore: any = useSystemStore()
 const hideMenu = () => {
   systemStore.system.hiddenMenu = true
 }
+const logout = () => {
+  localStorage.removeItem('token')
+  sessionStorage.removeItem('token')
+  window.location.href = '/login'
+}
 </script>
 
 <template>
@@ -33,25 +38,31 @@ const hideMenu = () => {
     >
       <div class="logo_nav">
         <div class="logo">
-          <img src="../../assets/logo.png" alt="" />
+          <img src="../../assets/logo.webp" alt="" />
           <h1>躺不平的咸鱼</h1>
         </div>
         <div class="nav">
           <ul>
-            <router-link to="/home" active-class="active" class="li">
-              <div class="text"><PieChartOutlined />仪表盘</div></router-link
-            >
-            <router-link to="/home/1" class="li"
-              ><div class="text"><PieChartOutlined />音乐</div></router-link
-            >
-            <router-link to="/home/2" class="li"
-              ><div class="text"><PieChartOutlined />在线网盘</div></router-link
-            >
+            <li>
+              <router-link to="/home" active-class="active">
+                <div class="text"><PieChartOutlined />仪表盘</div></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/home/1"
+                ><div class="text"><PieChartOutlined />音乐</div></router-link
+              >
+            </li>
+            <li>
+              <router-link to="/home/2"
+                ><div class="text"><PieChartOutlined />在线网盘</div></router-link
+              >
+            </li>
           </ul>
         </div>
       </div>
       <div class="ai">
-        <img src="../../assets/ai.png" alt="" />
+        <img src="../../assets/ai.webp" alt="" />
       </div>
     </div>
     <div class="content">
@@ -83,7 +94,7 @@ const hideMenu = () => {
                   "
                 >
                   <img
-                    src="../../assets/logo.png"
+                    src="../../assets/logo.webp"
                     class="avatar"
                     alt="avatar"
                     style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px"
@@ -142,13 +153,14 @@ const hideMenu = () => {
                   <div
                     style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
                     class="avator-hover"
+                    @click="logout"
                   >
                     <LogoutOutlined style="margin-right: 8px" /> 退出登录
                   </div>
                 </div>
               </div>
             </template>
-            <img src="../../assets/logo.png" alt="" style="cursor: pointer" />
+            <img src="../../assets/logo.webp" alt="" style="cursor: pointer" />
           </Popover>
         </div>
       </div>
