@@ -12,6 +12,9 @@ public class UserLoginDTO implements Serializable {
     @Schema(description = "用户名")
     private String username;
 
+    @Schema(description = "自定义姓名")
+    private String realname;
+
     @Schema(description = "密码")
     private String password;
 }

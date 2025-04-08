@@ -39,3 +39,8 @@ knife4j:
         api-rule: package
         api-rule-resources:
           - com.blog.controller
+blog:
+  jwt:
+    user-secret-key: yimeng
+    user-ttl: 7200000
+    user-token-name: token

@@ -13,9 +13,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "用户登录返回的数据格式")
-public class UserLoginVO implements Serializable {
+public class UserInfoVO implements Serializable {
 
-    @Schema(description = "jwt令牌")
-    private String token;
+    @Schema(description = "自定义用户名")
+    private String realname; // 自定义用户名
+
+    @Schema(description = "邮箱")
+    private String email; // 邮箱
 
 }

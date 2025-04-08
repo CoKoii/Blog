@@ -3,3 +3,4 @@ blog:
     host: 5.180.98.227
     pw: 123
     port: 3307
+#TODO 如何激活local环境

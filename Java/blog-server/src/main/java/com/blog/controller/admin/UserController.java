@@ -8,6 +8,7 @@ import com.blog.properties.JwtProperties;
 import com.blog.result.Result;
 import com.blog.service.UserService;
 import com.blog.utils.JwtUtil;
+import com.blog.vo.UserInfoVO;
 import com.blog.vo.UserLoginVO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,8 @@ public class UserController {
 
     /**
      * 用户登录
+     * @param userLoginDTO
+     * @return
      */
     @PostMapping("/login")
     @Operation(summary = "用户登录")
@@ -47,11 +50,13 @@ public class UserController {
                 claims
         );
 
+        log.info("用户登录成功，生成jwt令牌：{}", token);
+
         UserLoginVO userLoginVO = UserLoginVO.builder()
-                .id(user.getId())
-                .userName(user.getUsername())
                 .token(token)
                 .build();
+
+        log.info("用户登录成功，返回结果：{}", userLoginVO);
 
         return Result.success(userLoginVO);
     }
@@ -67,6 +72,16 @@ public class UserController {
         userService.register(userDTO);
         return Result.success();
     }
+
+    /**
+     * 获取用户信息
+     */
+    private Result<UserInfoVO> getUserInfo(){
+        log.info("获取用户信息");
+        UserInfoVO userInfoVO = userService.getUserInfo();
+        return Result.success(userInfoVO);
+    }
+
 
 
 

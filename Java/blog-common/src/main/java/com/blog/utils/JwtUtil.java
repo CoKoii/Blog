@@ -4,7 +4,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
+
+import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 
@@ -18,7 +22,7 @@ public class JwtUtil {
      * @param claims    设置的信息
      * @return
      */
-    public static String createJWT(String secretKey, long ttlMillis, Map<String, Object> claims) {
+    /*public static String createJWT(String secretKey, long ttlMillis, Map<String, Object> claims) {
         // 指定签名的时候使用的签名算法，也就是header那部分
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
@@ -36,6 +40,31 @@ public class JwtUtil {
                 .setExpiration(exp);
 
         return builder.compact();
+    }*/
+
+    public static String createJWT(String secretKey, long ttlMillis, Map<String, Object> claims) {
+        // 指定签名算法
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
+        // 生成JWT的时间
+        long expMillis = System.currentTimeMillis() + ttlMillis;
+        Date exp = new Date(expMillis);
+
+        // 如果密钥长度不足，生成一个安全的密钥
+        Key key;
+        if (secretKey.getBytes(StandardCharsets.UTF_8).length < 32) {
+            key = Keys.secretKeyFor(signatureAlgorithm);
+        } else {
+            key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+        }
+
+        // 设置jwt的body
+        JwtBuilder builder = Jwts.builder()
+                .setClaims(claims)
+                .signWith(key, signatureAlgorithm)
+                .setExpiration(exp);
+
+        return builder.compact();
     }
 
     /**
@@ -45,14 +74,34 @@ public class JwtUtil {
      * @param token     加密后的token
      * @return
      */
-    public static Claims parseJWT(String secretKey, String token) {
-        // 得到DefaultJwtParser
-        Claims claims = Jwts.parser()
-                // 设置签名的秘钥
-                .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
-                // 设置需要解析的jwt
-                .parseClaimsJws(token).getBody();
-        return claims;
-    }
+        public static Claims parseJWT(String secretKey, String token) {
+            // 创建密钥
+            Key key;
+            if (secretKey.getBytes(StandardCharsets.UTF_8).length < 32) {
+                throw new IllegalArgumentException("密钥长度不足，必须至少为32字节（256位）");
+            } else {
+                key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+            }
+
+            // 解析JWT
+            return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        }
+
+    /*public static Claims parseJWT(String secretKey, String token) {
+        // 创建密钥
+        Key key = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
+
+        // 解析JWT
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+    }*/
 
 }
+

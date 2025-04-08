@@ -9,6 +9,7 @@ import com.blog.entity.User;
 import com.blog.exception.AccountNotFoundException;
 import com.blog.mapper.UserMapper;
 import com.blog.service.UserService;
+import com.blog.vo.UserInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
         //设置账号的状态，默认正常状态 1表示正常 0表示锁定
         user.setStatus(StatusConstant.ENABLE);
 
-        //设置密码，默认密码123456
+        //设置密码
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
 
         //设置当前记录的创建时间和修改时间
@@ -87,6 +88,14 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(LocalDateTime.now());
 
         userMapper.insert(user);
+    }
+
+    @Override
+    public UserInfoVO getUserInfo() {
+
+
+
+        return null;
     }
 
 

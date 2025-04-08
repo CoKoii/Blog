@@ -23,8 +23,8 @@ class LoginControllerTest {
     void login() {
         // 创建用户登录DTO对象并设置属性
         UserLoginDTO userLoginDTO = new UserLoginDTO();
-        userLoginDTO.setUsername("admin");
-        userLoginDTO.setPassword("123");
+        userLoginDTO.setUsername("test-user04");
+        userLoginDTO.setPassword("787945");
 
         Result<UserLoginVO> result = userController.login(userLoginDTO);
 
@@ -40,9 +40,10 @@ class LoginControllerTest {
         // 创建用户注册DTO对象并设置属性
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setUsername("test-user04");
-        userDTO.setPassword("787945");
-        userDTO.setEmail("test04@example.com");
+        userDTO.setRealname("曹凯");
+        userDTO.setUsername("admin");
+        userDTO.setPassword("zmrgzs12345");
+        userDTO.setEmail("admin@example.com");
 
         // 调用注册方法
         userController.register(userDTO);

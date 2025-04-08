@@ -31,8 +31,8 @@
         <mybatis-plus.version>3.5.10.1</mybatis-plus.version>
         <knife4j>4.4.0</knife4j>
         <mysql.version>8.0.23</mysql.version>
-        <mybatis-plus>3.5.3.1</mybatis-plus>
-        <jjwt>0.9.1</jjwt>
+        <jjwt.version>0.11.5</jjwt.version> <!-- 升级 jjwt 版本 -->
+        <jakarta.version>4.0.2</jakarta.version> <!-- 升级 jaxb-api 版本 -->
     </properties>
 
     <!--依赖管理-->
@@ -56,10 +56,10 @@
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
-            <!--mybatis plus-->
+            <!--mybatis-plus-->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <!--knife4j-->
@@ -68,17 +68,34 @@
                 <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
                 <version>${knife4j}</version>
             </dependency>
-            <!--mybatis-plus-->
             <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus}</version>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+                <version>${knife4j}</version>
             </dependency>
             <!--jjwt-->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jjwt}</version>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!--jakarta-->
+            <dependency>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
+                <version>${jakarta.version}</version>
             </dependency>
 
         </dependencies>
