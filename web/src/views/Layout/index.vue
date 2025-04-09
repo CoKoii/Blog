@@ -144,7 +144,9 @@ const logout = () => {
                       margin-bottom: 8px;
                     "
                   ></div>
-                  <ScanQR></ScanQR>
+                  <div class="avator-hover">
+                    <ScanQR></ScanQR>
+                  </div>
                   <div
                     style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
                     class="avator-hover"
