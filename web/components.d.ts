@@ -14,6 +14,7 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScanQR: typeof import('./src/components/scanQR.vue')['default']
     Weather: typeof import('./src/components/weather.vue')['default']
   }
 }

@@ -2,7 +2,6 @@
 import {
   FileTextOutlined,
   GithubOutlined,
-  LockOutlined,
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -13,6 +12,7 @@ import { useSystemStore } from '@/stores/system'
 import ChangeTheme from '@/components/changeTheme.vue'
 import { Popover } from 'ant-design-vue'
 import Weather from '@/components/weather.vue'
+import ScanQR from '@/components/scanQR.vue'
 
 const systemStore: any = useSystemStore()
 
@@ -144,12 +144,7 @@ const logout = () => {
                       margin-bottom: 8px;
                     "
                   ></div>
-                  <div
-                    style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
-                    class="avator-hover"
-                  >
-                    <LockOutlined style="margin-right: 8px" /> 锁定屏幕
-                  </div>
+                  <ScanQR></ScanQR>
                   <div
                     style="padding: 8px 10px; cursor: pointer; display: flex; align-items: center"
                     class="avator-hover"
