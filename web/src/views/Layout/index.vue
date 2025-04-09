@@ -13,7 +13,6 @@ import ChangeTheme from '@/components/changeTheme.vue'
 import { Popover } from 'ant-design-vue'
 import Weather from '@/components/weather.vue'
 import ScanQR from '@/components/scanQR.vue'
-
 const systemStore: any = useSystemStore()
 
 const hideMenu = () => {
@@ -101,7 +100,7 @@ const logout = () => {
                   />
                   <div>
                     <div style="font-weight: bold">
-                      曹凯
+                      {{ systemStore.userInfo.realname || '无名氏' }}
                       <span
                         style="
                           background: #f6ffed;
@@ -113,7 +112,7 @@ const logout = () => {
                         >前端开发工程师</span
                       >
                     </div>
-                    <div style="font-size: 12px; color: #888">2655257336@qq.com</div>
+                    <div style="font-size: 12px; color: #888">{{ systemStore.userInfo.email }}</div>
                   </div>
                 </div>
 
