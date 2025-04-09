@@ -6,7 +6,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.4.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/>
     </parent>
 
     <groupId>com.blog</groupId>
@@ -14,14 +14,13 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>blog-parent</name>
     <description>blog-parent</description>
+    <packaging>pom</packaging>
+
     <modules>
         <module>blog-common</module>
         <module>blog-pojo</module>
         <module>blog-server</module>
     </modules>
-
-    <!--打包成jar包-->
-    <packaging>pom</packaging>
 
     <!--版本控制-->
     <properties>
@@ -31,8 +30,8 @@
         <mybatis-plus.version>3.5.11</mybatis-plus.version>
         <knife4j>4.4.0</knife4j>
         <mysql.version>8.0.23</mysql.version>
-        <jjwt.version>0.11.5</jjwt.version> <!-- 升级 jjwt 版本 -->
-        <jakarta.version>4.0.2</jakarta.version> <!-- 升级 jaxb-api 版本 -->
+        <jjwt.version>0.11.5</jjwt.version>
+        <jakarta.version>4.0.2</jakarta.version>
     </properties>
 
     <!--依赖管理-->

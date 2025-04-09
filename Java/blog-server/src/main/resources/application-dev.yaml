@@ -1,5 +1,5 @@
 blog:
   db:
-    host: 5.180.98.227
+    host: mysql
     pw: 123
-    port: 3307
+    port: 3306

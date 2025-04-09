@@ -89,6 +89,8 @@
     </dependencies>
 
     <build>
+        <!--自定义生成的打包文件的名称-->
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

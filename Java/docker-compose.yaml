@@ -1,0 +1,32 @@
+name: blog
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - /app/myconf:/etc/mysql/conf.d
+    restart: always
+    networks:
+      - blog
+
+  blog-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blog
+    ports:
+      - "8081:8080"
+    networks:
+      - blog
+    depends_on:
+      - mysql
+
+networks:
+  blog:
+    name: blog
