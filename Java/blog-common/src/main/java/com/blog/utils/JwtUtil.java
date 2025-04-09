@@ -74,7 +74,7 @@ public class JwtUtil {
      * @param token     加密后的token
      * @return
      */
-        public static Claims parseJWT(String secretKey, String token) {
+       /* public static Claims parseJWT(String secretKey, String token) {
             // 创建密钥
             Key key;
             if (secretKey.getBytes(StandardCharsets.UTF_8).length < 32) {
@@ -89,9 +89,9 @@ public class JwtUtil {
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
-        }
+        }*/
 
-    /*public static Claims parseJWT(String secretKey, String token) {
+    public static Claims parseJWT(String secretKey, String token) {
         // 创建密钥
         Key key = new SecretKeySpec(secretKey.getBytes(StandardCharsets.UTF_8), SignatureAlgorithm.HS256.getJcaName());
 
@@ -101,7 +101,7 @@ public class JwtUtil {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-    }*/
+    }
 
 }
 

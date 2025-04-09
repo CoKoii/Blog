@@ -43,6 +43,6 @@ knife4j:
           - com.blog.controller
 blog:
   jwt:
-    user-secret-key: yimeng
+    user-secret-key: yimengsama-admin-zmrgzs123456-secret-key
     user-ttl: 7200000
     user-token-name: token

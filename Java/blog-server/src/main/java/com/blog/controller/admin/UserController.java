@@ -13,9 +13,7 @@ import com.blog.vo.UserLoginVO;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
@@ -76,11 +74,13 @@ public class UserController {
     /**
      * 获取用户信息
      */
-    /*private Result<UserInfoVO> getUserInfo(){
-        log.info("获取用户信息");
-        UserInfoVO userInfoVO = userService.getUserInfo();
+    @GetMapping("/info")
+    @Operation(summary = "获取用户信息")
+    private Result<UserInfoVO> getUserInfo(@RequestHeader("saToken") String token) {
+        log.info("获取登录token，{}", token);
+        UserInfoVO userInfoVO = userService.getUserInfo(token);
         return Result.success(userInfoVO);
-    }*/
+    }
 
 
 

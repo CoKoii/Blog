@@ -21,8 +21,11 @@ public interface UserService {
     void register(UserDTO userDTO);
 
     /**
-     * 更新用户信息
-     * @param userInfoVO
-     *//*
-    UserInfoVO getUserInfo();*/
+     * 根据用户名查询用户xinxi
+     * @return
+     */
+    UserInfoVO getUserInfo(String token);
+
+
+
 }

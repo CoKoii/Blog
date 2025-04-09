@@ -1,5 +1,8 @@
 package com.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.blog.constant.JwtClaimsConstant;
 import com.blog.constant.MessageConstant;
 import com.blog.constant.PasswordConstant;
 import com.blog.constant.StatusConstant;
@@ -8,8 +11,11 @@ import com.blog.dto.UserLoginDTO;
 import com.blog.entity.User;
 import com.blog.exception.AccountNotFoundException;
 import com.blog.mapper.UserMapper;
+import com.blog.properties.JwtProperties;
 import com.blog.service.UserService;
+import com.blog.utils.JwtUtil;
 import com.blog.vo.UserInfoVO;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -25,6 +31,8 @@ import java.time.LocalDateTime;
 public class UserServiceImpl implements UserService {
 
     private final UserMapper userMapper;
+
+    private final JwtProperties jwtProperties;
 
     /**
      * 用户登录
@@ -90,10 +98,35 @@ public class UserServiceImpl implements UserService {
         userMapper.insert(user);
     }
 
-    /*@Override
-    public UserInfoVO getUserInfo() {
-        return null;
-    }*/
+    @Override
+    public UserInfoVO getUserInfo(String token) {
+        //解析jwt令牌
+        Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
+        log.info("jwt解析：{}", claims);
+
+
+        //获取用户id
+        Long userId = Long.valueOf(claims.get(JwtClaimsConstant.USER_ID).toString());
+        log.info("当前用户id：{}", userId);
+
+        //根据用户id查询用户信息
+        User user = userMapper.selectById(userId);
+        log.info("查询用户信息：{}", user);
+
+        //判断用户是否存在
+        if (user == null) {
+            log.info("用户不存在");
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+
+        //创建用户信息对象
+        UserInfoVO userInfoVO = new UserInfoVO();
+
+        BeanUtils.copyProperties(user, userInfoVO);
+        log.info("用户信息对象：{}", userInfoVO);
+
+        return userInfoVO;
+    }
 
 
 }
