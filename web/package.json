@@ -19,6 +19,7 @@
     "ant-design-vue": "4.x",
     "axios": "^1.8.4",
     "element-plus": "^2.9.7",
+    "html5-qrcode": "^2.3.8",
     "nprogress": "^0.2.0",
     "pinia": "^3.0.1",
     "qrcode.vue": "^3.6.0",
