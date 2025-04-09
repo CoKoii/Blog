@@ -223,7 +223,7 @@ onUnmounted(() => {
   font-size: 18px;
 }
 
-#reader {
+:deep(#reader) {
   width: 100%;
   height: 100vh;
   position: absolute;
@@ -231,16 +231,15 @@ onUnmounted(() => {
   left: 0;
   background-color: #000;
 }
-
-#reader video {
+:deep(#reader video) {
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  width: 100%;
-  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  background-color: #000;
 }
-
 /* 隐藏Html5Qrcode库的UI元素，我们使用自定义UI */
 :deep(#reader img),
 :deep(#reader div[style*='border']) {
