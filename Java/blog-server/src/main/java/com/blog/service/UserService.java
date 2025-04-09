@@ -23,6 +23,6 @@ public interface UserService {
     /**
      * 更新用户信息
      * @param userInfoVO
-     */
-    UserInfoVO getUserInfo();
+     *//*
+    UserInfoVO getUserInfo();*/
 }

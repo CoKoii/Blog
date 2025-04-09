@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "用户登录返回的数据格式")
+@Schema(description = "用户登录成功后返回的数据格式")
 public class UserInfoVO implements Serializable {
 
     @Schema(description = "自定义用户名")

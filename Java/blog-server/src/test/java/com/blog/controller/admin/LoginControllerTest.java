@@ -40,10 +40,10 @@ class LoginControllerTest {
         // 创建用户注册DTO对象并设置属性
         UserDTO userDTO = new UserDTO();
 
-        userDTO.setRealname("曹凯");
-        userDTO.setUsername("admin");
+        userDTO.setRealname("曹");
+        userDTO.setUsername("admin2");
         userDTO.setPassword("zmrgzs12345");
-        userDTO.setEmail("admin@example.com");
+        userDTO.setEmail("admin2@example.com");
 
         // 调用注册方法
         userController.register(userDTO);

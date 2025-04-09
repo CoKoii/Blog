@@ -28,7 +28,7 @@
         <java.version>17</java.version>
         <lombok>1.18.24</lombok>
         <hutool.version>5.8.36</hutool.version>
-        <mybatis-plus.version>3.5.10.1</mybatis-plus.version>
+        <mybatis-plus.version>3.5.11</mybatis-plus.version>
         <knife4j>4.4.0</knife4j>
         <mysql.version>8.0.23</mysql.version>
         <jjwt.version>0.11.5</jjwt.version> <!-- 升级 jjwt 版本 -->
@@ -59,7 +59,7 @@
             <!--mybatis-plus-->
             <dependency>
                 <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <!--knife4j-->

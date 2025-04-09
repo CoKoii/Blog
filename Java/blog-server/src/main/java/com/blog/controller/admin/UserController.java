@@ -76,11 +76,11 @@ public class UserController {
     /**
      * 获取用户信息
      */
-    private Result<UserInfoVO> getUserInfo(){
+    /*private Result<UserInfoVO> getUserInfo(){
         log.info("获取用户信息");
         UserInfoVO userInfoVO = userService.getUserInfo();
         return Result.success(userInfoVO);
-    }
+    }*/
 
 
 
