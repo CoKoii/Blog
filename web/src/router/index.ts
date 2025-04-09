@@ -46,12 +46,14 @@ router.afterEach(async (to) => {
       message.error('请先登录')
       router.push('/login')
     } else {
-      const res = await getUserInfoApi()
-      if (res.data) {
-        systemStore.userInfo = res.data
-      } else {
-        message.error('请先登录')
-        router.push('/login')
+      if (!systemStore.userInfo) {
+        const res = await getUserInfoApi()
+        if (res.data) {
+          systemStore.userInfo = res.data
+        } else {
+          message.error('请先登录')
+          router.push('/login')
+        }
       }
     }
   }

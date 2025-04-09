@@ -10,9 +10,12 @@ import {
 } from '@ant-design/icons-vue'
 import { useSystemStore } from '@/stores/system'
 import ChangeTheme from '@/components/changeTheme.vue'
-import { Popover } from 'ant-design-vue'
+import { message, Popover } from 'ant-design-vue'
 import Weather from '@/components/weather.vue'
 import ScanQR from '@/components/scanQR.vue'
+import { getUserInfoApi } from '@/apis/request'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const systemStore: any = useSystemStore()
 
 const hideMenu = () => {
@@ -23,6 +26,16 @@ const logout = () => {
   sessionStorage.removeItem('token')
   window.location.href = '/login'
 }
+const getUserInfo = async () => {
+  const res = await getUserInfoApi()
+  if (res.data) {
+    systemStore.userInfo = res.data
+  } else {
+    message.error('请先登录')
+    router.push('/login')
+  }
+}
+getUserInfo()
 </script>
 
 <template>
