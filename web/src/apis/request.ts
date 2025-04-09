@@ -9,7 +9,7 @@ export const loginApi = (data: any) => {
 }
 export const getUserInfoApi = () => {
   return request({
-    url: '/api/userinfo',
+    url: '/api/info',
     method: 'get',
   })
 }
