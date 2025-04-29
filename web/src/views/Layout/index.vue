@@ -36,7 +36,7 @@ const getUserInfo = async () => {
       router.push('/login')
     }
   } catch (error) {
-    message.error('获取用户信息失败')
+    message.error('获取用户信息失败,请重新登录')
     router.push('/login')
   }
 }
