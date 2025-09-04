@@ -10,25 +10,25 @@ defineOptions({
     <div class="logo"></div>
     <ul>
       <li>
-        <a href="">
+        <a @click="$router.push('/')">
           <i class="iconfont icon-shouye"></i>
           <span>首页</span>
         </a>
       </li>
       <li>
-        <a href="">
+        <a @click="$router.push('/find')">
           <i class="iconfont icon-shouye"></i>
           <span>首页</span>
         </a>
       </li>
       <li>
-        <a href="">
+        <a>
           <i class="iconfont icon-shouye"></i>
           <span>首页</span>
         </a>
       </li>
       <li>
-        <a href="">
+        <a>
           <i class="iconfont icon-shouye"></i>
           <span>首页</span>
         </a>

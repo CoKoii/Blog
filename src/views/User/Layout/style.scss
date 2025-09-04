@@ -16,5 +16,20 @@
     padding: 24px 0;
     width: 100%;
     margin-left: var(--menus-width);
+    .fade-enter-active {
+      transition: opacity 0.3s ease;
+    }
+    .fade-leave-active {
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+    .fade-enter-from {
+      opacity: 0;
+    }
+    .fade-leave-to {
+      opacity: 0;
+      transform: translateX(200px);
+    }
   }
 }

@@ -15,14 +15,3 @@ a {
   text-decoration: none;
   color: inherit;
 }
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-::view-transition-old(root) {
-  z-index: var(--vt-old-z, 0);
-}
-::view-transition-new(root) {
-  z-index: var(--vt-new-z, 1);
-}

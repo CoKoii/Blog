@@ -11,9 +11,11 @@ defineOptions({
       <Menus />
     </div>
     <div class="main">
-      <transition>
-        <router-view />
-      </transition>
+      <router-view v-slot="{ Component, route }">
+        <transition name="fade" mode="out-in" appear>
+          <component :is="Component" :key="route.fullPath" />
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>
