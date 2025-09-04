@@ -14,6 +14,9 @@ importers:
       sass:
         specifier: ^1.92.0
         version: 1.92.0
+      void-design-vue:
+        specifier: ^1.5.5
+        version: 1.5.5(@fortawesome/fontawesome-svg-core@7.0.1)(vue@3.5.21(typescript@5.8.3))
       vue:
         specifier: ^3.5.18
         version: 3.5.21(typescript@5.8.3)
@@ -406,6 +409,24 @@ packages:
   '@eslint/plugin-kit@0.3.5':
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fortawesome/fontawesome-common-types@7.0.1':
+    resolution: {integrity: sha512-0VpNtO5cNe1/HQWMkl4OdncYK/mv9hnBte0Ew0n6DMzmo3Q3WzDFABHm6LeNTipt5zAyhQ6Ugjiu8aLaEjh1gg==}
+    engines: {node: '>=6'}
+
+  '@fortawesome/fontawesome-svg-core@7.0.1':
+    resolution: {integrity: sha512-x0cR55ILVqFpUioSMf6ebpRCMXMcheGN743P05W2RB5uCNpJUqWIqW66Lap8PfL/lngvjTbZj0BNSUweIr/fHQ==}
+    engines: {node: '>=6'}
+
+  '@fortawesome/free-solid-svg-icons@7.0.1':
+    resolution: {integrity: sha512-esKuSrl1WMOTMDLNt38i16VfLe/gRZt2ZAJ3Yw7slfs7sj583MKqNFqO57zmhknk1Sya6f9Wys89aCzIJkcqlg==}
+    engines: {node: '>=6'}
+
+  '@fortawesome/vue-fontawesome@3.1.1':
+    resolution: {integrity: sha512-U5azn4mcUVpjHe4JO0Wbe7Ih8e3VbN83EH7OTBtA5/QGw9qcPGffqcmwsLyZYgEkpVkYbq/6dX1Iyl5KUGMp6Q==}
+    peerDependencies:
+      '@fortawesome/fontawesome-svg-core': ~1 || ~6 || ~7
+      vue: '>= 3.0.0 < 4'
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -1171,6 +1192,10 @@ packages:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
     hasBin: true
 
+  highlight.js@11.11.1:
+    resolution: {integrity: sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==}
+    engines: {node: '>=12.0.0'}
+
   hookable@5.5.3:
     resolution: {integrity: sha512-Yc+BQe8SvoXH1643Qez1zqLRmbA5rCL+sSmk6TVos0LWVfNIB7PGncdlId77WzLGSIB5KaWgTaNTs2lNVEI6VQ==}
 
@@ -1699,6 +1724,12 @@ packages:
       yaml:
         optional: true
 
+  void-design-vue@1.5.5:
+    resolution: {integrity: sha512-ItMiHfJpjiz22yiljZ8gS/xa3Pm2rRU7oWxuINt1JXonHZJnZA9cWmfamDQqjip8EecVEAPD5uax6gFco5Sk0g==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      vue: ^3.3.0
+
   vscode-uri@3.1.0:
     resolution: {integrity: sha512-/BpdSx+yCQGnCvecbyXdxHDkuk55/G3xwnC0GqY4gmQ3j+A+g8kzzgB4Nk/SINjqn6+waqw3EgbVF2QKExkRxQ==}
 
@@ -2079,6 +2110,21 @@ snapshots:
     dependencies:
       '@eslint/core': 0.15.2
       levn: 0.4.1
+
+  '@fortawesome/fontawesome-common-types@7.0.1': {}
+
+  '@fortawesome/fontawesome-svg-core@7.0.1':
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 7.0.1
+
+  '@fortawesome/free-solid-svg-icons@7.0.1':
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 7.0.1
+
+  '@fortawesome/vue-fontawesome@3.1.1(@fortawesome/fontawesome-svg-core@7.0.1)(vue@3.5.21(typescript@5.8.3))':
+    dependencies:
+      '@fortawesome/fontawesome-svg-core': 7.0.1
+      vue: 3.5.21(typescript@5.8.3)
 
   '@humanfs/core@0.19.1': {}
 
@@ -2883,6 +2929,8 @@ snapshots:
 
   he@1.2.0: {}
 
+  highlight.js@11.11.1: {}
+
   hookable@5.5.3: {}
 
   human-signals@8.0.1: {}
@@ -3336,6 +3384,15 @@ snapshots:
       fsevents: 2.3.3
       jiti: 2.5.1
       sass: 1.92.0
+
+  void-design-vue@1.5.5(@fortawesome/fontawesome-svg-core@7.0.1)(vue@3.5.21(typescript@5.8.3)):
+    dependencies:
+      '@fortawesome/free-solid-svg-icons': 7.0.1
+      '@fortawesome/vue-fontawesome': 3.1.1(@fortawesome/fontawesome-svg-core@7.0.1)(vue@3.5.21(typescript@5.8.3))
+      highlight.js: 11.11.1
+      vue: 3.5.21(typescript@5.8.3)
+    transitivePeerDependencies:
+      - '@fortawesome/fontawesome-svg-core'
 
   vscode-uri@3.1.0: {}
 

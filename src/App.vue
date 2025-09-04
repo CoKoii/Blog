@@ -12,8 +12,8 @@ defineOptions({
 
 <style scoped lang="scss">
 .App {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 </style>

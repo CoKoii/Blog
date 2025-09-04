@@ -33,14 +33,25 @@
     <h1>我是首页</h1>
     <h1>我是首页</h1>
     <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
+    <h1>我是首页</h1>
   </div>
 </template>
 
 <style scoped lang="scss">
 .home {
   width: 100%;
-  height: auto;
-  overflow-y: scroll;
-  background-color: red;
 }
 </style>

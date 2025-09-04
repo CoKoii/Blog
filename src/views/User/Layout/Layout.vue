@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Menus from '@/components/User/Menus/Menus.vue'
 defineOptions({
   name: 'Layout',
 })
@@ -6,10 +7,14 @@ defineOptions({
 
 <template>
   <div class="Layout">
-    <div class="menus"></div>
-    <transition>
-      <router-view />
-    </transition>
+    <div class="menus">
+      <Menus />
+    </div>
+    <div class="main">
+      <transition>
+        <router-view />
+      </transition>
+    </div>
   </div>
 </template>
 
