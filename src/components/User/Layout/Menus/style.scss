@@ -4,7 +4,7 @@
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   .active {
     background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
     font-weight: bold;
@@ -23,13 +23,13 @@
     font-weight: normal;
     opacity: 0.6;
     padding-left: 12px;
-    margin-top: 24px;
+    margin-top: 20px;
   }
   .menus_main {
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 6px;
+    gap: 8px;
     li {
       cursor: pointer;
       width: 100%;

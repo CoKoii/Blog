@@ -10,19 +10,19 @@ import { VIcon } from 'void-design-vue'
       <li>
         <router-link to="/home" active-class="active">
           <VIcon :icon="faHome" />
-          Home</router-link
+          <span>Home</span></router-link
         >
       </li>
       <li>
         <router-link to="/archive" active-class="active">
           <VIcon :icon="faFolderOpen" />
-          Archive</router-link
+          <span>Archive</span></router-link
         >
       </li>
       <li>
         <router-link to="/about" active-class="active">
           <VIcon :icon="faAddressCard" />
-          About</router-link
+          <span>About</span></router-link
         >
       </li>
     </ul>
@@ -33,7 +33,7 @@ import { VIcon } from 'void-design-vue'
       <li>
         <router-link to="/more" active-class="active">
           <VIcon :icon="faCompass" />
-          正在发掘...</router-link
+          <span>正在发掘...</span></router-link
         >
       </li>
     </ul>
@@ -43,21 +43,20 @@ import { VIcon } from 'void-design-vue'
       <li>
         <router-link to="/vuejs" active-class="active">
           <span class="dots" style="background-color: #ff5f57"></span>
-          VueJs</router-link
+          <span>VueJs</span></router-link
         >
       </li>
       <li>
         <router-link to="/javascript" active-class="active">
           <span class="dots" style="background-color: #febc2e"></span>
 
-          JavaScript</router-link
+          <span>JavaScript</span></router-link
         >
       </li>
       <li>
         <router-link to="/nodejs" active-class="active">
           <span class="dots" style="background-color: #28c840"></span>
-
-          Node.js</router-link
+          <span>Node.js</span></router-link
         >
       </li>
     </ul>
