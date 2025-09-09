@@ -27,7 +27,7 @@ const closeSearch = (e: MouseEvent) => {
       <span @click="onMenuClick">
         <VIcon :icon="faBars" size="sm" />
       </span>
-      <RouterLink to="/">Cheng</RouterLink>
+      <RouterLink to="/">Front End</RouterLink>
     </div>
     <button class="search" @click="openSearch">
       <VIcon :icon="faSearch" size="sm" />
