@@ -1,13 +1,29 @@
 .Menus {
   font-size: 14px;
   width: 100%;
-  padding: 12px 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   .active {
     background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
     font-weight: bold;
     i {
       opacity: 1 !important;
     }
+  }
+  .line {
+    height: 1px;
+    width: 100%;
+    margin: 8px auto;
+    background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 10%);
+  }
+  .title {
+    font-size: 14px;
+    font-weight: normal;
+    opacity: 0.6;
+    padding-left: 12px;
+    margin-top: 24px;
   }
   .menus_main {
     display: flex;
@@ -25,6 +41,19 @@
         gap: 12px;
         align-items: center;
         transition: all 0.2s;
+        &:hover {
+          background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
+          i {
+            opacity: 1 !important;
+          }
+        }
+        .dots {
+          width: 22.5px;
+          height: 22.5px;
+          transform: scale(0.4);
+          border-radius: 50%;
+          background-color: #28c840;
+        }
         i {
           font-size: 18px;
           opacity: 0.6;
