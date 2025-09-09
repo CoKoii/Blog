@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import Header from '@/components/User/Layout/Header/Header.vue'
+
 defineOptions({
   name: 'Layout',
 })
@@ -6,7 +8,9 @@ defineOptions({
 
 <template>
   <div class="Layout">
-    <div class="header">头部</div>
+    <div class="header">
+      <Header />
+    </div>
     <div class="menus">菜单</div>
     <div class="container">
       <router-view> </router-view>
