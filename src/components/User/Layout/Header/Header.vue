@@ -59,7 +59,7 @@ onBeforeUnmount(() => {
     </div>
     <button class="search" @click="openSearch">
       <VIcon :icon="faSearch" size="sm" />
-      Search
+      <span>Search</span>
       <span>/</span>
     </button>
     <div class="tools">

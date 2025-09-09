@@ -70,6 +70,16 @@
       transform: scale(0.8);
       font-style: italic;
     }
+    @media (max-width: 768px) {
+      > :last-child {
+        display: none;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .tools {
+      display: none;
+    }
   }
 }
 .mask {
