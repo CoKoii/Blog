@@ -9,11 +9,12 @@ const onMenuClick = () => {
 const showSearch = ref(false)
 const openSearch = () => {
   showSearch.value = true
-  document.body.style.overflow = 'hidden'
+  document.documentElement.classList.remove('scroll')
 }
+
 const closeSearch = () => {
   showSearch.value = false
-  document.body.style.overflow = 'auto'
+  document.documentElement.classList.add('scroll')
 }
 </script>
 
