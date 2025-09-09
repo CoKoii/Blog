@@ -6,7 +6,7 @@ provide('layoutRef', layoutRef)
 </script>
 
 <template>
-  <div class="Layout open" ref="layout">
+  <div class="Layout" ref="layout">
     <div class="header">
       <Header />
     </div>

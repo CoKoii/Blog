@@ -40,23 +40,23 @@
   .menus {
     transform: translateX(0);
   }
-  .container {
-    margin-left: var(--menus-width);
-  }
 }
-@media (max-width: 768px) {
+
+@media (min-width: 769px) {
   .Layout {
     .menus {
-      transform: translateX(-100%);
+      transform: translateX(0);
     }
-
     .container {
-      margin-left: 0;
+      margin-left: var(--menus-width);
     }
   }
   .open {
     .menus {
-      transform: translateX(0);
+      transform: translateX(-100%);
+    }
+    .container {
+      margin-left: 0;
     }
   }
 }
