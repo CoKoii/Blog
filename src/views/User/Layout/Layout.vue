@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Header from '@/components/User/Layout/Header/Header.vue'
+import Menus from '@/components/User/Layout/Menus/Menus.vue'
 import { provide, useTemplateRef } from 'vue'
 const layoutRef = useTemplateRef<HTMLDivElement>('layout')
 provide('layoutRef', layoutRef)
@@ -10,9 +11,15 @@ provide('layoutRef', layoutRef)
     <div class="header">
       <Header />
     </div>
-    <div class="menus">菜单</div>
+    <div class="menus">
+      <Menus />
+    </div>
     <div class="container">
-      <router-view> </router-view>
+      <router-view v-slot="{ Component }">
+        <transition name="fade" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>

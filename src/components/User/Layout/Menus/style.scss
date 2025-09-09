@@ -1,0 +1,35 @@
+.Menus {
+  font-size: 14px;
+  width: 100%;
+  padding: 12px 8px;
+  .active {
+    background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
+    font-weight: bold;
+    i {
+      opacity: 1 !important;
+    }
+  }
+  .menus_main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+    li {
+      cursor: pointer;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      a {
+        padding: 8px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        transition: all 0.2s;
+        i {
+          font-size: 18px;
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}
