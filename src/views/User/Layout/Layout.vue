@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import Header from '@/components/User/Layout/Header/Header.vue'
-
-defineOptions({
-  name: 'Layout',
-})
+import { provide, useTemplateRef } from 'vue'
+const layoutRef = useTemplateRef<HTMLDivElement>('layout')
+provide('layoutRef', layoutRef)
 </script>
 
 <template>
-  <div class="Layout">
+  <div class="Layout open" ref="layout">
     <div class="header">
       <Header />
     </div>
