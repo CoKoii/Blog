@@ -5,11 +5,10 @@
   margin: 0;
   padding: 0;
 }
-
-html.no-scroll {
-  overflow: hidden;
+html,
+body {
+  scrollbar-width: none;
 }
-
 html {
   scroll-behavior: smooth;
 }

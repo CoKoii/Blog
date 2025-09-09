@@ -9,12 +9,14 @@ const onMenuClick = () => {
 const showSearch = ref(false)
 const openSearch = () => {
   showSearch.value = true
-  document.documentElement.classList.add('no-scroll')
+  document.body.style.overflow = 'hidden'
 }
 
-const closeSearch = () => {
-  showSearch.value = false
-  document.documentElement.classList.remove('no-scroll')
+const closeSearch = (e: MouseEvent) => {
+  if (e.target === e.currentTarget) {
+    showSearch.value = false
+    document.body.style.overflow = 'auto'
+  }
 }
 </script>
 
@@ -31,12 +33,19 @@ const closeSearch = () => {
       Search
       <span>/</span>
     </button>
-    <div class="tools"></div>
+    <div class="tools">666</div>
   </div>
   <teleport to="body">
-    <div class="mask" v-if="showSearch" @click="closeSearch">
-      <div class="search"></div>
-    </div>
+    <transition>
+      <div class="mask" v-if="showSearch" @click="closeSearch">
+        <div class="search">
+          <div class="search-container">
+            <VIcon :icon="faSearch" />
+            <input type="text" placeholder="搜索文章、标签、和作者..." />
+          </div>
+        </div>
+      </div>
+    </transition>
   </teleport>
 </template>
 
