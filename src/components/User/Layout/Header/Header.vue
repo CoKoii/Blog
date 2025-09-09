@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { faBars, faSearch } from '@fortawesome/free-solid-svg-icons'
-import { VIcon } from 'void-design-vue'
+import { VIcon, VThemeToggle } from 'void-design-vue'
 import { inject, ref, type Ref } from 'vue'
 const LayoutRef = inject<Ref<HTMLElement>>('layoutRef')
 const onMenuClick = () => {
@@ -33,7 +33,9 @@ const closeSearch = (e: MouseEvent) => {
       Search
       <span>/</span>
     </button>
-    <div class="tools">666</div>
+    <div class="tools">
+      <VThemeToggle />
+    </div>
   </div>
   <teleport to="body">
     <transition>
