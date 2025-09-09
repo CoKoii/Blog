@@ -12,8 +12,9 @@ defineOptions({
 
 <style scoped lang="scss">
 .App {
-  width: 100%;
+  inset: 0;
   overflow-x: hidden;
+  position: relative;
   background-color: var(--bg-color-page);
 }
 </style>
