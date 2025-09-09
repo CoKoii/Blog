@@ -8,8 +8,8 @@
 html {
   scroll-behavior: smooth;
 }
-html.scroll {
-  scrollbar-gutter: stable;
+html.no-scroll {
+  overflow: hidden;
 }
 ul {
   list-style: none;

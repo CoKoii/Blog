@@ -9,12 +9,12 @@ const onMenuClick = () => {
 const showSearch = ref(false)
 const openSearch = () => {
   showSearch.value = true
-  document.documentElement.classList.remove('scroll')
+  document.documentElement.classList.add('no-scroll')
 }
 
 const closeSearch = () => {
   showSearch.value = false
-  document.documentElement.classList.add('scroll')
+  document.documentElement.classList.remove('no-scroll')
 }
 </script>
 
