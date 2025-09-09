@@ -71,11 +71,12 @@
   }
 }
 .mask {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(2px);
   z-index: 99999;
 }
