@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Menus from '@/components/User/Menus/Menus.vue'
 defineOptions({
   name: 'Layout',
 })
@@ -7,15 +6,10 @@ defineOptions({
 
 <template>
   <div class="Layout">
-    <div class="menus">
-      <Menus />
-    </div>
-    <div class="main">
-      <router-view v-slot="{ Component, route }">
-        <transition name="fade" mode="out-in" appear>
-          <component :is="Component" :key="route.fullPath" />
-        </transition>
-      </router-view>
+    <div class="header">头部</div>
+    <div class="menus">菜单</div>
+    <div class="container">
+      <router-view> </router-view>
     </div>
   </div>
 </template>
