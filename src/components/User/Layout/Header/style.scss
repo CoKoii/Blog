@@ -48,8 +48,9 @@
     border-radius: 10px;
     width: 30vw;
     max-width: 500px;
-    opacity: 0.7;
+    opacity: 0.6;
     transition: all 0.2s ease;
+    font-size: 14px;
     background-color: color-mix(in srgb, var(--bg-color-item), 5% var(--black));
     &:hover {
       opacity: 1;
