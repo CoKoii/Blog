@@ -5,6 +5,7 @@ import { inject, ref, type Ref } from 'vue'
 const LayoutRef = inject<Ref<HTMLElement>>('layoutRef')
 const onMenuClick = () => {
   LayoutRef?.value.classList.toggle('open')
+  document.body.style.overflow = LayoutRef?.value.classList.contains('open') ? 'hidden' : 'auto'
 }
 const showSearch = ref(false)
 const openSearch = () => {
