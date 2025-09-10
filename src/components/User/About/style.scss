@@ -45,7 +45,7 @@
       .social-link {
         display: inline-flex;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         gap: 8px;
         padding: 10px 18px;
         min-width: 156px;
@@ -79,7 +79,6 @@
         box-shadow: 0 0 0 3px color-mix(in srgb, currentColor, transparent 70%);
       }
 
-      // Brand tints — light, subtle, Apple-like
       .github {
         --brand: #2ea44f;
         color: var(--brand);
@@ -128,7 +127,6 @@
 
 @media (max-width: 768px) {
   .About {
-    --card-padding: 16px;
     gap: 18px;
 
     .info {
