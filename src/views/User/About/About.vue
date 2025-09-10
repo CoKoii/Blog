@@ -1,7 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import About from '@/components/User/About/About.vue'
+</script>
 
 <template>
-  <div class="About">About</div>
+  <About />
 </template>
 
 <style scoped lang="scss"></style>
