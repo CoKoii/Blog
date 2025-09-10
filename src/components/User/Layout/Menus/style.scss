@@ -50,9 +50,10 @@
         .dots {
           width: 22.5px;
           height: 22.5px;
-          transform: scale(0.4);
+          transform: scale(0.55);
           border-radius: 50%;
           background-color: #28c840;
+          transition: all 0.3s ease;
         }
         i {
           font-size: 18px;

@@ -70,17 +70,13 @@
       transition: none !important;
 
       :deep(.menus_main a) {
-        justify-content: center;
-        gap: 0;
         transition: none !important;
-      }
-      :deep(.menus_main a i),
-      :deep(.menus_main a .VIcon) {
-        opacity: 1;
       }
       :deep(.title),
       :deep(.line) {
-        display: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       :deep(.menus_main a span:not(.dots):not(.VIcon):not(.VIcon-wrapper)) {
         display: none;
@@ -89,12 +85,10 @@
         transition: none !important;
       }
       :deep(.menus_main a .dots) {
-        width: 12px;
-        height: 12px;
-        transform: none;
+        width: 22.5px;
+        height: 22.5px;
+        transform: scale(0.55);
         border-radius: 50%;
-        aspect-ratio: 1 / 1;
-        flex: 0 0 auto;
       }
     }
     .container {
