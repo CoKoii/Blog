@@ -24,6 +24,7 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
+      flex: 1;
 
       h2 {
         font-size: 28px;
@@ -33,6 +34,87 @@
       p {
         font-size: 15px;
         color: color-mix(in srgb, var(--black), transparent 45%);
+      }
+    }
+
+    .socials {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .social-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 18px;
+        min-width: 156px;
+        border-radius: 9999px;
+        border: 1px solid transparent;
+        background: transparent;
+        color: var(--black);
+        font-weight: 700;
+        letter-spacing: 0.2px;
+        transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        backdrop-filter: saturate(140%) blur(6px);
+        filter: none !important;
+        .VIcon {
+          font-size: 18px;
+          width: 20px;
+          height: 20px;
+          flex: 0 0 20px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          color: currentColor;
+        }
+      }
+
+      .social-link:hover {
+        opacity: 0.95;
+      }
+      .social-link:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px color-mix(in srgb, currentColor, transparent 70%);
+      }
+
+      // Brand tints — light, subtle, Apple-like
+      .github {
+        --brand: #2ea44f;
+        color: var(--brand);
+        background: linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--brand), transparent 90%),
+          color-mix(in srgb, var(--brand), transparent 94%)
+        );
+        border-color: color-mix(in srgb, var(--brand), transparent 75%);
+      }
+      .github:hover {
+        background: linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--brand), transparent 86%),
+          color-mix(in srgb, var(--brand), transparent 92%)
+        );
+        border-color: color-mix(in srgb, var(--brand), transparent 68%);
+      }
+      .telegram {
+        --brand: #26a5e4;
+        color: var(--brand);
+        background: linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--brand), transparent 90%),
+          color-mix(in srgb, var(--brand), transparent 94%)
+        );
+        border-color: color-mix(in srgb, var(--brand), transparent 75%);
+      }
+      .telegram:hover {
+        background: linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--brand), transparent 86%),
+          color-mix(in srgb, var(--brand), transparent 92%)
+        );
+        border-color: color-mix(in srgb, var(--brand), transparent 68%);
       }
     }
   }
