@@ -6,7 +6,11 @@ defineOptions({
 
 <template>
   <div class="App">
-    <router-view />
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <Component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
@@ -15,6 +19,16 @@ defineOptions({
   inset: 0;
   overflow-x: hidden;
   position: relative;
-  background-color: var(--bg-color-page);
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.3s ease;
+  }
+  .fade-enter-from {
+    opacity: 0;
+  }
+  .fade-leave-to {
+    opacity: 0;
+    transform: scale(1.2);
+  }
 }
 </style>
