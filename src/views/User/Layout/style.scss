@@ -1,6 +1,7 @@
 .Layout {
   --header-height: 60px;
   --menus-width: 240px;
+  --menus-collapsed-width: 72px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -56,6 +57,7 @@
   .Layout {
     .menus {
       transform: translateX(0);
+      width: var(--menus-width);
     }
     .container {
       margin-left: var(--menus-width);
@@ -63,10 +65,40 @@
   }
   .open {
     .menus {
-      transform: translateX(-100%);
+      transform: translateX(0);
+      width: var(--menus-collapsed-width);
+      transition: none !important;
+
+      :deep(.menus_main a) {
+        justify-content: center;
+        gap: 0;
+        transition: none !important;
+      }
+      :deep(.menus_main a i),
+      :deep(.menus_main a .VIcon) {
+        opacity: 1;
+      }
+      :deep(.title),
+      :deep(.line) {
+        display: none;
+      }
+      :deep(.menus_main a span:not(.dots):not(.VIcon):not(.VIcon-wrapper)) {
+        display: none;
+      }
+      :deep(.menus_main a span) {
+        transition: none !important;
+      }
+      :deep(.menus_main a .dots) {
+        width: 12px;
+        height: 12px;
+        transform: none;
+        border-radius: 50%;
+        aspect-ratio: 1 / 1;
+        flex: 0 0 auto;
+      }
     }
     .container {
-      margin-left: 0;
+      margin-left: var(--menus-collapsed-width);
     }
   }
 }
