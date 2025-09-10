@@ -53,8 +53,8 @@ onUnmounted(() => {
       </ul>
     </div>
     <div class="controls" v-if="showArrows">
-      <button class="btn left" @click="scrollLeft">‹</button>
-      <button class="btn right" @click="scrollRight">›</button>
+      <button class="btn left" @click="scrollLeft">{{ '<' }}</button>
+      <button class="btn right" @click="scrollRight">{{ '>' }}</button>
     </div>
   </div>
 </template>
