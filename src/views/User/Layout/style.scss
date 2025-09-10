@@ -2,6 +2,15 @@
   --header-height: 60px;
   --menus-width: 240px;
   --menus-collapsed-width: 72px;
+
+  $blur: 10px;
+  $menu-bg: color-mix(in srgb, var(--bg-color-page), transparent 40%);
+  $transition-duration: 0.2s;
+  $transition-timing: ease-in-out;
+  $container-padding: 12px 24px;
+  $fade-duration: 0.3s;
+  $fade-easing: ease;
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -13,7 +22,7 @@
     width: 100%;
     height: var(--header-height);
     z-index: 999;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur($blur);
     padding: 8px 24px 8px 16px;
   }
 
@@ -23,20 +32,20 @@
     left: 0;
     width: var(--menus-width);
     height: calc(100vh - var(--header-height));
-    transition: transform 0.2s ease-in-out;
+    transition: transform $transition-duration $transition-timing;
     z-index: 999;
     transform: translateX(-100%);
-    background-color: color-mix(in srgb, var(--bg-color-page), transparent 40%);
-    backdrop-filter: blur(10px);
+    background-color: $menu-bg;
+    backdrop-filter: blur($blur);
   }
 
   .container {
     margin-top: var(--header-height);
-    transition: margin-left 0.2s ease-in-out;
-    padding: 12px 24px;
+    transition: margin-left $transition-duration $transition-timing;
+    padding: $container-padding;
     .fade-enter-active,
     .fade-leave-active {
-      transition: all 0.3s ease;
+      transition: all $fade-duration $fade-easing;
     }
     .fade-enter-from {
       opacity: 0;
