@@ -1,0 +1,25 @@
+.Tags {
+  display: flex;
+  align-items: center;
+  ul {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    li {
+      border-radius: 5px;
+      overflow: hidden;
+      font-size: 14px;
+      a {
+        padding: 4px 12px;
+        display: flex;
+        width: 100%;
+      }
+      .active {
+        background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
+        font-weight: 900;
+      }
+    }
+  }
+}

@@ -1,13 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Tags from '@/components/User/Tags/Tags.vue'
+import About from '@/components/User/About/About.vue'
+</script>
 
 <template>
   <div class="home">
-    <h1 v-for="item in 100" :key="item">我是首页2</h1>
+    <About />
+    <Tags />
   </div>
 </template>
 
 <style scoped lang="scss">
 .home {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 </style>

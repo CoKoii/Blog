@@ -1,0 +1,40 @@
+.About {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  gap: 32px;
+  .info {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: start;
+    gap: 64px;
+    img {
+      border-radius: 50%;
+      width: 250px;
+    }
+    .desc {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      h2 {
+        font-size: 32px;
+        font-weight: bold;
+      }
+      p {
+        font-size: 16px;
+        color: #666;
+      }
+    }
+  }
+  img {
+    width: 100%;
+    object-fit: cover;
+    backdrop-filter: blur(10px);
+  }
+}
