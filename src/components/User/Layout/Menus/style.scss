@@ -1,12 +1,30 @@
 .Menus {
-  font-size: 14px;
+  $bg-item: var(--bg-color-item);
+  $black: var(--black);
+  $active-bg: color-mix(in srgb, $bg-item, $black 5%);
+  $hover-bg: $active-bg;
+  $line-bg: color-mix(in srgb, $bg-item, $black 10%);
+
+  $font-size-base: 14px;
+  $gap-sm: 8px;
+  $gap-md: 12px;
+  $radius-md: 8px;
+  $padding-item: 6px 12px;
+  $icon-size: 18px;
+  $icon-opacity: 0.6;
+  $dots-size: 22.5px;
+  $dots-scale: 0.55;
+  $transition-fast: 0.2s;
+  $transition-normal: 0.3s;
+
+  font-size: $font-size-base;
   width: 100%;
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: $gap-sm;
   .active {
-    background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
+    background-color: $active-bg;
     font-weight: bold;
     i {
       opacity: 1 !important;
@@ -15,49 +33,49 @@
   .line {
     height: 1px;
     width: 100%;
-    margin: 8px auto;
-    background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 10%);
+    margin: $gap-sm auto;
+    background-color: $line-bg;
   }
   .title {
-    font-size: 14px;
+    font-size: $font-size-base;
     font-weight: normal;
     opacity: 0.6;
-    padding-left: 12px;
+    padding-left: $gap-md;
     margin-top: 20px;
   }
   .menus_main {
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 8px;
+    gap: $gap-sm;
     li {
       cursor: pointer;
       width: 100%;
-      border-radius: 8px;
+      border-radius: $radius-md;
       overflow: hidden;
       a {
-        padding: 6px 12px;
+        padding: $padding-item;
         display: flex;
-        gap: 12px;
+        gap: $gap-md;
         align-items: center;
-        transition: all 0.2s;
+        transition: all $transition-fast;
         &:hover {
-          background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
+          background-color: $hover-bg;
           i {
             opacity: 1 !important;
           }
         }
         .dots {
-          width: 22.5px;
-          height: 22.5px;
-          transform: scale(0.55);
+          width: $dots-size;
+          height: $dots-size;
+          transform: scale($dots-scale);
           border-radius: 50%;
           background-color: #28c840;
-          transition: all 0.3s ease;
+          transition: all $transition-normal ease;
         }
         i {
-          font-size: 18px;
-          opacity: 0.6;
+          font-size: $icon-size;
+          opacity: $icon-opacity;
         }
       }
     }
