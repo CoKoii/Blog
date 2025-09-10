@@ -45,7 +45,7 @@
       .social-link {
         display: inline-flex;
         align-items: center;
-        justify-content: flex-start;
+        justify-content: center;
         gap: 8px;
         padding: 10px 18px;
         min-width: 156px;
@@ -55,7 +55,10 @@
         color: var(--black);
         font-weight: 700;
         letter-spacing: 0.2px;
-        transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        transition:
+          background 0.15s ease,
+          border-color 0.15s ease,
+          color 0.15s ease;
         backdrop-filter: saturate(140%) blur(6px);
         filter: none !important;
         .VIcon {
