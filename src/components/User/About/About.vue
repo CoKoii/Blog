@@ -33,7 +33,9 @@ const socials = [
         </a>
       </div>
     </div>
-    <img src="https://ghchart.rshah.org/Cokoii" alt="GitHub contribution graph" />
+    <div class="chart-scroll">
+      <img src="https://ghchart.rshah.org/Cokoii" alt="GitHub contribution graph" />
+    </div>
   </div>
 </template>
 
