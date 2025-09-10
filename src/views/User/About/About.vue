@@ -1,9 +1,7 @@
-<script setup lang="ts">
-import About from '@/components/User/About/About.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <About />
+  <div class="about">关于</div>
 </template>
 
 <style scoped lang="scss"></style>
