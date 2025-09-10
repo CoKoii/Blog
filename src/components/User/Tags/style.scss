@@ -32,6 +32,9 @@
         background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
         font-weight: 900;
       }
+      &:hover {
+        background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
+      }
     }
   }
   .controls {
