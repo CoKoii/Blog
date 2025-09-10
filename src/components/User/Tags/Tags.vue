@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 const tags = ref([
   { name: 'All Posts', path: '/', id: 1 },
@@ -12,15 +12,50 @@ const tags = ref([
   { name: '归档', path: '/archive', id: 8 },
   { name: '更多', path: '/more', id: 9 },
 ])
+
+const scrollRef = ref<HTMLElement | null>(null)
+const showArrows = ref(false)
+
+const updateArrows = () => {
+  const el = scrollRef.value
+  if (!el) return
+  showArrows.value = el.scrollWidth > el.clientWidth
+}
+
+const scrollLeft = () => {
+  scrollRef.value?.scrollBy({ left: -200, behavior: 'smooth' })
+}
+
+const scrollRight = () => {
+  scrollRef.value?.scrollBy({ left: 200, behavior: 'smooth' })
+}
+
+const onResize = () => updateArrows()
+
+onMounted(async () => {
+  await nextTick()
+  updateArrows()
+  window.addEventListener('resize', onResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onResize)
+})
 </script>
 
 <template>
   <div class="Tags">
-    <ul>
-      <li v-for="value in tags" :key="value.id">
-        <router-link :to="value.path" active-class="active">{{ value.name }}</router-link>
-      </li>
-    </ul>
+    <div class="scroll" ref="scrollRef">
+      <ul>
+        <li v-for="value in tags" :key="value.id">
+          <router-link :to="value.path" active-class="active">{{ value.name }}</router-link>
+        </li>
+      </ul>
+    </div>
+    <div class="controls" v-if="showArrows">
+      <button class="btn left" @click="scrollLeft">‹</button>
+      <button class="btn right" @click="scrollRight">›</button>
+    </div>
   </div>
 </template>
 
