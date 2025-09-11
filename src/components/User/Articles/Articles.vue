@@ -23,9 +23,9 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="mask">
-    <div class="text">Load More...</div>
+    <div class="mask">
+      <div class="text">Load More...</div>
+    </div>
   </div>
 </template>
 
