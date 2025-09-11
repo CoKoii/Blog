@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 type Mode = 'loadmore' | 'infinite'
@@ -56,7 +56,7 @@ const allArticles = computed<Article[]>(() => {
 const MAX_LOADMORE = 11
 
 const categoryToTag: Record<string, string | null> = {
-  '': null, // 全部
+  '': null,
   jszj: '标签1',
   dlkf: '标签2',
   dsbj: '标签3',
@@ -66,6 +66,7 @@ const categoryToTag: Record<string, string | null> = {
 const INITIAL_INFINITE = 12
 const STEP_INFINITE = 6
 const count = ref(INITIAL_INFINITE)
+const perCategoryCount = ref<Record<string, number>>({})
 const filteredArticles = computed(() => {
   const tag = categoryToTag[category.value]
   if (!tag) return allArticles.value
@@ -99,6 +100,7 @@ async function loadMoreAsync() {
   isLoading.value = true
   await new Promise((r) => setTimeout(r, 800))
   count.value = Math.min(count.value + STEP_INFINITE, filteredArticles.value.length)
+  perCategoryCount.value[category.value] = count.value
   isLoading.value = false
 }
 
@@ -111,7 +113,7 @@ function setupObserver() {
         if (entry.isIntersecting) loadMoreAsync()
       })
     },
-    { root: null, rootMargin: '200px 0px', threshold: 0 },
+    { root: null, rootMargin: '300px 0px', threshold: 0 },
   )
   if (sentinel.value) observer.observe(sentinel.value)
 }
@@ -124,7 +126,10 @@ function cleanupObserver() {
 }
 
 onMounted(() => {
-  if (props.mode === 'infinite') count.value = INITIAL_INFINITE
+  if (props.mode === 'infinite') {
+    const cat = category.value
+    count.value = perCategoryCount.value[cat] ?? INITIAL_INFINITE
+  }
   setupObserver()
 })
 
@@ -134,25 +139,34 @@ onBeforeUnmount(() => {
 
 watch(
   () => props.mode,
-  (m) => {
+  async (m) => {
     if (m === 'infinite') {
-      count.value = INITIAL_INFINITE
+      const cat = category.value
+      count.value = perCategoryCount.value[cat] ?? INITIAL_INFINITE
       isLoading.value = false
+      await nextTick()
+      if (count.value > filteredArticles.value.length) {
+        count.value = Math.min(count.value, filteredArticles.value.length)
+      }
+    } else {
+      cleanupObserver()
     }
     setupObserver()
   },
 )
 
-// 当分类变化时，如果当前实例未被 KeepAlive 缓存（或首次挂载），按需重置无限滚动计数
 watch(
   () => category.value,
-  () => {
-    if (props.mode === 'infinite') {
-      count.value = INITIAL_INFINITE
-      isLoading.value = false
-      // 重新观察以适配不同列表长度
-      setupObserver()
+  async (newCat, oldCat) => {
+    if (props.mode !== 'infinite') return
+    if (oldCat != null) perCategoryCount.value[oldCat] = count.value
+    count.value = perCategoryCount.value[newCat] ?? INITIAL_INFINITE
+    isLoading.value = false
+    await nextTick()
+    if (count.value > filteredArticles.value.length) {
+      count.value = Math.min(count.value, filteredArticles.value.length)
     }
+    setupObserver()
   },
 )
 </script>
