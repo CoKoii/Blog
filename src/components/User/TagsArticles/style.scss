@@ -1,4 +1,7 @@
 .TagsArticles {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   .item {
     margin-bottom: 48px;
     display: flex;

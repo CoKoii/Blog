@@ -20,5 +20,8 @@ import TagsArticles from '@/components/User/TagsArticles/TagsArticles.vue'
   display: flex;
   flex-direction: column;
   gap: 32px;
+  h1 {
+    text-align: center;
+  }
 }
 </style>
