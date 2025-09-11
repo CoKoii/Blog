@@ -178,3 +178,13 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .TagsArticles {
+    .item {
+      .title_desc {
+        width: 100%;
+      }
+    }
+  }
+}

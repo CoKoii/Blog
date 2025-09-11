@@ -163,4 +163,18 @@ const setContainer = (index: number) => (el: Element | ComponentPublicInstance |
 .articles-container:hover .scroll-btn[disabled] {
   opacity: 0.35;
 }
+
+@media (max-width: 600px) {
+  .header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .title_desc {
+    width: 100%;
+  }
+  .view-all {
+    align-self: flex-start;
+  }
+}
 </style>
