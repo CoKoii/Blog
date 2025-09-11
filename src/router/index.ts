@@ -2,9 +2,7 @@ import { createRouter, createWebHistory, type RouterScrollBehavior } from 'vue-r
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-
   scrollBehavior: (() => ({ left: 0, top: 0, behavior: 'auto' })) as RouterScrollBehavior,
-
   routes: [
     {
       path: '/',

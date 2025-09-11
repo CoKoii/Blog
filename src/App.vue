@@ -8,7 +8,9 @@ defineOptions({
   <div class="App">
     <router-view v-slot="{ Component }">
       <transition name="fade" mode="out-in">
-        <Component :is="Component" />
+        <keep-alive>
+          <Component :is="Component" />
+        </keep-alive>
       </transition>
     </router-view>
   </div>
