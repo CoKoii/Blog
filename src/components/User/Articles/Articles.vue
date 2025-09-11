@@ -133,11 +133,16 @@ watch(
   <div class="Articles">
     <div class="item" v-for="item in visibleArticles" :key="item.id">
       <div class="img">
-        <img :src="item.cover" alt="" />
+        <img loading="lazy" :src="item.cover" alt="" />
         <div class="read_total">{{ item.reads }}人读过</div>
       </div>
       <div class="info">
-        <img class="avatar" src="https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640" alt="" />
+        <img
+          loading="lazy"
+          class="avatar"
+          src="https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640"
+          alt=""
+        />
         <div class="desc">
           <div class="title">{{ item.title }}</div>
           <div class="author">{{ item.author }}</div>

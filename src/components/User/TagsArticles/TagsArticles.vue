@@ -26,8 +26,7 @@ const topics = ref<Topic[]>([
     id: 1,
     name: 'JavaScript',
     color: '#28c840',
-    desc:
-      'JavaScript（简称 JS）是一种运行在浏览器和服务器端的高级编程语言，支持多范式与丰富的生态。',
+    desc: 'JavaScript（简称 JS）是一种运行在浏览器和服务器端的高级编程语言，支持多范式与丰富的生态。',
     link: '/archive?tag=javascript',
     articles: Array.from({ length: 8 }).map((_, i) => ({
       id: i + 1,
@@ -178,11 +177,11 @@ const setContainer = (index: number) => (el: Element | ComponentPublicInstance |
         <div class="articles-scroll" :ref="setContainer(index)" @scroll="updateEdges(index)">
           <div class="article-item" v-for="article in topic.articles" :key="article.id">
             <div class="img">
-              <img :src="article.img" alt="" />
+              <img loading="lazy" :src="article.img" alt="" />
               <div class="read_total">{{ article.readTotal }}人读过</div>
             </div>
             <div class="info">
-              <img class="avatar" :src="article.avatar" alt="" />
+              <img loading="lazy" class="avatar" :src="article.avatar" alt="" />
               <div class="desc">
                 <div class="title">{{ article.title }}</div>
                 <div class="author">{{ article.author }}</div>

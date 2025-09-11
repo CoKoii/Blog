@@ -2,7 +2,7 @@
 
 <template>
   <div class="NotFound">
-    <img src="../../../assets/NotFound.svg" alt="" />
+    <img loading="lazy" src="../../../assets/NotFound.svg" alt="" />
     <h2>404 Not Found</h2>
     <h3>The page you're looking for doesn't exist or has been moved.</h3>
     <router-link to="/">Return Home</router-link>
