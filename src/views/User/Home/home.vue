@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import Tags from '@/components/User/Tags/Tags.vue'
 import About from '@/components/User/About/About.vue'
+import Articles from '@/components/User/Articles/Articles.vue'
 </script>
 
 <template>
   <div class="home">
     <About />
     <Tags />
+    <Articles />
   </div>
 </template>
 
