@@ -1,39 +1,9 @@
-import {
-  createRouter,
-  createWebHistory,
-  type RouterScrollBehavior,
-  type RouteLocationNormalized,
-} from 'vue-router'
-
-function routeKey(r: Pick<RouteLocationNormalized, 'name' | 'path' | 'params' | 'query'>) {
-  const id = r.name ?? r.path
-  return `${String(id)}|p:${JSON.stringify(r.params)}|q:${JSON.stringify(r.query)}`
-}
-
-const scrollPositions = new Map<string, { left: number; top: number }>()
+import { createRouter, createWebHistory, type RouterScrollBehavior } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
 
-  scrollBehavior: ((to, from, savedPosition) => {
-    if (savedPosition) return savedPosition
-
-    if (to.hash) {
-      return {
-        el: to.hash,
-        behavior: 'auto',
-        top: 0,
-      }
-    }
-
-    const key = routeKey(to)
-    const pos = scrollPositions.get(key)
-    if (pos) {
-      return { left: pos.left, top: pos.top, behavior: 'auto' }
-    }
-
-    return { left: 0, top: 0, behavior: 'auto' }
-  }) as RouterScrollBehavior,
+  scrollBehavior: (() => ({ left: 0, top: 0, behavior: 'auto' })) as RouterScrollBehavior,
 
   routes: [
     {
@@ -64,14 +34,6 @@ const router = createRouter({
       component: () => import('@/views/User/NotFound/NotFound.vue'),
     },
   ],
-})
-
-router.beforeEach((to, from, next) => {
-  if (from.matched.length) {
-    const key = routeKey(from)
-    scrollPositions.set(key, { left: window.scrollX, top: window.scrollY })
-  }
-  next()
 })
 
 export default router

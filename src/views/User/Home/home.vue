@@ -6,7 +6,7 @@ import TagsArticles from '@/components/User/TagsArticles/TagsArticles.vue'
 </script>
 
 <template>
-  <div class="home">
+  <div class="Home">
     <About />
     <Tags />
     <Articles />
@@ -15,7 +15,7 @@ import TagsArticles from '@/components/User/TagsArticles/TagsArticles.vue'
 </template>
 
 <style scoped lang="scss">
-.home {
+.Home {
   width: 100%;
   display: flex;
   flex-direction: column;
