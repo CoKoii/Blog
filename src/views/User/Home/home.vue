@@ -2,6 +2,7 @@
 import Tags from '@/components/User/Tags/Tags.vue'
 import About from '@/components/User/About/About.vue'
 import Articles from '@/components/User/Articles/Articles.vue'
+import TagsArticles from '@/components/User/TagsArticles/TagsArticles.vue'
 </script>
 
 <template>
@@ -9,7 +10,7 @@ import Articles from '@/components/User/Articles/Articles.vue'
     <About />
     <Tags />
     <Articles />
-    <h1>777</h1>
+    <TagsArticles />
   </div>
 </template>
 

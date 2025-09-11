@@ -1,0 +1,180 @@
+.TagsArticles {
+  .item {
+    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    h1 {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-weight: 900;
+      .dots {
+        display: inline-block;
+        width: 22.5px;
+        height: 22.5px;
+        transform: scale(0.55);
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+    }
+    .title_desc {
+      width: 700px;
+      opacity: 0.8;
+    }
+
+    .articles-container {
+      position: relative;
+
+      .scroll-btn {
+        position: absolute;
+        top: calc(50% * 5 / 8);
+        transform: translateY(-50%);
+        width: 45px;
+        height: 45px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(8px);
+        opacity: 0;
+
+        &.scroll-left {
+          left: 16px;
+        }
+
+        &.scroll-right {
+          right: 16px;
+        }
+
+        svg {
+          width: 22px;
+          height: 22px;
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.95);
+          transform: translateY(-50%) scale(1.05);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        &:active {
+          transform: translateY(-50%) scale(0.95);
+        }
+      }
+
+      &:hover .scroll-btn {
+        opacity: 1;
+      }
+
+      .articles-scroll {
+        display: flex;
+        gap: 24px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding: 8px 4px;
+
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        .article-item {
+          display: flex;
+          flex-direction: column;
+          cursor: pointer;
+          width: 300px;
+          flex-shrink: 0;
+
+          &:hover {
+            .img {
+              transform: scale(1.02) rotate(-1deg);
+            }
+          }
+
+          .img {
+            position: relative;
+            aspect-ratio: 8 / 5;
+            background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            font-weight: 900;
+            transition: all 0.3s ease;
+
+            img {
+              position: absolute;
+              inset: 0;
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+
+            .read_total {
+              position: absolute;
+              right: 10px;
+              bottom: 10px;
+              font-size: 12px;
+              color: #fff;
+              padding: 4px 8px;
+              border-radius: 999px;
+              background: rgba(0, 0, 0, 0.6);
+            }
+          }
+
+          .info {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            gap: 12px;
+            padding: 12px;
+          }
+
+          .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #ddd;
+          }
+
+          .desc {
+            display: grid;
+            gap: 2px;
+
+            .title {
+              font-weight: 900;
+              line-height: 1.5;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              line-clamp: 2;
+              overflow: hidden;
+            }
+
+            .author {
+              font-size: 14px;
+              opacity: 0.8;
+            }
+
+            .arguments {
+              font-size: 14px;
+              opacity: 0.8;
+              display: flex;
+              gap: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
