@@ -13,13 +13,6 @@ const router = createRouter({
           path: '/home',
           name: 'Home',
           component: () => import('@/views/User/Home/Home.vue'),
-          children: [
-            {
-              path: 'post/:id',
-              name: 'Post',
-              component: () => import('@/components/User/Articles/Articles.vue'),
-            },
-          ],
         },
         {
           path: '/archive',
