@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 type Mode = 'loadmore' | 'infinite'
 
@@ -18,6 +18,8 @@ const props = withDefaults(
 )
 
 const router = useRouter()
+const route = useRoute()
+const category = computed(() => (route.query.category ?? '') as string)
 
 type Article = {
   id: number
@@ -53,22 +55,35 @@ const allArticles = computed<Article[]>(() => {
 
 const MAX_LOADMORE = 11
 
+const categoryToTag: Record<string, string | null> = {
+  '': null, // 全部
+  jszj: '标签1',
+  dlkf: '标签2',
+  dsbj: '标签3',
+  shsb: '标签4',
+}
+
 const INITIAL_INFINITE = 12
 const STEP_INFINITE = 6
 const count = ref(INITIAL_INFINITE)
-const hasMore = computed(() => count.value < allArticles.value.length)
+const filteredArticles = computed(() => {
+  const tag = categoryToTag[category.value]
+  if (!tag) return allArticles.value
+  return allArticles.value.filter((a) => a.tag === tag)
+})
+const hasMore = computed(() => count.value < filteredArticles.value.length)
 const isLoading = ref(false)
 
 const visibleArticles = computed(() => {
   if (props.mode === 'loadmore') {
-    const n = Math.min(MAX_LOADMORE, allArticles.value.length)
-    return allArticles.value.slice(0, n)
+    const n = Math.min(MAX_LOADMORE, filteredArticles.value.length)
+    return filteredArticles.value.slice(0, n)
   }
-  return allArticles.value.slice(0, Math.min(count.value, allArticles.value.length))
+  return filteredArticles.value.slice(0, Math.min(count.value, filteredArticles.value.length))
 })
 
 const showLoadMoreTile = computed(
-  () => props.mode === 'loadmore' && allArticles.value.length > MAX_LOADMORE,
+  () => props.mode === 'loadmore' && filteredArticles.value.length > MAX_LOADMORE,
 )
 
 function onClickLoadMore() {
@@ -83,7 +98,7 @@ async function loadMoreAsync() {
   if (isLoading.value || !hasMore.value) return
   isLoading.value = true
   await new Promise((r) => setTimeout(r, 800))
-  count.value = Math.min(count.value + STEP_INFINITE, allArticles.value.length)
+  count.value = Math.min(count.value + STEP_INFINITE, filteredArticles.value.length)
   isLoading.value = false
 }
 
@@ -125,6 +140,19 @@ watch(
       isLoading.value = false
     }
     setupObserver()
+  },
+)
+
+// 当分类变化时，如果当前实例未被 KeepAlive 缓存（或首次挂载），按需重置无限滚动计数
+watch(
+  () => category.value,
+  () => {
+    if (props.mode === 'infinite') {
+      count.value = INITIAL_INFINITE
+      isLoading.value = false
+      // 重新观察以适配不同列表长度
+      setupObserver()
+    }
   },
 )
 </script>
