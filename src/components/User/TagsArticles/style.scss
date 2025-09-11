@@ -28,8 +28,8 @@
 
       .scroll-btn {
         position: absolute;
-        top: calc(50% * 5 / 8);
-        transform: translateY(-50%);
+        top: 90px;
+        transform: none;
         width: 45px;
         height: 45px;
         border: none;
@@ -61,12 +61,12 @@
 
         &:hover {
           background: rgba(255, 255, 255, 0.95);
-          transform: translateY(-50%) scale(1.05);
+          transform: scale(1.05);
           box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
         &:active {
-          transform: translateY(-50%) scale(0.95);
+          transform: scale(0.95);
         }
       }
 
