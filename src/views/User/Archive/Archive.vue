@@ -6,7 +6,7 @@ import Tags from '@/components/User/Tags/Tags.vue'
 <template>
   <div class="Archive">
     <Tags />
-    <Articles />
+    <Articles mode="infinite" />
   </div>
 </template>
 
