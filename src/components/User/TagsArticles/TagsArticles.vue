@@ -8,20 +8,17 @@ const canScrollRight = ref<boolean[]>([])
 const updateEdges = (index: number) => {
   const el = containers.value[index]
   if (!el) return
-  const maxScrollLeft = el.scrollWidth - el.clientWidth - 1 // 容错
+  const max = el.scrollWidth - el.clientWidth - 1
   canScrollLeft.value[index] = el.scrollLeft > 0
-  canScrollRight.value[index] = el.scrollLeft < maxScrollLeft
+  canScrollRight.value[index] = el.scrollLeft < max
 }
 
 const scrollContainer = (el: HTMLElement, direction: 'left' | 'right') => {
   if (!el) return
-  // 基于容器宽度的滚动距离，更加自适应
-  const scrollAmount = Math.max(240, Math.round(el.clientWidth * 0.9))
-  const currentScroll = el.scrollLeft
-  const targetScroll =
-    direction === 'left' ? Math.max(0, currentScroll - scrollAmount) : currentScroll + scrollAmount
-
-  el.scrollTo({ left: targetScroll, behavior: 'smooth' })
+  const amount = Math.max(240, Math.round(el.clientWidth * 0.9))
+  const current = el.scrollLeft
+  const target = direction === 'left' ? Math.max(0, current - amount) : current + amount
+  el.scrollTo({ left: target, behavior: 'smooth' })
 }
 
 const scrollLeft = (index: number) => {
@@ -37,9 +34,7 @@ const scrollRight = (index: number) => {
 let resizeHandler: (() => void) | null = null
 
 onMounted(() => {
-  nextTick(() => {
-    containers.value.forEach((_, i) => updateEdges(i))
-  })
+  nextTick(() => containers.value.forEach((_, i) => updateEdges(i)))
   resizeHandler = () => containers.value.forEach((_, i) => updateEdges(i))
   window.addEventListener('resize', resizeHandler)
 })
@@ -59,8 +54,8 @@ const setContainer = (index: number) => (el: Element | ComponentPublicInstance |
 <template>
   <div class="TagsArticles">
     <div class="item" v-for="(item, index) in 4" :key="item">
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
-        <div style="display: flex; flex-direction: column; gap: 8px; flex: 1 1 auto; min-width: 0">
+      <div class="header-row">
+        <div class="header-left">
           <h1>
             <span class="dots" style="background-color: #28c840"></span>
             JavaScript
@@ -88,12 +83,7 @@ const setContainer = (index: number) => (el: Element | ComponentPublicInstance |
             <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
           </svg>
         </button>
-        <div
-          class="articles-scroll"
-          :class="`scroll-container-${index}`"
-          :ref="setContainer(index)"
-          @scroll="updateEdges(index)"
-        >
+        <div class="articles-scroll" :ref="setContainer(index)" @scroll="updateEdges(index)">
           <div class="article-item" v-for="article in 8" :key="article">
             <div class="img">
               <img
@@ -134,6 +124,21 @@ const setContainer = (index: number) => (el: Element | ComponentPublicInstance |
 
 <style scoped lang="scss">
 @use './style.scss';
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
 
 .view-all {
   display: inline-flex;
