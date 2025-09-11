@@ -10,20 +10,26 @@ const router = createRouter({
       children: [
         {
           path: '/home',
+          name: 'Home',
           component: () => import('@/views/User/Home/Home.vue'),
+          meta: { keepAlive: true },
         },
         {
           path: '/archive',
+          name: 'Archive',
           component: () => import('@/views/User/Archive/Archive.vue'),
+          meta: { keepAlive: true },
         },
         {
           path: '/about',
+          name: 'About',
           component: () => import('@/views/User/About/About.vue'),
         },
       ],
     },
     {
       path: '/:pathMatch(.*)*',
+      name: 'NotFound',
       component: () => import('@/views/User/NotFound/NotFound.vue'),
     },
   ],
