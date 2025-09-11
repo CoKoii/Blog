@@ -88,7 +88,7 @@ const showLoadMoreTile = computed(
 
 function onClickLoadMore() {
   if (props.mode !== 'loadmore') return
-  router.push(props.loadMoreTo)
+  router.push({ path: props.loadMoreTo, query: route.query })
 }
 
 const sentinel = ref<HTMLElement | null>(null)
