@@ -27,13 +27,17 @@ const tag = route.params.id
 
 <style scoped lang="scss">
 .Tags {
+  width: 100%;
   display: flex;
   flex-direction: column;
+
   gap: 32px;
   .info {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 64px;
+    flex-wrap: nowrap;
     .text {
       display: flex;
       flex-direction: column;
@@ -65,6 +69,23 @@ const tag = route.params.id
     width: 50%;
     aspect-ratio: 16/9;
     border-radius: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .info {
+      flex-direction: column;
+      align-items: flex-start;
+      .text {
+        gap: 4px;
+        .title {
+          letter-spacing: 1px;
+          gap: 8px;
+        }
+      }
+    }
+    img {
+      display: none;
+    }
   }
 }
 </style>
