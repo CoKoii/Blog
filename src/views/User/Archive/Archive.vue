@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Articles from '@/components/User/Articles/Articles.vue'
+import AutoArticles from '@/components/User/AutoArticles/AutoArticles.vue'
 import Tags from '@/components/User/Tags/Tags.vue'
 </script>
 
 <template>
   <div class="Archive">
     <Tags />
-    <Articles />
+    <AutoArticles />
   </div>
 </template>
 
