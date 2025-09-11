@@ -9,6 +9,7 @@ import Articles from '@/components/User/Articles/Articles.vue'
     <About />
     <Tags />
     <Articles />
+    <h1>777</h1>
   </div>
 </template>
 

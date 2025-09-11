@@ -2,7 +2,7 @@
 
 <template>
   <div class="Articles">
-    <div class="item" v-for="item in 8" :key="item">
+    <div class="item" v-for="item in 12" :key="item">
       <div class="img">
         <img
           src="https://oss.zibll.com/zibll.com/2020/11/%E6%8E%A8%E5%B9%BF%E8%AE%A1%E5%88%92.png?x-oss-process=image%2Fquality,q_50%2Fresize,m_fill,w_429,h_300"
@@ -25,7 +25,7 @@
     </div>
   </div>
   <div class="mask">
-    <div class="text">查看更多</div>
+    <div class="text">Load More...</div>
   </div>
 </template>
 
