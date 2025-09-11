@@ -12,7 +12,7 @@ const router = createRouter({
         {
           path: '/home',
           name: 'Home',
-          component: () => import('@/views/User/Home/Home.vue'),
+          component: () => import('@/views/User/Home/home.vue'),
         },
         {
           path: '/archive',
@@ -23,6 +23,16 @@ const router = createRouter({
           path: '/about',
           name: 'About',
           component: () => import('@/views/User/About/About.vue'),
+        },
+        {
+          path: '/tags',
+          name: 'Tags',
+          component: () => import('@/components/User/TagsArticles/TagsArticles.vue'),
+        },
+        {
+          path: '/tags/:id',
+          name: 'TagDetail',
+          component: () => import('@/views/User/Tags/Tags.vue'),
         },
       ],
     },

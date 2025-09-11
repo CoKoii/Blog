@@ -9,7 +9,7 @@ type MenuItem = {
 }
 
 type TagItem = {
-  to: string
+  path: string
   label: string
   color: string
 }
@@ -23,9 +23,9 @@ const mainMenus: MenuItem[] = [
 const moreMenus: MenuItem[] = [{ to: '/more', label: '正在发掘...', icon: faCompass }]
 
 const tags: TagItem[] = [
-  { to: '/vuejs', label: 'VueJs', color: '#ff5f57' },
-  { to: '/javascript', label: 'JavaScript', color: '#febc2e' },
-  { to: '/nodejs', label: 'Node.js', color: '#28c840' },
+  { path: 'vuejs', label: 'VueJs', color: '#ff5f57' },
+  { path: 'javascript', label: 'JavaScript', color: '#febc2e' },
+  { path: 'nodejs', label: 'Node.js', color: '#28c840' },
 ]
 </script>
 
@@ -54,8 +54,8 @@ const tags: TagItem[] = [
     <!-- 标签 -->
     <h1 class="title">Tags</h1>
     <ul class="menus_main">
-      <li v-for="tag in tags" :key="tag.to">
-        <router-link :to="tag.to" active-class="active">
+      <li v-for="tag in tags" :key="tag.path">
+        <router-link :to="'/tags/' + tag.path" active-class="active">
           <span class="dots" :style="{ backgroundColor: tag.color }"></span>
           <span>{{ tag.label }}</span>
         </router-link>

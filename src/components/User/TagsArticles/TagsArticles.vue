@@ -17,7 +17,7 @@ type Topic = {
   name: string
   color: string
   desc: string
-  link: string
+  path: string
   articles: Article[]
 }
 
@@ -27,7 +27,7 @@ const topics = ref<Topic[]>([
     name: 'JavaScript',
     color: '#28c840',
     desc: 'JavaScript（简称 JS）是一种运行在浏览器和服务器端的高级编程语言，支持多范式与丰富的生态。',
-    link: '/archive?tag=javascript',
+    path: 'javascript',
     articles: Array.from({ length: 8 }).map((_, i) => ({
       id: i + 1,
       img: `https://picsum.photos/seed/js-${i + 1}/800/500`,
@@ -44,7 +44,7 @@ const topics = ref<Topic[]>([
     name: '独立开发',
     color: '#f59e0b',
     desc: '从 0 到 1 打造产品的心法与实战记录。',
-    link: '/archive?tag=indie',
+    path: 'indie',
     articles: Array.from({ length: 8 }).map((_, i) => ({
       id: 100 + i + 1,
       img: `https://picsum.photos/seed/indie-${i + 1}/800/500`,
@@ -61,7 +61,7 @@ const topics = ref<Topic[]>([
     name: '读书笔记',
     color: '#3b82f6',
     desc: '记录读书所思所想，输出倒逼输入。',
-    link: '/archive?tag=reading',
+    path: 'reading',
     articles: Array.from({ length: 8 }).map((_, i) => ({
       id: 200 + i + 1,
       img: `https://picsum.photos/seed/book-${i + 1}/800/500`,
@@ -78,7 +78,7 @@ const topics = ref<Topic[]>([
     name: '技术总结',
     color: '#ef4444',
     desc: '工程化、性能优化与架构笔记，持续沉淀。',
-    link: '/archive?tag=tech',
+    path: 'tech',
     articles: Array.from({ length: 8 }).map((_, i) => ({
       id: 300 + i + 1,
       img: `https://picsum.photos/seed/tech-${i + 1}/800/500`,
@@ -155,7 +155,7 @@ const setContainer = (index: number) => (el: Element | ComponentPublicInstance |
             {{ topic.desc }}
           </div>
         </div>
-        <RouterLink :to="topic.link" class="view-all">
+        <RouterLink :to="'/tags/' + topic.path" class="view-all">
           查看全部
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true">
             <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
