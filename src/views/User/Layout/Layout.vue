@@ -18,7 +18,7 @@ provide('layoutRef', layoutRef)
       <router-view v-slot="{ Component, route }">
         <transition name="fade" mode="out-in">
           <keep-alive>
-            <component :is="Component" :key="route.name" />
+            <component :is="Component" :key="route.fullPath" />
           </keep-alive>
         </transition>
       </router-view>

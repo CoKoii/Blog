@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const count = ref(0)
+</script>
 
 <template>
-  <div class="Tags">{{ new Date() }}</div>
+  <div class="Tags" @click="count++">{{ count }}</div>
 </template>
 
 <style scoped lang="scss"></style>
