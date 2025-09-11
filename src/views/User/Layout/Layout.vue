@@ -17,9 +17,7 @@ provide('layoutRef', layoutRef)
     <div class="container">
       <router-view v-slot="{ Component, route }">
         <transition name="fade" mode="out-in">
-          <!-- 非缓存分支 -->
           <component v-if="!route.meta?.keepAlive" :is="Component" :key="route.fullPath" />
-          <!-- 缓存分支（KeepAlive 只能包一个子节点） -->
           <keep-alive v-else>
             <component :is="Component" :key="route.name" />
           </keep-alive>
