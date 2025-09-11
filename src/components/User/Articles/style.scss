@@ -3,24 +3,53 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 24px;
-  overflow: hidden;
 }
-
 .item {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   cursor: pointer;
+  &:hover {
+    .img {
+      transform: scale(1.02) rotate(-1deg);
+      box-shadow: color-mix(in srgb, rgba(0, 0, 0, 0.01), var(--black) 15%) 0px 0px 15px 5px;
+    }
+  }
+
+  &.load-more {
+    cursor: default;
+    &:hover {
+      .img {
+        transform: none;
+        box-shadow: none;
+      }
+    }
+    .img {
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.02) rotate(-1deg);
+        box-shadow: color-mix(in srgb, rgba(0, 0, 0, 0.01), var(--black) 15%) 0px 0px 15px 5px;
+      }
+    }
+  }
+
   .img {
     position: relative;
     aspect-ratio: 8 / 5;
+    background-color: color-mix(in srgb, var(--bg-color-item), var(--black) 5%);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 900;
+    transition: all 0.3s ease;
     img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      border-radius: 12px;
     }
     .read_total {
       position: absolute;
@@ -66,32 +95,6 @@
       display: flex;
       gap: 4px;
     }
-  }
-}
-.mask {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 350px;
-  background: linear-gradient(
-    to top,
-    var(--bg-color-page) 0%,
-    var(--bg-color-page) 75%,
-    color-mix(in srgb, var(--bg-color-page) 95%, transparent) 84%,
-    color-mix(in srgb, var(--bg-color-page) 85%, transparent) 91%,
-    color-mix(in srgb, var(--bg-color-page) 70%, transparent) 100%
-  );
-  pointer-events: none;
-
-  .text {
-    cursor: pointer;
-    position: absolute;
-    left: 50%;
-    top: 20%;
-    transform: translate(-50%, -50%);
-    pointer-events: auto;
-    font-weight: 900;
   }
 }
 @media (max-width: 480px) {
