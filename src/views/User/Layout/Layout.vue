@@ -20,7 +20,7 @@ provide('layoutRef', layoutRef)
           <keep-alive>
             <component
               :is="Component"
-              :key="route.name === 'Archive' ? route.name : route.fullPath"
+              :key="route.name === 'Archive' || route.name === 'Home' ? route.name : route.fullPath"
             />
           </keep-alive>
         </transition>
