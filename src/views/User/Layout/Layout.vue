@@ -17,8 +17,7 @@ provide('layoutRef', layoutRef)
     <div class="container">
       <router-view v-slot="{ Component, route }">
         <transition name="fade" mode="out-in">
-          <component v-if="!route.meta?.keepAlive" :is="Component" :key="route.fullPath" />
-          <keep-alive v-else>
+          <keep-alive>
             <component :is="Component" :key="route.name" />
           </keep-alive>
         </transition>
