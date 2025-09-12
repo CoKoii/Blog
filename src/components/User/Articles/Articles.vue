@@ -204,7 +204,12 @@ watch(
 <template>
   <div class="Articles">
     <div v-if="isFetching" class="loading-tip">正在加载文章。。。</div>
-    <div class="item" v-for="item in visibleArticles" :key="item.id">
+    <div
+      class="item"
+      v-for="(item, index) in visibleArticles"
+      :key="item.id"
+      :style="{ '--i': index }"
+    >
       <div class="img">
         <img loading="lazy" :src="item.cover" alt="" />
         <div class="read_total">{{ item.reads }}人读过</div>

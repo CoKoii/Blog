@@ -41,6 +41,7 @@
 }
 .item {
   animation: article-card-enter 360ms ease-out both;
+  animation-delay: calc(var(--i, 0) * 15ms);
   will-change: transform, opacity;
   display: flex;
   flex-direction: column;
