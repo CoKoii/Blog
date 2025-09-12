@@ -6,7 +6,7 @@ const route = useRoute()
 const current = computed(() => (route.query.category ?? '') as string)
 const dataTags = usedTags as Array<{ name: string; path: string }>
 const tags = ref([
-  { name: 'All Posts', category: '', id: 1 },
+  { name: 'All Posts', category: 'all', id: 1 },
   ...dataTags.map((t: { name: string; path: string }, i: number) => ({
     name: t.name,
     category: t.path,
@@ -50,8 +50,8 @@ onUnmounted(() => {
       <ul>
         <li v-for="t in tags" :key="t.id">
           <router-link
-            :to="{ name: route.name, query: { category: t.category || undefined } }"
-            :class="{ active: current === (t.category || '') }"
+            :to="{ name: route.name, query: { category: t.category } }"
+            :class="{ active: current === t.category }"
           >
             {{ t.name }}
           </router-link>

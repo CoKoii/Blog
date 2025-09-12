@@ -92,7 +92,8 @@ for (const art of articles) {
   }
 }
 export function getArticlesByTagPath(tagPath?: string): Article[] {
-  if (!tagPath || tagPath === 'all') return articles
+  if (tagPath === 'all') return articles
+  if (!tagPath) return []
   const tid = tagIdByPath[tagPath]
   if (!tid) return []
   const ids = tagIndex[tid] || []
