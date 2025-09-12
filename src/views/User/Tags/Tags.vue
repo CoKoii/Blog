@@ -9,6 +9,9 @@ const path = computed(() => (route.params.id ?? '') as string)
 const name = computed(() => usedTags.find((t) => t.path === path.value)?.name || path.value)
 const counts = getTagCounts()
 const count = computed(() => counts[path.value as string] ?? 0)
+const desc = computed(
+  () => usedTags.find((t) => t.path === path.value)?.desc || ''
+)
 </script>
 
 <template>
@@ -17,9 +20,7 @@ const count = computed(() => counts[path.value as string] ?? 0)
       <div class="text">
         <div class="num">{{ count }} posts</div>
         <div class="title">{{ name }} <span></span></div>
-        <div class="desc">
-          JavaScript是一个广泛使用的编程语言。他的语法简洁，功能强大，广泛应用于Web开发。
-        </div>
+        <div class="desc">{{ desc }}</div>
       </div>
       <img
         loading="lazy"

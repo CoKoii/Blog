@@ -1,4 +1,4 @@
-type Tag = { id: number; name: string; path: string; color: string }
+type Tag = { id: number; name: string; path: string; color: string; desc: string }
 type Article = {
   id: number
   cover: string
@@ -10,12 +10,48 @@ type Article = {
   views: number
 }
 export const tagCatalog: Tag[] = [
-  { id: 1, name: 'JavaScript', path: 'javascript', color: '#28c840' },
-  { id: 2, name: '独立开发', path: 'indie', color: '#f59e0b' },
-  { id: 3, name: '读书', path: 'reading', color: '#3b82f6' },
-  { id: 4, name: '技术', path: 'tech', color: '#ef4444' },
-  { id: 5, name: 'VueJs', path: 'vuejs', color: '#ff5f57' },
-  { id: 6, name: 'Node.js', path: 'nodejs', color: '#febc2e' },
+  {
+    id: 1,
+    name: 'JavaScript',
+    path: 'javascript',
+    color: '#28c840',
+    desc: 'JavaScript 是一种广泛使用的脚本语言，语法简洁、功能强大，主要用于构建交互式 Web 应用。',
+  },
+  {
+    id: 2,
+    name: '独立开发',
+    path: 'indie',
+    color: '#f59e0b',
+    desc: '独立开发专注于从零到一的产品实践，涵盖选题、实现、发布与增长的全流程经验。',
+  },
+  {
+    id: 3,
+    name: '读书',
+    path: 'reading',
+    color: '#3b82f6',
+    desc: '读书与书摘笔记，记录思考与收获，沉淀方法论与长期认知。',
+  },
+  {
+    id: 4,
+    name: '技术',
+    path: 'tech',
+    color: '#ef4444',
+    desc: '技术专题，涵盖前后端、工程化、性能与架构等实战与总结。',
+  },
+  {
+    id: 5,
+    name: 'VueJs',
+    path: 'vuejs',
+    color: '#ff5f57',
+    desc: 'Vue.js 相关内容：组合式 API、组件设计、生态与最佳实践。',
+  },
+  {
+    id: 6,
+    name: 'Node.js',
+    path: 'nodejs',
+    color: '#febc2e',
+    desc: 'Node.js 实战与工具链，后端服务、脚手架、构建与部署。',
+  },
 ]
 const tagById = Object.fromEntries(tagCatalog.map((t) => [t.id, t]))
 const tagIdByPath = Object.fromEntries(tagCatalog.map((t) => [t.path, t.id]))
