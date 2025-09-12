@@ -13,13 +13,18 @@ const props = withDefaults(
 )
 const router = useRouter()
 const route = useRoute()
-const category = computed(() => {
+
+const routeNameAtMount = ref(route.name)
+
+function resolveCategoryFromRoute(): string {
   const q = route.query.category
   if (typeof q === 'string' && q) return q
   const p = route.params.id
   if (typeof p === 'string' && p) return p
   return ''
-})
+}
+
+const currentCategory = ref<string>('')
 
 type Article = {
   id: number
@@ -49,7 +54,7 @@ type RawArticle = {
 }
 
 const filteredArticles = computed<Article[]>(() => {
-  const path = (category.value || '') as string
+  const path = (currentCategory.value || '') as string
   const raw = getArticlesByTagPath(path) as unknown as RawArticle[]
   return raw.map((a) => {
     const tagList = expandArticleTags(a) as Array<{ name: string; path: string }>
@@ -118,6 +123,8 @@ function cleanupObserver() {
 }
 
 onMounted(async () => {
+  // Initialize snapshot from the current route
+  currentCategory.value = resolveCategoryFromRoute()
   if (props.mode === 'infinite') {
     count.value = Math.min(INITIAL_INFINITE, filteredArticles.value.length)
     await nextTick()
@@ -130,13 +137,21 @@ onBeforeUnmount(() => {
 })
 
 watch(
-  () => category.value,
+  () => currentCategory.value,
   async () => {
     if (props.mode !== 'infinite') return
     count.value = Math.min(INITIAL_INFINITE, filteredArticles.value.length)
     isLoading.value = false
     await nextTick()
     setupObserver()
+  },
+)
+
+watch(
+  () => [route.name, route.query.category, route.params.id],
+  () => {
+    if (route.name !== routeNameAtMount.value) return
+    currentCategory.value = resolveCategoryFromRoute()
   },
 )
 </script>
