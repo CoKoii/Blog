@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onBeforeUnmount, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 type Mode = 'loadmore' | 'infinite'
@@ -10,11 +10,7 @@ const props = withDefaults(
     total?: number
     loadMoreTo?: string
   }>(),
-  {
-    mode: 'loadmore',
-    total: 36,
-    loadMoreTo: '/archive',
-  },
+  { mode: 'loadmore', total: 36, loadMoreTo: '/archive' },
 )
 
 const router = useRouter()
@@ -66,12 +62,13 @@ const categoryToTag: Record<string, string | null> = {
 const INITIAL_INFINITE = 12
 const STEP_INFINITE = 6
 const count = ref(INITIAL_INFINITE)
-const perCategoryCount = ref<Record<string, number>>({})
+
 const filteredArticles = computed(() => {
   const tag = categoryToTag[category.value]
   if (!tag) return allArticles.value
   return allArticles.value.filter((a) => a.tag === tag)
 })
+
 const hasMore = computed(() => count.value < filteredArticles.value.length)
 const isLoading = ref(false)
 
@@ -100,7 +97,6 @@ async function loadMoreAsync() {
   isLoading.value = true
   await new Promise((r) => setTimeout(r, 800))
   count.value = Math.min(count.value + STEP_INFINITE, filteredArticles.value.length)
-  perCategoryCount.value[category.value] = count.value
   isLoading.value = false
 }
 
@@ -108,11 +104,10 @@ function setupObserver() {
   if (props.mode !== 'infinite') return
   cleanupObserver()
   observer = new IntersectionObserver(
-    (entries) => {
+    (entries) =>
       entries.forEach((entry) => {
         if (entry.isIntersecting) loadMoreAsync()
-      })
-    },
+      }),
     { root: null, rootMargin: '300px 0px', threshold: 0 },
   )
   if (sentinel.value) observer.observe(sentinel.value)
@@ -125,12 +120,12 @@ function cleanupObserver() {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   if (props.mode === 'infinite') {
-    const cat = category.value
-    count.value = perCategoryCount.value[cat] ?? INITIAL_INFINITE
+    count.value = Math.min(INITIAL_INFINITE, filteredArticles.value.length)
+    await nextTick()
+    setupObserver()
   }
-  setupObserver()
 })
 
 onBeforeUnmount(() => {
@@ -138,34 +133,12 @@ onBeforeUnmount(() => {
 })
 
 watch(
-  () => props.mode,
-  async (m) => {
-    if (m === 'infinite') {
-      const cat = category.value
-      count.value = perCategoryCount.value[cat] ?? INITIAL_INFINITE
-      isLoading.value = false
-      await nextTick()
-      if (count.value > filteredArticles.value.length) {
-        count.value = Math.min(count.value, filteredArticles.value.length)
-      }
-    } else {
-      cleanupObserver()
-    }
-    setupObserver()
-  },
-)
-
-watch(
   () => category.value,
-  async (newCat, oldCat) => {
+  async () => {
     if (props.mode !== 'infinite') return
-    if (oldCat != null) perCategoryCount.value[oldCat] = count.value
-    count.value = perCategoryCount.value[newCat] ?? INITIAL_INFINITE
+    count.value = Math.min(INITIAL_INFINITE, filteredArticles.value.length)
     isLoading.value = false
     await nextTick()
-    if (count.value > filteredArticles.value.length) {
-      count.value = Math.min(count.value, filteredArticles.value.length)
-    }
     setupObserver()
   },
 )
@@ -196,9 +169,11 @@ watch(
         </div>
       </div>
     </div>
+
     <div v-if="showLoadMoreTile" class="item load-more">
       <div class="img" @click="onClickLoadMore">📖 Load More...</div>
     </div>
+
     <div v-if="mode === 'infinite' && isLoading" class="loading-tip">
       <span class="spinner" />
       <span>加载中...</span>
