@@ -13,7 +13,13 @@ const props = withDefaults(
 )
 const router = useRouter()
 const route = useRoute()
-const category = computed(() => (route.query.category ?? '') as string)
+const category = computed(() => {
+  const q = route.query.category
+  if (typeof q === 'string' && q) return q
+  const p = route.params.id
+  if (typeof p === 'string' && p) return p
+  return ''
+})
 
 type Article = {
   id: number

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { faAddressCard, faCompass, faFolderOpen, faHome } from '@fortawesome/free-regular-svg-icons'
 import { VIcon } from 'void-design-vue'
+import { usedTags } from '@/data/mock'
 
 type MenuItem = {
   to: string
@@ -22,11 +23,7 @@ const mainMenus: MenuItem[] = [
 
 const moreMenus: MenuItem[] = [{ to: '/more', label: '正在发掘...', icon: faCompass }]
 
-const tags: TagItem[] = [
-  { path: 'vuejs', label: 'VueJs', color: '#ff5f57' },
-  { path: 'javascript', label: 'JavaScript', color: '#febc2e' },
-  { path: 'nodejs', label: 'Node.js', color: '#28c840' },
-]
+const tags: TagItem[] = usedTags.map((t) => ({ path: t.path, label: t.name, color: t.color }))
 </script>
 
 <template>

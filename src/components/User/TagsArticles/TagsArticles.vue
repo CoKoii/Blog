@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, nextTick, ref, type ComponentPublicInstance } from 'vue'
+import { usedTags, getArticlesByTagPath } from '@/data/mock'
 
 type Article = {
   id: number
@@ -21,76 +22,39 @@ type Topic = {
   articles: Article[]
 }
 
-const topics = ref<Topic[]>([
-  {
-    id: 1,
-    name: 'JavaScript',
-    color: '#28c840',
-    desc: 'JavaScript（简称 JS）是一种运行在浏览器和服务器端的高级编程语言，支持多范式与丰富的生态。',
-    path: 'javascript',
-    articles: Array.from({ length: 8 }).map((_, i) => ({
-      id: i + 1,
-      img: `https://picsum.photos/seed/js-${i + 1}/800/500`,
-      title: `JS 模块化实践与最佳实践 Part ${i + 1}`,
-      author: 'CaoKai',
-      date: `2024-09-${String((i % 9) + 1).padStart(2, '0')}`,
-      tag: 'JavaScript',
-      readTotal: 20 + i * 3,
-      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640',
-    })),
-  },
-  {
-    id: 2,
-    name: '独立开发',
-    color: '#f59e0b',
-    desc: '从 0 到 1 打造产品的心法与实战记录。',
-    path: 'indie',
-    articles: Array.from({ length: 8 }).map((_, i) => ({
-      id: 100 + i + 1,
-      img: `https://picsum.photos/seed/indie-${i + 1}/800/500`,
-      title: `独立开发周报 #${i + 1}`,
-      author: 'CaoKai',
-      date: `2024-08-${String((i % 9) + 1).padStart(2, '0')}`,
-      tag: '独立开发',
-      readTotal: 45 + i * 5,
-      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640',
-    })),
-  },
-  {
-    id: 3,
-    name: '读书笔记',
-    color: '#3b82f6',
-    desc: '记录读书所思所想，输出倒逼输入。',
-    path: 'reading',
-    articles: Array.from({ length: 8 }).map((_, i) => ({
-      id: 200 + i + 1,
-      img: `https://picsum.photos/seed/book-${i + 1}/800/500`,
-      title: `书摘与感悟 · 第 ${i + 1} 篇`,
-      author: 'CaoKai',
-      date: `2024-07-${String((i % 9) + 1).padStart(2, '0')}`,
-      tag: '读书',
-      readTotal: 18 + i * 4,
-      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640',
-    })),
-  },
-  {
-    id: 4,
-    name: '技术总结',
-    color: '#ef4444',
-    desc: '工程化、性能优化与架构笔记，持续沉淀。',
-    path: 'tech',
-    articles: Array.from({ length: 8 }).map((_, i) => ({
-      id: 300 + i + 1,
-      img: `https://picsum.photos/seed/tech-${i + 1}/800/500`,
-      title: `前端性能优化清单 · ${i + 1}`,
-      author: 'CaoKai',
-      date: `2024-06-${String((i % 9) + 1).padStart(2, '0')}`,
-      tag: '技术',
-      readTotal: 60 + i * 2,
-      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640',
-    })),
-  },
-])
+type Raw = {
+  id: number
+  cover: string
+  title: string
+  authorName: string
+  date: string
+  views: number
+  authorAvatar: string
+}
+
+const mapRawToArticle = (tagName: string) => (a: Raw): Article => ({
+  id: a.id,
+  img: a.cover,
+  title: a.title,
+  author: a.authorName,
+  date: a.date,
+  tag: tagName,
+  readTotal: a.views,
+  avatar: a.authorAvatar,
+})
+
+const topics = ref<Topic[]>(
+  usedTags.map((t, idx) => ({
+    id: t.id ?? idx + 1,
+    name: t.name,
+    color: t.color,
+    desc: '',
+    path: t.path,
+    articles: (getArticlesByTagPath(t.path) as unknown as Raw[])
+      .slice(0, 8)
+      .map(mapRawToArticle(t.name)),
+  })),
+)
 
 const containers = ref<HTMLElement[]>([])
 const canScrollLeft = ref<boolean[]>([])

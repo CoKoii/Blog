@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import Articles from '@/components/User/Articles/Articles.vue'
 import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+import { usedTags, getTagCounts } from '@/data/mock'
+
 const route = useRoute()
-const tag = route.params.id
+const path = computed(() => (route.params.id ?? '') as string)
+const name = computed(() => usedTags.find((t) => t.path === path.value)?.name || path.value)
+const counts = getTagCounts()
+const count = computed(() => counts[path.value as string] ?? 0)
 </script>
 
 <template>
   <div class="Tags">
     <div class="info">
       <div class="text">
-        <div class="num">4 posts</div>
-        <div class="title">{{ tag }} <span></span></div>
+        <div class="num">{{ count }} posts</div>
+        <div class="title">{{ name }} <span></span></div>
         <div class="desc">
           JavaScript是一个广泛使用的编程语言。他的语法简洁，功能强大，广泛应用于Web开发。
         </div>
