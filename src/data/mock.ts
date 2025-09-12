@@ -70,7 +70,7 @@ const author = {
   avatar: 'https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640',
 }
 
-export const articles: Article[] = Array.from({ length: 24 }).map((_, i) => {
+export const articles: Article[] = Array.from({ length: 40 }).map((_, i) => {
   const id = i + 1
   const month = String((i % 9) + 1).padStart(2, '0')
   const day = String(((i * 3) % 28) + 1).padStart(2, '0')
@@ -134,4 +134,17 @@ export async function fetchTagCounts(): Promise<Record<string, number>> {
 
 export async function fetchArticlesByTagPath(tagPath?: string): Promise<Article[]> {
   return withMockDelay(getArticlesByTagPath(tagPath))
+}
+
+export async function fetchArticlesPageByTagPath(
+  tagPath: string | undefined,
+  page = 1,
+  pageSize = 6,
+): Promise<{ items: Article[]; total: number }> {
+  const all = getArticlesByTagPath(tagPath)
+  const total = all.length
+  const start = Math.max(0, (page - 1) * pageSize)
+  const end = start + pageSize
+  const items = all.slice(start, end)
+  return withMockDelay({ items, total })
 }

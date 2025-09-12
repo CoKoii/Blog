@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onBeforeUnmount, ref, watch } from 'vue'
-import { fetchArticlesByTagPath, expandArticleTags } from '@/data/mock'
+import { fetchArticlesByTagPath, expandArticleTags, fetchArticlesPageByTagPath } from '@/data/mock'
 import { useRoute, useRouter } from 'vue-router'
 type Mode = 'loadmore' | 'infinite'
 const props = withDefaults(
@@ -37,10 +37,10 @@ type Article = {
 }
 
 const MAX_LOADMORE = 11
-
-const INITIAL_INFINITE = 12
-const STEP_INFINITE = 6
-const count = ref(INITIAL_INFINITE)
+// Infinite mode uses page-based loading
+const page = ref(1)
+const PAGE_SIZE = 6
+const totalCount = ref(0)
 
 type RawArticle = {
   id: number
@@ -73,15 +73,17 @@ const filteredArticles = computed<Article[]>(() => {
   })
 })
 
-const hasMore = computed(() => count.value < filteredArticles.value.length)
+const hasMore = computed(() => rawArticles.value.length < totalCount.value)
 const isLoading = ref(false)
+const isFetching = ref(false)
 
 const visibleArticles = computed(() => {
   if (props.mode === 'loadmore') {
     const n = Math.min(MAX_LOADMORE, filteredArticles.value.length)
     return filteredArticles.value.slice(0, n)
   }
-  return filteredArticles.value.slice(0, Math.min(count.value, filteredArticles.value.length))
+  // infinite mode shows the accumulated rawArticles (page-based)
+  return filteredArticles.value
 })
 
 const showLoadMoreTile = computed(
@@ -95,12 +97,30 @@ function onClickLoadMore() {
 
 const sentinel = ref<HTMLElement | null>(null)
 let observer: IntersectionObserver | null = null
+const sentinelVisible = ref(false)
 
 async function loadMoreAsync() {
+  if (props.mode !== 'infinite') return
   if (isLoading.value || !hasMore.value) return
   isLoading.value = true
-  count.value = Math.min(count.value + STEP_INFINITE, filteredArticles.value.length)
-  isLoading.value = false
+  try {
+    const nextPage = page.value + 1
+    const { items, total: t } = await fetchArticlesPageByTagPath(
+      (currentCategory.value || '') as string,
+      nextPage,
+      PAGE_SIZE,
+    )
+    totalCount.value = t
+    rawArticles.value = rawArticles.value.concat(items as unknown as RawArticle[])
+    page.value = nextPage
+  } finally {
+    isLoading.value = false
+    // If sentinel still visible after append and there is more, load next page
+    await nextTick()
+    if (sentinelVisible.value && hasMore.value) {
+      setTimeout(() => loadMoreAsync(), 0)
+    }
+  }
 }
 
 function setupObserver() {
@@ -109,6 +129,7 @@ function setupObserver() {
   observer = new IntersectionObserver(
     (entries) =>
       entries.forEach((entry) => {
+        sentinelVisible.value = entry.isIntersecting
         if (entry.isIntersecting) loadMoreAsync()
       }),
     { root: null, rootMargin: '300px 0px', threshold: 0 },
@@ -125,8 +146,25 @@ function cleanupObserver() {
 
 async function refreshArticles() {
   const path = (currentCategory.value || '') as string
-  const raw = (await fetchArticlesByTagPath(path)) as unknown as RawArticle[]
-  rawArticles.value = raw
+  isFetching.value = true
+  try {
+    // Clear previous data immediately to avoid stale rendering
+    rawArticles.value = []
+    totalCount.value = 0
+    page.value = 1
+    if (props.mode === 'infinite') {
+      const { items, total: t } = await fetchArticlesPageByTagPath(path, 1, PAGE_SIZE)
+      rawArticles.value = items as unknown as RawArticle[]
+      totalCount.value = t
+    } else {
+      // loadmore mode keeps previous behavior: fetch all then slice in view
+      const raw = (await fetchArticlesByTagPath(path)) as unknown as RawArticle[]
+      rawArticles.value = raw
+      totalCount.value = raw.length
+    }
+  } finally {
+    isFetching.value = false
+  }
 }
 
 onMounted(async () => {
@@ -134,7 +172,6 @@ onMounted(async () => {
   currentCategory.value = resolveCategoryFromRoute()
   await refreshArticles()
   if (props.mode === 'infinite') {
-    count.value = Math.min(INITIAL_INFINITE, filteredArticles.value.length)
     await nextTick()
     setupObserver()
   }
@@ -149,7 +186,6 @@ watch(
   async () => {
     await refreshArticles()
     if (props.mode !== 'infinite') return
-    count.value = Math.min(INITIAL_INFINITE, filteredArticles.value.length)
     isLoading.value = false
     await nextTick()
     setupObserver()
@@ -167,6 +203,7 @@ watch(
 
 <template>
   <div class="Articles">
+    <div v-if="isFetching" class="loading-tip">正在加载文章。。。</div>
     <div class="item" v-for="item in visibleArticles" :key="item.id">
       <div class="img">
         <img loading="lazy" :src="item.cover" alt="" />
