@@ -1,4 +1,4 @@
-type Tag = { id: number; name: string; path: string; color: string; desc: string }
+type Tag = { id: number; name: string; path: string; color: string; desc: string; cover?: string }
 type Article = {
   id: number
   cover: string
@@ -16,6 +16,8 @@ export const tagCatalog: Tag[] = [
     path: 'javascript',
     color: '#28c840',
     desc: 'JavaScript 是一种广泛使用的脚本语言，语法简洁、功能强大，主要用于构建交互式 Web 应用。',
+    cover:
+      'https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: 2,
@@ -23,6 +25,8 @@ export const tagCatalog: Tag[] = [
     path: 'indie',
     color: '#f59e0b',
     desc: '独立开发专注于从零到一的产品实践，涵盖选题、实现、发布与增长的全流程经验。',
+    cover:
+      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: 3,
@@ -30,6 +34,8 @@ export const tagCatalog: Tag[] = [
     path: 'reading',
     color: '#3b82f6',
     desc: '读书与书摘笔记，记录思考与收获，沉淀方法论与长期认知。',
+    cover:
+      'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: 4,
@@ -37,6 +43,8 @@ export const tagCatalog: Tag[] = [
     path: 'tech',
     color: '#ef4444',
     desc: '技术专题，涵盖前后端、工程化、性能与架构等实战与总结。',
+    cover:
+      'https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: 5,
@@ -44,6 +52,8 @@ export const tagCatalog: Tag[] = [
     path: 'vuejs',
     color: '#ff5f57',
     desc: 'Vue.js 相关内容：组合式 API、组件设计、生态与最佳实践。',
+    cover:
+      'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=1200&auto=format&fit=crop',
   },
   {
     id: 6,
@@ -51,6 +61,8 @@ export const tagCatalog: Tag[] = [
     path: 'nodejs',
     color: '#febc2e',
     desc: 'Node.js 实战与工具链，后端服务、脚手架、构建与部署。',
+    cover:
+      'https://images.unsplash.com/photo-1627398242454-45a1465c2479?q=80&w=1200&auto=format&fit=crop',
   },
 ]
 const tagById = Object.fromEntries(tagCatalog.map((t) => [t.id, t]))
@@ -122,6 +134,18 @@ export async function withMockDelay<T>(value: T, ms: number = MOCK_DELAY_MS): Pr
   const wait = jitteredDelay(ms)
   await new Promise((resolve) => setTimeout(resolve, wait))
   return value
+}
+
+export async function fetchTagByPath(tagPath: string): Promise<Tag | null> {
+  const tag = tagCatalog.find((t) => t.path === tagPath)
+  return withMockDelay(tag || null)
+}
+
+export async function fetchTagCountByPath(tagPath: string): Promise<number> {
+  const tid = tagIdByPath[tagPath]
+  if (!tid) return withMockDelay(0)
+  const count = tagIndex[tid]?.length ?? 0
+  return withMockDelay(count)
 }
 
 export async function fetchUsedTags(): Promise<Tag[]> {
