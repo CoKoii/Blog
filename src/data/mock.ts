@@ -12,7 +12,7 @@ const author = {
   avatar: 'https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640',
 }
 
-function pickTags(index) {
+function pickTags(index: number) {
   const picks = []
   const base = index % tagCatalog.length
   picks.push(tagCatalog[base].name)
