@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onBeforeUnmount, ref, watch } from 'vue'
-import { getArticlesByTagPath, expandArticleTags } from '@/data/mock'
+import { fetchArticlesByTagPath, expandArticleTags } from '@/data/mock'
 import { useRoute, useRouter } from 'vue-router'
 type Mode = 'loadmore' | 'infinite'
 const props = withDefaults(
@@ -53,11 +53,13 @@ type RawArticle = {
   views: number
 }
 
+const rawArticles = ref<RawArticle[]>([])
+
 const filteredArticles = computed<Article[]>(() => {
-  const path = (currentCategory.value || '') as string
-  const raw = getArticlesByTagPath(path) as unknown as RawArticle[]
+  const raw = rawArticles.value
   return raw.map((a) => {
     const tagList = expandArticleTags(a) as Array<{ name: string; path: string }>
+    const path = (currentCategory.value || '') as string
     const matched = path ? tagList.find((t) => t.path === path)?.name : null
     return {
       id: a.id,
@@ -97,7 +99,6 @@ let observer: IntersectionObserver | null = null
 async function loadMoreAsync() {
   if (isLoading.value || !hasMore.value) return
   isLoading.value = true
-  await new Promise((r) => setTimeout(r, 800))
   count.value = Math.min(count.value + STEP_INFINITE, filteredArticles.value.length)
   isLoading.value = false
 }
@@ -122,9 +123,16 @@ function cleanupObserver() {
   }
 }
 
+async function refreshArticles() {
+  const path = (currentCategory.value || '') as string
+  const raw = (await fetchArticlesByTagPath(path)) as unknown as RawArticle[]
+  rawArticles.value = raw
+}
+
 onMounted(async () => {
   // Initialize snapshot from the current route
   currentCategory.value = resolveCategoryFromRoute()
+  await refreshArticles()
   if (props.mode === 'infinite') {
     count.value = Math.min(INITIAL_INFINITE, filteredArticles.value.length)
     await nextTick()
@@ -139,6 +147,7 @@ onBeforeUnmount(() => {
 watch(
   () => currentCategory.value,
   async () => {
+    await refreshArticles()
     if (props.mode !== 'infinite') return
     count.value = Math.min(INITIAL_INFINITE, filteredArticles.value.length)
     isLoading.value = false

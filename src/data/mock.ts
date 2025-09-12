@@ -109,3 +109,29 @@ export function getTagCounts(): Record<string, number> {
 export function expandArticleTags(a: Article) {
   return a.tagIds.map((id) => tagById[id])
 }
+
+export const MOCK_DELAY_MS = 400
+
+function jitteredDelay(base = MOCK_DELAY_MS) {
+  const min = Math.floor(base * 0.8)
+  const max = Math.ceil(base * 1.2)
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+export async function withMockDelay<T>(value: T, ms: number = MOCK_DELAY_MS): Promise<T> {
+  const wait = jitteredDelay(ms)
+  await new Promise((resolve) => setTimeout(resolve, wait))
+  return value
+}
+
+export async function fetchUsedTags(): Promise<Tag[]> {
+  return withMockDelay(usedTags)
+}
+
+export async function fetchTagCounts(): Promise<Record<string, number>> {
+  return withMockDelay(getTagCounts())
+}
+
+export async function fetchArticlesByTagPath(tagPath?: string): Promise<Article[]> {
+  return withMockDelay(getArticlesByTagPath(tagPath))
+}

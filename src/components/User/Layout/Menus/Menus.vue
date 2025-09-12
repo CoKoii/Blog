@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { faAddressCard, faCompass, faFolderOpen, faHome } from '@fortawesome/free-regular-svg-icons'
 import { VIcon } from 'void-design-vue'
-import { usedTags } from '@/data/mock'
+import { fetchUsedTags } from '@/data/mock'
+import { onMounted, ref } from 'vue'
 
 type MenuItem = {
   to: string
@@ -23,7 +24,12 @@ const mainMenus: MenuItem[] = [
 
 const moreMenus: MenuItem[] = [{ to: '/more', label: '正在发掘...', icon: faCompass }]
 
-const tags: TagItem[] = usedTags.map((t) => ({ path: t.path, label: t.name, color: t.color }))
+const tags = ref<TagItem[]>([])
+
+onMounted(async () => {
+  const uts = await fetchUsedTags()
+  tags.value = uts.map((t) => ({ path: t.path, label: t.name, color: t.color }))
+})
 </script>
 
 <template>

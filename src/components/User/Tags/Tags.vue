@@ -1,17 +1,12 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
-import { usedTags } from '@/data/mock'
+import { fetchUsedTags } from '@/data/mock'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const current = computed(() => (route.query.category ?? '') as string)
-const dataTags = usedTags as Array<{ name: string; path: string }>
-const tags = ref([
+type SimpleTag = { name: string; path: string }
+const tags = ref<{ name: string; category: string; id: number }[]>([
   { name: 'All Posts', category: '', id: 1 },
-  ...dataTags.map((t: { name: string; path: string }, i: number) => ({
-    name: t.name,
-    category: t.path,
-    id: i + 2,
-  })),
 ])
 
 const scrollRef = ref<HTMLElement | null>(null)
@@ -34,6 +29,11 @@ const scrollRight = () => {
 const onResize = () => updateArrows()
 
 onMounted(async () => {
+  const dataTags = (await fetchUsedTags()) as unknown as Array<SimpleTag>
+  tags.value = [
+    { name: 'All Posts', category: '', id: 1 },
+    ...dataTags.map((t: SimpleTag, i: number) => ({ name: t.name, category: t.path, id: i + 2 })),
+  ]
   await nextTick()
   updateArrows()
   window.addEventListener('resize', onResize)

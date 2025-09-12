@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, nextTick, ref, type ComponentPublicInstance } from 'vue'
-import { usedTags, getArticlesByTagPath } from '@/data/mock'
+import { fetchUsedTags, fetchArticlesByTagPath } from '@/data/mock'
 
 type Article = {
   id: number
@@ -43,18 +43,7 @@ const mapRawToArticle = (tagName: string) => (a: Raw): Article => ({
   avatar: a.authorAvatar,
 })
 
-const topics = ref<Topic[]>(
-  usedTags.map((t, idx) => ({
-    id: t.id ?? idx + 1,
-    name: t.name,
-    color: t.color,
-    desc: '',
-    path: t.path,
-    articles: (getArticlesByTagPath(t.path) as unknown as Raw[])
-      .slice(0, 8)
-      .map(mapRawToArticle(t.name)),
-  })),
-)
+const topics = ref<Topic[]>([])
 
 const containers = ref<HTMLElement[]>([])
 const canScrollLeft = ref<boolean[]>([])
@@ -88,7 +77,21 @@ const scrollRight = (index: number) => {
 
 let resizeHandler: (() => void) | null = null
 
-onMounted(() => {
+onMounted(async () => {
+  const tags = await fetchUsedTags()
+  const lists = await Promise.all(
+    tags.map((t) => fetchArticlesByTagPath(t.path).then((arr) => ({ t, arr: (arr as unknown as Raw[]).slice(0, 8) }))),
+  )
+  topics.value = lists.map(({ t, arr }, idx) => ({
+    id: t.id ?? idx + 1,
+    name: t.name,
+    color: t.color,
+    desc: '',
+    path: t.path,
+    articles: arr.map(mapRawToArticle(t.name)),
+  }))
+
+  await nextTick()
   nextTick(() => containers.value.forEach((_, i) => updateEdges(i)))
   resizeHandler = () => containers.value.forEach((_, i) => updateEdges(i))
   window.addEventListener('resize', resizeHandler)

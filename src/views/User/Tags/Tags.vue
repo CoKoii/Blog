@@ -1,17 +1,23 @@
 <script setup lang="ts">
 import Articles from '@/components/User/Articles/Articles.vue'
 import { useRoute } from 'vue-router'
-import { computed } from 'vue'
-import { usedTags, getTagCounts } from '@/data/mock'
+import { computed, ref, onMounted } from 'vue'
+import { fetchUsedTags, fetchTagCounts } from '@/data/mock'
 
 const route = useRoute()
 const path = computed(() => (route.params.id ?? '') as string)
-const name = computed(() => usedTags.find((t) => t.path === path.value)?.name || path.value)
-const counts = getTagCounts()
-const count = computed(() => counts[path.value as string] ?? 0)
-const desc = computed(
-  () => usedTags.find((t) => t.path === path.value)?.desc || ''
-)
+const tags = ref<Array<{ path: string; name: string; desc: string }>>([])
+const counts = ref<Record<string, number>>({})
+
+onMounted(async () => {
+  const [t, c] = await Promise.all([fetchUsedTags(), fetchTagCounts()])
+  tags.value = t as Array<{ path: string; name: string; desc: string }>
+  counts.value = c
+})
+
+const name = computed(() => tags.value.find((t) => t.path === path.value)?.name || path.value)
+const count = computed(() => counts.value[path.value as string] ?? 0)
+const desc = computed(() => tags.value.find((t) => t.path === path.value)?.desc || '')
 </script>
 
 <template>
