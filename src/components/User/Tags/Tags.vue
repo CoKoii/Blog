@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
-import { tags as dataTags } from '@/data/mock'
+import { usedTags } from '@/data/mock'
 import { useRoute } from 'vue-router'
 const route = useRoute()
 const current = computed(() => (route.query.category ?? '') as string)
+const dataTags = usedTags as Array<{ name: string; path: string }>
 const tags = ref([
   { name: 'All Posts', category: '', id: 1 },
-  ...dataTags.map((t, i) => ({ name: t.name, category: t.path, id: i + 2 })),
+  ...dataTags.map((t: { name: string; path: string }, i: number) => ({
+    name: t.name,
+    category: t.path,
+    id: i + 2,
+  })),
 ])
 
 const scrollRef = ref<HTMLElement | null>(null)

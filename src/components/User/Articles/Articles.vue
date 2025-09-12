@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onBeforeUnmount, ref, watch } from 'vue'
+import { getArticlesByTagPath, expandArticleTags } from '@/data/mock'
 import { useRoute, useRouter } from 'vue-router'
-
 type Mode = 'loadmore' | 'infinite'
-
 const props = withDefaults(
   defineProps<{
     mode?: Mode
@@ -12,7 +11,6 @@ const props = withDefaults(
   }>(),
   { mode: 'loadmore', total: 36, loadMoreTo: '/archive' },
 )
-
 const router = useRouter()
 const route = useRoute()
 const category = computed(() => (route.query.category ?? '') as string)
@@ -27,46 +25,39 @@ type Article = {
   cover: string
 }
 
-const allArticles = computed<Article[]>(() => {
-  const items: Article[] = []
-  const covers = [
-    'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1494526585095-c41746248156?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=1200&auto=format&fit=crop',
-  ]
-  for (let i = 1; i <= props.total; i++) {
-    items.push({
-      id: i,
-      title: `文章标题 ${i} - WildCard 虚拟信用卡与海外工具`,
-      author: 'CaoKai',
-      date: `2020-11-${String(((i - 1) % 28) + 1).padStart(2, '0')}`,
-      tag: `标签${((i - 1) % 5) + 1}`,
-      reads: 10 + ((i * 7) % 120),
-      cover: covers[i % covers.length],
-    })
-  }
-  return items
-})
-
 const MAX_LOADMORE = 11
-
-const categoryToTag: Record<string, string | null> = {
-  '': null,
-  jszj: '标签1',
-  dlkf: '标签2',
-  dsbj: '标签3',
-  shsb: '标签4',
-}
 
 const INITIAL_INFINITE = 12
 const STEP_INFINITE = 6
 const count = ref(INITIAL_INFINITE)
 
-const filteredArticles = computed(() => {
-  const tag = categoryToTag[category.value]
-  if (!tag) return allArticles.value
-  return allArticles.value.filter((a) => a.tag === tag)
+type RawArticle = {
+  id: number
+  cover: string
+  title: string
+  authorAvatar: string
+  authorName: string
+  date: string
+  tagIds: number[]
+  views: number
+}
+
+const filteredArticles = computed<Article[]>(() => {
+  const path = (category.value || '') as string
+  const raw = getArticlesByTagPath(path) as unknown as RawArticle[]
+  return raw.map((a) => {
+    const tagList = expandArticleTags(a) as Array<{ name: string; path: string }>
+    const matched = path ? tagList.find((t) => t.path === path)?.name : null
+    return {
+      id: a.id,
+      title: a.title,
+      author: a.authorName,
+      date: a.date,
+      tag: matched ?? tagList[0]?.name ?? '',
+      reads: a.views,
+      cover: a.cover,
+    }
+  })
 })
 
 const hasMore = computed(() => count.value < filteredArticles.value.length)
