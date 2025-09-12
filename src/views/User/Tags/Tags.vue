@@ -101,16 +101,15 @@ const hasCover = computed(() => !!cover.value)
     gap: 64px;
     flex-wrap: nowrap;
     min-height: 200px;
-    animation: fadeInUp 0.8s ease-out;
 
     .text {
       display: flex;
       flex-direction: column;
       gap: 12px;
       flex: 1;
+      animation: fadeIn 0.3s ease-out;
       .num {
         font-size: 14px;
-        animation: fadeInUp 0.8s ease-out 0.1s both;
       }
       .title {
         font-size: 45px;
@@ -119,7 +118,6 @@ const hasCover = computed(() => !!cover.value)
         display: flex;
         align-items: center;
         gap: 12px;
-        animation: fadeInUp 0.8s ease-out 0.2s both;
         span {
           display: inline-block;
           width: 16px;
@@ -130,7 +128,6 @@ const hasCover = computed(() => !!cover.value)
       }
       .desc {
         font-size: 16px;
-        animation: fadeInUp 0.8s ease-out 0.3s both;
       }
     }
 
@@ -140,6 +137,7 @@ const hasCover = computed(() => !!cover.value)
       justify-content: space-between;
       width: 100%;
       gap: 64px;
+      animation: fadeIn 0.3s ease-out;
 
       .skeleton-text {
         display: flex;
@@ -153,13 +151,13 @@ const hasCover = computed(() => !!cover.value)
         height: 16px;
         background: linear-gradient(
           90deg,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+          color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+          color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+          color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
         );
         background-size: 200% 100%;
         border-radius: 4px;
-        animation: shimmer 1.5s infinite;
+        animation: shimmer 2s ease-in-out infinite;
       }
 
       .skeleton-title {
@@ -167,13 +165,13 @@ const hasCover = computed(() => !!cover.value)
         height: 54px;
         background: linear-gradient(
           90deg,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+          color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+          color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+          color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
         );
         background-size: 200% 100%;
         border-radius: 8px;
-        animation: shimmer 1.5s infinite;
+        animation: shimmer 2s ease-in-out infinite;
       }
 
       .skeleton-desc {
@@ -181,13 +179,13 @@ const hasCover = computed(() => !!cover.value)
         height: 20px;
         background: linear-gradient(
           90deg,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+          color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+          color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+          color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
         );
         background-size: 200% 100%;
         border-radius: 4px;
-        animation: shimmer 1.5s infinite;
+        animation: shimmer 2s ease-in-out infinite;
       }
 
       .skeleton-image {
@@ -195,13 +193,13 @@ const hasCover = computed(() => !!cover.value)
         aspect-ratio: 16/9;
         background: linear-gradient(
           90deg,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-          color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+          color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+          color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+          color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
         );
         background-size: 200% 100%;
         border-radius: 20px;
-        animation: shimmer 1.5s infinite;
+        animation: shimmer 2s ease-in-out infinite;
       }
     }
 
@@ -225,7 +223,6 @@ const hasCover = computed(() => !!cover.value)
     width: 50%;
     aspect-ratio: 16/9;
     border-radius: 20px;
-    animation: fadeInUp 0.5s ease-out both;
   }
 
   @media (max-width: 768px) {
@@ -278,14 +275,12 @@ const hasCover = computed(() => !!cover.value)
     }
   }
 
-  @keyframes fadeInUp {
+  @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: scale(0.95);
     }
     to {
       opacity: 1;
-      transform: scale(1);
     }
   }
 

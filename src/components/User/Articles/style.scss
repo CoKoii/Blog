@@ -40,7 +40,6 @@
   }
 }
 .item {
-  animation: article-card-enter 360ms ease-out both;
   animation-delay: calc(var(--i, 0) * 15ms);
   will-change: transform, opacity;
   display: flex;
@@ -135,26 +134,27 @@
 }
 
 .skeleton-item {
+  animation: fadeIn 0.3s ease-out;
   .skeleton-img {
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
     );
     background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 2s ease-in-out infinite;
   }
 
   .skeleton-avatar {
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
     );
     background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 2s ease-in-out infinite;
   }
 
   .skeleton-title {
@@ -162,27 +162,28 @@
     width: 80%;
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
     );
     background-size: 200% 100%;
     border-radius: 4px;
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 2s ease-in-out infinite;
   }
 
   .skeleton-author {
     height: 14px;
     width: 60px;
+    margin: 8px 0;
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
     );
     background-size: 200% 100%;
     border-radius: 4px;
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 2s ease-in-out infinite;
   }
 
   .skeleton-arguments {
@@ -196,13 +197,13 @@
     width: 80px;
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
     );
     background-size: 200% 100%;
     border-radius: 4px;
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 2s ease-in-out infinite;
   }
 
   .skeleton-dot {
@@ -210,13 +211,13 @@
     width: 8px;
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
     );
     background-size: 200% 100%;
     border-radius: 4px;
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 2s ease-in-out infinite;
   }
 
   .skeleton-tag {
@@ -224,13 +225,13 @@
     width: 50px;
     background: linear-gradient(
       90deg,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
-      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 6%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 3%) 75%
     );
     background-size: 200% 100%;
     border-radius: 4px;
-    animation: shimmer 1.5s infinite;
+    animation: shimmer 2s ease-in-out infinite;
   }
 }
 
@@ -243,14 +244,12 @@
   }
 }
 
-@keyframes article-card-enter {
+@keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 

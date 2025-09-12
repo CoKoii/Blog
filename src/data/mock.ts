@@ -122,7 +122,7 @@ export function expandArticleTags(a: Article) {
   return a.tagIds.map((id) => tagById[id])
 }
 
-export const MOCK_DELAY_MS = 1000
+export const MOCK_DELAY_MS = 500
 
 function jitteredDelay(base = MOCK_DELAY_MS) {
   const min = Math.floor(base * 0.8)
