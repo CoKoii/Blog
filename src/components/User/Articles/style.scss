@@ -134,6 +134,115 @@
   }
 }
 
+.skeleton-item {
+  .skeleton-img {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-avatar {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-title {
+    height: 20px;
+    width: 80%;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-author {
+    height: 14px;
+    width: 60px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-arguments {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .skeleton-time {
+    height: 14px;
+    width: 80px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-dot {
+    height: 14px;
+    width: 8px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+  }
+
+  .skeleton-tag {
+    height: 14px;
+    width: 50px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 25%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 10%) 50%,
+      color-mix(in srgb, var(--bg-color-item), var(--black) 5%) 75%
+    );
+    background-size: 200% 100%;
+    border-radius: 4px;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 @keyframes article-card-enter {
   from {
     opacity: 0;

@@ -37,7 +37,6 @@ type Article = {
 }
 
 const MAX_LOADMORE = 11
-// Infinite mode uses page-based loading
 const page = ref(1)
 const PAGE_SIZE = 6
 const totalCount = ref(0)
@@ -76,16 +75,14 @@ const filteredArticles = computed<Article[]>(() => {
 const hasMore = computed(() => rawArticles.value.length < totalCount.value)
 const isLoading = ref(false)
 const isFetching = ref(false)
-
-// 请求序列号，用于防止竞态条件
 let requestId = 0
+const skeletonCount = computed(() => (props.mode === 'infinite' ? PAGE_SIZE : 6))
 
 const visibleArticles = computed(() => {
   if (props.mode === 'loadmore') {
     const n = Math.min(MAX_LOADMORE, filteredArticles.value.length)
     return filteredArticles.value.slice(0, n)
   }
-  // infinite mode shows the accumulated rawArticles (page-based)
   return filteredArticles.value
 })
 
@@ -105,10 +102,9 @@ const sentinelVisible = ref(false)
 async function loadMoreAsync() {
   if (props.mode !== 'infinite') return
   if (isLoading.value || !hasMore.value) return
-  
-  // 生成请求ID
+
   const currentRequestId = ++requestId
-  
+
   isLoading.value = true
   try {
     const nextPage = page.value + 1
@@ -117,12 +113,11 @@ async function loadMoreAsync() {
       nextPage,
       PAGE_SIZE,
     )
-    
-    // 检查请求是否已过期
+
     if (currentRequestId !== requestId) {
-      return // 丢弃过期的请求结果
+      return
     }
-    
+
     totalCount.value = t
     rawArticles.value = rawArticles.value.concat(items as unknown as RawArticle[])
     page.value = nextPage
@@ -133,7 +128,6 @@ async function loadMoreAsync() {
   } finally {
     if (currentRequestId === requestId) {
       isLoading.value = false
-      // If sentinel still visible after append and there is more, load next page
       await nextTick()
       if (sentinelVisible.value && hasMore.value) {
         setTimeout(() => loadMoreAsync(), 0)
@@ -165,46 +159,39 @@ function cleanupObserver() {
 
 async function refreshArticles() {
   const path = (currentCategory.value || '') as string
-  
-  // 生成新的请求ID，防止竞态条件
+
   const currentRequestId = ++requestId
-  
+
   isFetching.value = true
   try {
-    // Clear previous data immediately to avoid stale rendering
     rawArticles.value = []
     totalCount.value = 0
     page.value = 1
-    
+
     if (props.mode === 'infinite') {
       const { items, total: t } = await fetchArticlesPageByTagPath(path, 1, PAGE_SIZE)
-      
-      // 检查请求是否已过期
+
       if (currentRequestId !== requestId) {
-        return // 丢弃过期的请求结果
+        return
       }
-      
+
       rawArticles.value = items as unknown as RawArticle[]
       totalCount.value = t
     } else {
-      // loadmore mode keeps previous behavior: fetch all then slice in view
       const raw = (await fetchArticlesByTagPath(path)) as unknown as RawArticle[]
-      
-      // 检查请求是否已过期
+
       if (currentRequestId !== requestId) {
-        return // 丢弃过期的请求结果
+        return
       }
-      
+
       rawArticles.value = raw
       totalCount.value = raw.length
     }
   } catch (error) {
-    // 只有当前请求才处理错误
     if (currentRequestId === requestId) {
       console.error('Failed to refresh articles:', error)
     }
   } finally {
-    // 只有当前请求才更新加载状态
     if (currentRequestId === requestId) {
       isFetching.value = false
     }
@@ -212,7 +199,6 @@ async function refreshArticles() {
 }
 
 onMounted(async () => {
-  // Initialize snapshot from the current route
   currentCategory.value = resolveCategoryFromRoute()
   await refreshArticles()
   if (props.mode === 'infinite') {
@@ -228,18 +214,16 @@ onBeforeUnmount(() => {
 watch(
   () => currentCategory.value,
   async () => {
-    // 清理旧的 observer，避免重复监听
     if (props.mode === 'infinite') {
       cleanupObserver()
     }
-    
+
     await refreshArticles()
-    
+
     if (props.mode !== 'infinite') return
-    
-    // 重置加载状态
+
     isLoading.value = false
-    
+
     await nextTick()
     setupObserver()
   },
@@ -256,46 +240,70 @@ watch(
 
 <template>
   <div class="Articles">
-    <div v-if="isFetching" class="loading-tip">正在加载文章。。。</div>
-    <div
-      class="item"
-      v-for="(item, index) in visibleArticles"
-      :key="item.id"
-      :style="{ '--i': index }"
-    >
-      <div class="img">
-        <img loading="lazy" :src="item.cover" alt="" />
-        <div class="read_total">{{ item.reads }}人读过</div>
-      </div>
-      <div class="info">
-        <img
-          loading="lazy"
-          class="avatar"
-          src="https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640"
-          alt=""
-        />
-        <div class="desc">
-          <div class="title">{{ item.title }}</div>
-          <div class="author">{{ item.author }}</div>
-          <div class="arguments">
-            <span class="time">{{ item.date }}</span>
-            <span>•</span>
-            <span class="tags">{{ item.tag }}</span>
+    <template v-if="isFetching">
+      <div
+        v-for="i in skeletonCount"
+        :key="`skeleton-${i}`"
+        class="item skeleton-item"
+        :style="{ '--i': i - 1 }"
+      >
+        <div class="img skeleton-img"></div>
+        <div class="info">
+          <div class="avatar skeleton-avatar"></div>
+          <div class="desc">
+            <div class="title skeleton-title"></div>
+            <div class="author skeleton-author"></div>
+            <div class="arguments skeleton-arguments">
+              <span class="skeleton-time"></span>
+              <span class="skeleton-dot"></span>
+              <span class="skeleton-tag"></span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </template>
 
-    <div v-if="showLoadMoreTile" class="item load-more">
-      <div class="img" @click="onClickLoadMore">📖 Load More...</div>
-    </div>
+    <template v-else>
+      <div
+        class="item"
+        v-for="(item, index) in visibleArticles"
+        :key="item.id"
+        :style="{ '--i': index }"
+      >
+        <div class="img">
+          <img loading="lazy" :src="item.cover" alt="" />
+          <div class="read_total">{{ item.reads }}人读过</div>
+        </div>
+        <div class="info">
+          <img
+            loading="lazy"
+            class="avatar"
+            src="https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640"
+            alt=""
+          />
+          <div class="desc">
+            <div class="title">{{ item.title }}</div>
+            <div class="author">{{ item.author }}</div>
+            <div class="arguments">
+              <span class="time">{{ item.date }}</span>
+              <span>•</span>
+              <span class="tags">{{ item.tag }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="showLoadMoreTile" class="item load-more">
+        <div class="img" @click="onClickLoadMore">📖 Load More...</div>
+      </div>
+    </template>
 
     <div v-if="mode === 'infinite' && isLoading" class="loading-tip">
       <span class="spinner" />
       <span>加载中...</span>
     </div>
     <div v-if="mode === 'infinite' && hasMore" ref="sentinel" class="infinite-sentinel" />
-    <div v-if="mode === 'infinite' && !hasMore" class="end-tip">— 没有更多了 —</div>
+    <div v-if="mode === 'infinite' && !hasMore && !isFetching" class="end-tip">— 没有更多了 —</div>
   </div>
 </template>
 

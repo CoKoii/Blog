@@ -19,7 +19,7 @@ const loadTagData = async () => {
   if (!path.value) return
 
   const currentRequestId = ++tagRequestId
-  
+
   loading.value = true
   tag.value = null
   count.value = 0
