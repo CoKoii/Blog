@@ -1,10 +1,10 @@
 const tagCatalog = [
-  { name: 'JavaScript', path: 'javascript', color: '#28c840' },
-  { name: '独立开发', path: 'indie', color: '#f59e0b' },
-  { name: '读书', path: 'reading', color: '#3b82f6' },
-  { name: '技术', path: 'tech', color: '#ef4444' },
-  { name: 'VueJs', path: 'vuejs', color: '#ff5f57' },
-  { name: 'Node.js', path: 'nodejs', color: '#febc2e' },
+  { name: 'JavaScript', path: 'javascript', color: '#28c840', id: 1 },
+  { name: '独立开发', path: 'indie', color: '#f59e0b', id: 2 },
+  { name: '读书', path: 'reading', color: '#3b82f6', id: 3 },
+  { name: '技术', path: 'tech', color: '#ef4444', id: 4 },
+  { name: 'VueJs', path: 'vuejs', color: '#ff5f57', id: 5 },
+  { name: 'Node.js', path: 'nodejs', color: '#febc2e', id: 6 },
 ]
 
 const author = {
