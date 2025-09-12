@@ -15,7 +15,7 @@ onMounted(async () => {
   counts.value = c
 })
 
-const name = computed(() => tags.value.find((t) => t.path === path.value)?.name || path.value)
+const name = computed(() => tags.value.find((t) => t.path === path.value)?.name)
 const count = computed(() => counts.value[path.value as string] ?? 0)
 const desc = computed(() => tags.value.find((t) => t.path === path.value)?.desc || '')
 </script>
@@ -36,7 +36,6 @@ const desc = computed(() => tags.value.find((t) => t.path === path.value)?.desc 
     </div>
     <Articles mode="infinite" />
   </div>
-  
 </template>
 
 <style scoped lang="scss">
@@ -103,4 +102,3 @@ const desc = computed(() => tags.value.find((t) => t.path === path.value)?.desc 
   }
 }
 </style>
-
