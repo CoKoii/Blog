@@ -78,6 +78,18 @@ const isFetching = ref(false)
 let requestId = 0
 const skeletonCount = computed(() => (props.mode === 'infinite' ? PAGE_SIZE : 6))
 
+// Track image load state for smooth transitions
+const coverLoaded = ref<Set<number>>(new Set())
+const avatarLoaded = ref<Set<number>>(new Set())
+
+function onCoverLoad(id: number) {
+  coverLoaded.value.add(id)
+}
+
+function onAvatarLoad(id: number) {
+  avatarLoaded.value.add(id)
+}
+
 const visibleArticles = computed(() => {
   if (props.mode === 'loadmore') {
     const n = Math.min(MAX_LOADMORE, filteredArticles.value.length)
@@ -164,6 +176,9 @@ async function refreshArticles() {
 
   isFetching.value = true
   try {
+    // reset loaded states so new images animate in
+    coverLoaded.value = new Set()
+    avatarLoaded.value = new Set()
     rawArticles.value = []
     totalCount.value = 0
     page.value = 1
@@ -271,7 +286,13 @@ watch(
         :style="{ '--i': index }"
       >
         <div class="img">
-          <img loading="lazy" :src="item.cover" alt="" />
+          <img
+            loading="lazy"
+            :src="item.cover"
+            alt=""
+            :class="{ 'is-loaded': coverLoaded.has(item.id) }"
+            @load="onCoverLoad(item.id)"
+          />
           <div class="read_total">{{ item.reads }}人读过</div>
         </div>
         <div class="info">
@@ -280,6 +301,8 @@ watch(
             class="avatar"
             src="https://q1.qlogo.cn/g?b=qq&nk=2655257336&s=640"
             alt=""
+            :class="{ 'is-loaded': avatarLoaded.has(item.id) }"
+            @load="onAvatarLoad(item.id)"
           />
           <div class="desc">
             <div class="title">{{ item.title }}</div>
