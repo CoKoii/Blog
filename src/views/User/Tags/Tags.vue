@@ -12,21 +12,40 @@ const tag = ref<{ path: string; name: string; desc: string; color: string; cover
 const count = ref<number>(0)
 const loading = ref<boolean>(true)
 
+// 防止竞态条件
+let tagRequestId = 0
+
 const loadTagData = async () => {
   if (!path.value) return
 
+  const currentRequestId = ++tagRequestId
+  
   loading.value = true
   tag.value = null
   count.value = 0
 
-  const [tagData, countData] = await Promise.all([
-    fetchTagByPath(path.value),
-    fetchTagCountByPath(path.value),
-  ])
+  try {
+    const [tagData, countData] = await Promise.all([
+      fetchTagByPath(path.value),
+      fetchTagCountByPath(path.value),
+    ])
 
-  tag.value = tagData
-  count.value = countData
-  loading.value = false
+    // 检查请求是否已过期
+    if (currentRequestId !== tagRequestId) {
+      return // 丢弃过期的请求结果
+    }
+
+    tag.value = tagData
+    count.value = countData
+  } catch (error) {
+    if (currentRequestId === tagRequestId) {
+      console.error('Failed to load tag data:', error)
+    }
+  } finally {
+    if (currentRequestId === tagRequestId) {
+      loading.value = false
+    }
+  }
 }
 
 loadTagData()

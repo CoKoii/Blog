@@ -77,6 +77,9 @@ const hasMore = computed(() => rawArticles.value.length < totalCount.value)
 const isLoading = ref(false)
 const isFetching = ref(false)
 
+// 请求序列号，用于防止竞态条件
+let requestId = 0
+
 const visibleArticles = computed(() => {
   if (props.mode === 'loadmore') {
     const n = Math.min(MAX_LOADMORE, filteredArticles.value.length)
@@ -102,6 +105,10 @@ const sentinelVisible = ref(false)
 async function loadMoreAsync() {
   if (props.mode !== 'infinite') return
   if (isLoading.value || !hasMore.value) return
+  
+  // 生成请求ID
+  const currentRequestId = ++requestId
+  
   isLoading.value = true
   try {
     const nextPage = page.value + 1
@@ -110,15 +117,27 @@ async function loadMoreAsync() {
       nextPage,
       PAGE_SIZE,
     )
+    
+    // 检查请求是否已过期
+    if (currentRequestId !== requestId) {
+      return // 丢弃过期的请求结果
+    }
+    
     totalCount.value = t
     rawArticles.value = rawArticles.value.concat(items as unknown as RawArticle[])
     page.value = nextPage
+  } catch (error) {
+    if (currentRequestId === requestId) {
+      console.error('Failed to load more articles:', error)
+    }
   } finally {
-    isLoading.value = false
-    // If sentinel still visible after append and there is more, load next page
-    await nextTick()
-    if (sentinelVisible.value && hasMore.value) {
-      setTimeout(() => loadMoreAsync(), 0)
+    if (currentRequestId === requestId) {
+      isLoading.value = false
+      // If sentinel still visible after append and there is more, load next page
+      await nextTick()
+      if (sentinelVisible.value && hasMore.value) {
+        setTimeout(() => loadMoreAsync(), 0)
+      }
     }
   }
 }
@@ -146,24 +165,49 @@ function cleanupObserver() {
 
 async function refreshArticles() {
   const path = (currentCategory.value || '') as string
+  
+  // 生成新的请求ID，防止竞态条件
+  const currentRequestId = ++requestId
+  
   isFetching.value = true
   try {
     // Clear previous data immediately to avoid stale rendering
     rawArticles.value = []
     totalCount.value = 0
     page.value = 1
+    
     if (props.mode === 'infinite') {
       const { items, total: t } = await fetchArticlesPageByTagPath(path, 1, PAGE_SIZE)
+      
+      // 检查请求是否已过期
+      if (currentRequestId !== requestId) {
+        return // 丢弃过期的请求结果
+      }
+      
       rawArticles.value = items as unknown as RawArticle[]
       totalCount.value = t
     } else {
       // loadmore mode keeps previous behavior: fetch all then slice in view
       const raw = (await fetchArticlesByTagPath(path)) as unknown as RawArticle[]
+      
+      // 检查请求是否已过期
+      if (currentRequestId !== requestId) {
+        return // 丢弃过期的请求结果
+      }
+      
       rawArticles.value = raw
       totalCount.value = raw.length
     }
+  } catch (error) {
+    // 只有当前请求才处理错误
+    if (currentRequestId === requestId) {
+      console.error('Failed to refresh articles:', error)
+    }
   } finally {
-    isFetching.value = false
+    // 只有当前请求才更新加载状态
+    if (currentRequestId === requestId) {
+      isFetching.value = false
+    }
   }
 }
 
@@ -184,9 +228,18 @@ onBeforeUnmount(() => {
 watch(
   () => currentCategory.value,
   async () => {
+    // 清理旧的 observer，避免重复监听
+    if (props.mode === 'infinite') {
+      cleanupObserver()
+    }
+    
     await refreshArticles()
+    
     if (props.mode !== 'infinite') return
+    
+    // 重置加载状态
     isLoading.value = false
+    
     await nextTick()
     setupObserver()
   },
