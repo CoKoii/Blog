@@ -15,13 +15,10 @@ provide('layoutRef', layoutRef)
       <Menus />
     </div>
     <div class="container">
-      <router-view v-slot="{ Component, route }">
+      <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <keep-alive>
-            <component
-              :is="Component"
-              :key="route.name === 'Archive' || route.name === 'Home' ? route.name : route.fullPath"
-            />
+            <component :is="Component" />
           </keep-alive>
         </transition>
       </router-view>
