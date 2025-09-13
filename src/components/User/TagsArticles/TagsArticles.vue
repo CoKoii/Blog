@@ -32,16 +32,18 @@ type Raw = {
   authorAvatar: string
 }
 
-const mapRawToArticle = (tagName: string) => (a: Raw): Article => ({
-  id: a.id,
-  img: a.cover,
-  title: a.title,
-  author: a.authorName,
-  date: a.date,
-  tag: tagName,
-  readTotal: a.views,
-  avatar: a.authorAvatar,
-})
+const mapRawToArticle =
+  (tagName: string) =>
+  (a: Raw): Article => ({
+    id: a.id,
+    img: a.cover,
+    title: a.title,
+    author: a.authorName,
+    date: a.date,
+    tag: tagName,
+    readTotal: a.views,
+    avatar: a.authorAvatar,
+  })
 
 const topics = ref<Topic[]>([])
 
@@ -80,7 +82,12 @@ let resizeHandler: (() => void) | null = null
 onMounted(async () => {
   const tags = await fetchUsedTags()
   const lists = await Promise.all(
-    tags.map((t) => fetchArticlesByTagPath(t.path).then((arr) => ({ t, arr: (arr as unknown as Raw[]).slice(0, 8) }))),
+    tags.map((t) =>
+      fetchArticlesByTagPath(t.path).then((arr) => ({
+        t,
+        arr: (arr as unknown as Raw[]).slice(0, 8),
+      })),
+    ),
   )
   topics.value = lists.map(({ t, arr }, idx) => ({
     id: t.id ?? idx + 1,
@@ -142,7 +149,12 @@ const setContainer = (index: number) => (el: Element | ComponentPublicInstance |
           </svg>
         </button>
         <div class="articles-scroll" :ref="setContainer(index)" @scroll="updateEdges(index)">
-          <div class="article-item" v-for="article in topic.articles" :key="article.id">
+          <div
+            class="article-item"
+            v-for="article in topic.articles"
+            :key="article.id"
+            @click="$router.push({ path: `/article/${article.id}` })"
+          >
             <div class="img">
               <img loading="lazy" :src="article.img" alt="" />
               <div class="read_total">{{ article.readTotal }}人读过</div>

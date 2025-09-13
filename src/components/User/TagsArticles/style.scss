@@ -98,8 +98,9 @@
           flex-shrink: 0;
 
           &:hover {
-            .img {
-              transform: scale(1.02) rotate(-1deg);
+            .img::after {
+              opacity: 1;
+              transform: scale(1.05);
             }
           }
 
@@ -115,6 +116,20 @@
             font-size: 25px;
             font-weight: 900;
             transition: all 0.3s ease;
+            &::after {
+              content: 'Hello World';
+              color: #fff;
+              position: absolute;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 30px;
+              transition: all 0.3s ease;
+              opacity: 0;
+              font-weight: 900;
+              inset: 0;
+              backdrop-filter: blur(10px);
+            }
 
             img {
               position: absolute;

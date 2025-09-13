@@ -256,12 +256,7 @@ watch(
 <template>
   <div class="Articles">
     <template v-if="isFetching">
-      <div
-        v-for="i in skeletonCount"
-        :key="`skeleton-${i}`"
-        class="item skeleton-item"
-        :style="{ '--i': i - 1 }"
-      >
+      <div v-for="i in skeletonCount" :key="`skeleton-${i}`" class="item skeleton-item">
         <div class="img skeleton-img"></div>
         <div class="info">
           <div class="avatar skeleton-avatar"></div>
@@ -284,6 +279,7 @@ watch(
         v-for="(item, index) in visibleArticles"
         :key="item.id"
         :style="{ '--i': index }"
+        @click="$router.push({ path: `/article/${item.id}` })"
       >
         <div class="img">
           <img

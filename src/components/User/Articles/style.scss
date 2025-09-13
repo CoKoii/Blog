@@ -40,7 +40,6 @@
   }
 }
 .item {
-  animation-delay: calc(var(--i, 0) * 15ms);
   will-change: transform, opacity;
   display: flex;
   flex-direction: column;
