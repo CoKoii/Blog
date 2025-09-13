@@ -1,5 +1,12 @@
-type Tag = { id: number; name: string; path: string; color: string; desc: string; cover?: string }
-type Article = {
+export type Tag = {
+  id: number
+  name: string
+  path: string
+  color: string
+  desc: string
+  cover?: string
+}
+export type Article = {
   id: number
   cover: string
   title: string
@@ -171,4 +178,9 @@ export async function fetchArticlesPageByTagPath(
   const end = start + pageSize
   const items = all.slice(start, end)
   return withMockDelay({ items, total })
+}
+
+export async function fetchArticleById(id: number): Promise<Article | null> {
+  const article = articles.find((a) => a.id === id)
+  return withMockDelay(article || null)
 }
