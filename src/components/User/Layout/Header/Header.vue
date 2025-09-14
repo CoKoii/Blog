@@ -7,7 +7,8 @@ const searchInputRef = useTemplateRef<HTMLInputElement>('searchInputRef')
 const onMenuClick = () => {
   LayoutRef?.value.classList.toggle('open')
   const isMobile = window.matchMedia('(max-width: 768px)').matches
-  document.body.style.overflow = isMobile && LayoutRef?.value.classList.contains('open') ? 'hidden' : 'auto'
+  document.body.style.overflow =
+    isMobile && LayoutRef?.value.classList.contains('open') ? 'hidden' : 'auto'
 }
 const showSearch = ref(false)
 const openSearch = () => {
